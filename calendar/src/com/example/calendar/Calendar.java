@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 public class Calendar extends Activity {
 
+	final static int VIEW_EVENT = 1;
 	private SharedPreferences sharedPref;
 	private ArrayList<CalendarEvent> event_list = new ArrayList<CalendarEvent>();
 	
@@ -36,14 +37,22 @@ public class Calendar extends Activity {
         return true;
 	}
 
+    @Override
+    public void onActivityResult(int requestCode,int resultCode,Intent data) {
+    	super.onActivityResult(requestCode, resultCode, data);
+    	switch(requestCode) {
+        case VIEW_EVENT: 
+              if (resultCode == RESULT_OK) {
+            	  CalendarEvent event = (CalendarEvent) data.getSerializableExtra("event");
+                  event_list.add(event);
+                  break;
+              }
+    	}
+    }
+    
 	public void newEvent(View view) {
 		Intent intent = new Intent(this, NewEvent.class);
-		startActivity(intent);
-		String date = intent.getStringExtra("date");
-		Button bt = (Button)findViewById(R.id.new_event);
-		bt.setText(date);
-		Toast msg = Toast.makeText(Calendar.this, date, Toast.LENGTH_LONG);
-		msg.show();
+	    startActivityForResult(intent,VIEW_EVENT);
 	}
 	
 	public void viewEvents(View view) {

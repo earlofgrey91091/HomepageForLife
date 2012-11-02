@@ -9,6 +9,8 @@ import android.widget.EditText;
 
 public class NewEvent extends Activity {
 
+	OpenHelper dbHelper;
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,10 +25,16 @@ public class NewEvent extends Activity {
     
     public void add(View view) {
     	EditText date = (EditText)findViewById(R.id.date_message);
-    	String message = date.getText().toString();
+    	String dateMessage = date.getText().toString();
+    	EditText name = (EditText)findViewById(R.id.name_message);
+    	String nameMessage = name.getText().toString();
+    	EditText location = (EditText)findViewById(R.id.location_message);
+    	String locationMessage = location.getText().toString();
+    	CalendarEvent newEvent = new CalendarEvent(dateMessage,nameMessage,locationMessage);
+    	//dbHelper.addEvent(dateMessage,nameMessage,locationMessage);
     	Intent i = new Intent();
-    	i.putExtra("date", message);
-    	setResult(1, i);
+    	i.putExtra("event", newEvent);
+    	setResult(RESULT_OK, i);
     	finish();
     }
 }
