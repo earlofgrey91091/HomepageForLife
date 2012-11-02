@@ -1,5 +1,6 @@
 package com.example.calendar;
 
+import java.util.ArrayList;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -10,14 +11,22 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+
 public class Calendar extends Activity {
 
 	private SharedPreferences sharedPref;
+	private ArrayList<CalendarEvent> event_list = new ArrayList<CalendarEvent>();
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sharedPref = getPreferences(Context.MODE_PRIVATE);
+        if (event_list.isEmpty())
+        {
+        	//			READ FROM FILE HERE
+        	event_list.add(new CalendarEvent("5/26","blah"));
+        	event_list.add(new CalendarEvent("5/27","duh"));
+        }
         setContentView(R.layout.activity_calendar);
     }
 
@@ -39,6 +48,7 @@ public class Calendar extends Activity {
 	
 	public void viewEvents(View view) {
 		Intent intent = new Intent(this, ViewEvents.class);
+		intent.putExtra("events",event_list);
 		startActivity(intent);
 	}
 }
