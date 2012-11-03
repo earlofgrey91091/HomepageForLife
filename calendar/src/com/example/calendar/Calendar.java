@@ -1,6 +1,8 @@
 package com.example.calendar;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -17,16 +19,20 @@ public class Calendar extends Activity {
 	final static int VIEW_EVENT = 1;
 	private SharedPreferences sharedPref;
 	private ArrayList<CalendarEvent> event_list = new ArrayList<CalendarEvent>();
+	DbHandler db;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sharedPref = getPreferences(Context.MODE_PRIVATE);
+        db = new DbHandler(this);
+        if (event_list.isEmpty()) event_list = db.getAllEvents();
         if (event_list.isEmpty())
         {
         	//			READ FROM FILE HERE
-        	event_list.add(new CalendarEvent("5/26","blah"));
-        	event_list.add(new CalendarEvent("5/27","duh"));
+        	db.addEvent(new CalendarEvent("5/26","blah"));
+        	db.addEvent(new CalendarEvent("5/27","duh"));
+        	event_list = db.getAllEvents();
         }
         setContentView(R.layout.activity_calendar);
     }
@@ -39,15 +45,18 @@ public class Calendar extends Activity {
 
     @Override
     public void onActivityResult(int requestCode,int resultCode,Intent data) {
-    	super.onActivityResult(requestCode, resultCode, data);
-    	switch(requestCode) {
-        case VIEW_EVENT: 
-              if (resultCode == RESULT_OK) {
-            	  CalendarEvent event = (CalendarEvent) data.getSerializableExtra("event");
-                  event_list.add(event);
-                  break;
-              }
-    	}
+		super.onActivityResult(requestCode, resultCode, data);
+		switch(requestCode) {
+		case VIEW_EVENT: 
+			if (resultCode == RESULT_OK) {
+				CalendarEvent event = (CalendarEvent) data.getSerializableExtra("event");
+				event_list = db.getAllEvents();
+				event_list.add(db.getEvent(event.getDate()));
+				Toast.makeText(getApplicationContext(), 
+						"event added", Toast.LENGTH_LONG).show();
+				break;
+			}
+		}
     }
     
 	public void newEvent(View view) {
@@ -57,7 +66,7 @@ public class Calendar extends Activity {
 	
 	public void viewEvents(View view) {
 		Intent intent = new Intent(this, ViewEvents.class);
-		intent.putExtra("events",event_list);
+		//intent.putExtra("events",event_list);
 		startActivity(intent);
 	}
 }

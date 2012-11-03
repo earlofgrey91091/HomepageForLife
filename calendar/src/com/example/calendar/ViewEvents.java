@@ -15,18 +15,19 @@ public class ViewEvents extends Activity {
 
 	private ArrayList<CalendarEvent> event_list = new ArrayList<CalendarEvent>();
 	private int num = 0;
+	DbHandler db;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        db = new DbHandler(this);
         setContentView(R.layout.activity_view_events);
-        Intent intent = getIntent();
-        event_list = (ArrayList<CalendarEvent>)intent.getSerializableExtra("events");
+        event_list = db.getAllEvents();
         LinearLayout linearLayout = (LinearLayout)findViewById(R.id.view_layout);
         linearLayout.removeAllViews();
         for(int i=0; i<event_list.size(); i++) {
         	Button btn = new Button(this); 
-            btn.setText(event_list.get(i).name);
+            btn.setText(event_list.get(i).getName());
             linearLayout.addView(btn); 
         }
     }

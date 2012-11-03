@@ -3,21 +3,74 @@ package com.example.calendar;
 import java.io.Serializable;
 
 public class CalendarEvent implements Serializable{
-	public String date;
-	public String name;
-	public String location;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2638026792002779950L;
+	int _id;
+	String _date;
+	String _name;
+	String _location;
 	
+	public CalendarEvent() {
+		this(-1,"","","");
+	}
 	public CalendarEvent(String date) {
-		this(date,"","");
+		this(-1, date,"","");
 	}
 	
 	public CalendarEvent(String date, String name) {
-		this(date,name,"");
+		this(-1, date,name,"");
 	}
 	
 	public CalendarEvent(String date, String name, String location) {
-		this.date = date;
-		this.name = name;
-		this.location = location;
+		this(-1, date,name,location);
+	}
+	
+	public CalendarEvent(int id, String date, String name, String location) {
+		this._id = id;
+		this._date = date;
+		this._name = name;
+		this._location = location;
+	}
+	
+	// getting ID
+	public int getID(){
+		return this._id;
+	}
+	
+	// setting id
+	public void setID(int id){
+		this._id = id;
+	}
+	
+	// getting name
+	public String getName(){
+		return this._name;
+	}
+	
+	// setting name
+	public void setName(String name){
+		this._name = name;
+	}
+	
+	// getting location
+	public String getDate(){
+		return this._date;
+	}
+	
+	// setting location
+	public void setDate(String date){
+		this._date = date;
+	}
+
+	// getting location
+	public String getLocation(){
+		return this._location;
+	}
+	
+	// setting location
+	public void setLocation(String location){
+		this._location = location;
 	}
 }
