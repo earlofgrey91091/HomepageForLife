@@ -69,4 +69,10 @@ public class Calendar extends Activity {
 		//intent.putExtra("events",event_list);
 		startActivity(intent);
 	}
+	
+	public void eventDetails(View view) {
+		Intent intent = new Intent(this, EventDetails.class);
+		//intent.putExtra("events",event_list);
+		startActivity(intent);
+	}
 }

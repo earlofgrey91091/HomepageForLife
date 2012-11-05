@@ -13,5 +13,6 @@
     <string name="date_message">Date</string>
     <string name="name_message">Name</string>
     <string name="location_message">Location</string>
+    <string name="title_activity_event_details">EventDetails</string>
 
 </resources>
