@@ -17,6 +17,7 @@ import android.widget.Toast;
 public class Calendar extends Activity {
 
 	final static int VIEW_EVENT = 1;
+	final static int EDIT_EVENT = 2;
 	private SharedPreferences sharedPref;
 	private ArrayList<CalendarEvent> event_list = new ArrayList<CalendarEvent>();
 	DbHandler db;
@@ -47,21 +48,29 @@ public class Calendar extends Activity {
     public void onActivityResult(int requestCode,int resultCode,Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		switch(requestCode) {
-		case VIEW_EVENT: 
-			if (resultCode == RESULT_OK) {
-				CalendarEvent event = (CalendarEvent) data.getSerializableExtra("event");
-				event_list = db.getAllEvents();
-				event_list.add(db.getEvent(event.getDate()));
-				Toast.makeText(getApplicationContext(), 
-						"event added", Toast.LENGTH_LONG).show();
-				break;
-			}
+			case EDIT_EVENT: 
+				if (resultCode == RESULT_OK) {
+					CalendarEvent event = (CalendarEvent) data.getSerializableExtra("event");
+					event_list = db.getAllEvents();
+					event_list.add(db.getEvent(event.getDate()));
+					Toast.makeText(getApplicationContext(), 
+							"event added", Toast.LENGTH_LONG).show();
+				} break;
+			case VIEW_EVENT: 
+				if (resultCode == RESULT_OK) {
+					CalendarEvent event = (CalendarEvent) data.getSerializableExtra("event");
+					event_list = db.getAllEvents();
+					event_list.add(db.getEvent(event.getDate()));
+					Toast.makeText(getApplicationContext(), 
+							"event added", Toast.LENGTH_LONG).show();
+						
+			}	break;
 		}
-    }
+	}
     
 	public void newEvent(View view) {
 		Intent intent = new Intent(this, NewEvent.class);
-	    startActivityForResult(intent,VIEW_EVENT);
+	    startActivityForResult(intent,EDIT_EVENT);
 	}
 	
 	public void viewEvents(View view) {
