@@ -16,6 +16,15 @@ public class NewEvent extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_event);
         db = new DbHandler(this);
+        Intent intent = getIntent();
+		String year = intent.getStringExtra("year");
+		String month = intent.getStringExtra("month");
+		String day = intent.getStringExtra("day");
+		String date = month + "/" + day + "/" + year;
+		if (year != null || month != null || day != null) {
+			EditText date_field = (EditText) findViewById(R.id.date_message);
+			date_field.setText(date);
+		}
     }
 
     @Override

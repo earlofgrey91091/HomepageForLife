@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CalendarView;
 import android.widget.Toast;
 
 
@@ -36,6 +37,18 @@ public class Calendar extends Activity {
         	event_list = db.getAllEvents();
         }
         setContentView(R.layout.activity_calendar);
+        CalendarView calendarView = (CalendarView) findViewById(R.id.calendarView);
+		calendarView
+				.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+					public void onSelectedDayChange(CalendarView view,
+							int year, int month, int dayOfMonth) {
+						Intent intent = new Intent(Calendar.this, NewEvent.class);
+						intent.putExtra("year", Integer.toString(year));
+						intent.putExtra("month", Integer.toString(month));
+						intent.putExtra("day", Integer.toString(dayOfMonth));
+						startActivityForResult(intent, EDIT_EVENT);
+					}
+		});
     }
 
     @Override
