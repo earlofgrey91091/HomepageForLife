@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 
 public class ViewEvents extends Activity {
@@ -26,8 +27,17 @@ public class ViewEvents extends Activity {
         LinearLayout linearLayout = (LinearLayout)findViewById(R.id.view_layout);
         linearLayout.removeAllViews();
         for(int i=0; i<event_list.size(); i++) {
-        	Button btn = new Button(this); 
+        	final Button btn = new Button(this); 
             btn.setText(event_list.get(i).getName());
+            btn.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                	Button b = (Button)v;
+                    String buttonText = b.getText().toString();
+                    Intent intent = new Intent(ViewEvents.this, EventDetails.class);
+            		intent.putExtra("Date", buttonText);
+            		startActivity(intent);
+                }
+            });
             linearLayout.addView(btn); 
         }
     }
@@ -42,6 +52,7 @@ public class ViewEvents extends Activity {
     	LinearLayout linearLayout = (LinearLayout)findViewById(R.id.view_layout);
         Button btn = new Button(this); 
         String name = "Event";
+        
         if(num!=0)
         	name+=" "+num;
         btn.setText(name);

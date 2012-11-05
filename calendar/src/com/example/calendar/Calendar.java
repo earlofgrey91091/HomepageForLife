@@ -72,7 +72,7 @@ public class Calendar extends Activity {
 	
 	public void eventDetails(View view) {
 		Intent intent = new Intent(this, EventDetails.class);
-		//intent.putExtra("events",event_list);
+		intent.putExtra("Date","placeholder");//TODO fix date get
 		startActivity(intent);
 	}
 }
