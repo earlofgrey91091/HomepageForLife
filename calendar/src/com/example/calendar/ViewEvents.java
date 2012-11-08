@@ -54,12 +54,13 @@ public class ViewEvents extends Activity {
         LinearLayout linearLayout = (LinearLayout)findViewById(R.id.view_layout);
         linearLayout.removeAllViews();
         for(int i=0; i<event_list.size(); i++) {
-        	final Button btn = new Button(this); 
-            btn.setText(event_list.get(i).getDate());
+        	final Button btn = new Button(this);
             btn.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                 	Button b = (Button)v;
                     String buttonText = b.getText().toString();
+                    int dash = buttonText.indexOf(" - ");
+                    buttonText = buttonText.substring(0, dash);
                     Intent intent = new Intent(ViewEvents.this, EventDetails.class);
             		intent.putExtra("Date", buttonText);
             		startActivity(intent);
