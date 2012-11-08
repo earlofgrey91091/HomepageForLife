@@ -55,7 +55,7 @@ public class ViewEvents extends Activity {
         linearLayout.removeAllViews();
         for(int i=0; i<event_list.size(); i++) {
         	final Button btn = new Button(this); 
-            btn.setText(event_list.get(i).getName());
+            btn.setText(event_list.get(i).getDate());
             btn.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                 	Button b = (Button)v;

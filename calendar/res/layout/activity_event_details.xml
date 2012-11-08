@@ -1,7 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical" >
+
     <TextView android:id="@+id/name"
               android:layout_width="fill_parent"
               android:layout_height="wrap_content"
@@ -12,10 +13,36 @@
               android:layout_height="wrap_content"
               android:text="Date"
               />
+
     <TextView android:id="@+id/location"
               android:layout_width="fill_parent"
               android:layout_height="wrap_content"
               android:text="Location"
               />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="20" >
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:text="@string/button_message2" 
+        	android:onClick="removeEvent"/>
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:text="@string/button_message3" 
+            android:onClick="editEvent"/>
+
+    </RelativeLayout>
         
 </LinearLayout>

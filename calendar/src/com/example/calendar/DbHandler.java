@@ -80,6 +80,7 @@ public class DbHandler extends SQLiteOpenHelper {
 		//db.close(); // Closing database connection
 		if (cur != null)
 			cur.moveToFirst();
+		//else return null;
 
 		CalendarEvent event = new CalendarEvent(cur.getInt(0),
 				cur.getString(1), cur.getString(2), cur.getString(3));
@@ -90,7 +91,7 @@ public class DbHandler extends SQLiteOpenHelper {
 	CalendarEvent getEvent(int id) {
 		SQLiteDatabase db = this.getReadableDatabase();
 
-		Cursor cur = db.query(EVENT_TABLE, new String[] { KEY_DATE,
+		Cursor cur = db.query(EVENT_TABLE, new String[] { KEY_ID, KEY_DATE,
 				KEY_NAME, KEY_LOC }, KEY_ID + "=?",
 				new String[] { String.valueOf(id) }, null, null, null, null);
 
