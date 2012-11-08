@@ -118,9 +118,10 @@ public class DbHandler extends SQLiteOpenHelper {
 		if (cursor.moveToFirst()) {
 			do {
 				CalendarEvent e = new CalendarEvent();
-				e.setDate(cursor.getString(0));
-				e.setName(cursor.getString(1));
-				e.setLocation(cursor.getString(2));
+				e.setID(cursor.getInt(0));
+				e.setDate(cursor.getString(1));
+				e.setName(cursor.getString(2));
+				e.setLocation(cursor.getString(3));
 				// Adding contact to list
 				eventList.add(e);
 			} while (cursor.moveToNext());
