@@ -33,6 +33,11 @@ public class NewEvent extends Activity {
         return true;
     }
     
+    public void addFile(View view) {
+    	Intent intent = new Intent(this, AndroidExplorer.class);
+    	startActivity(intent);
+    }
+    
     public void add(View view) {
     	EditText date = (EditText)findViewById(R.id.date_message);
     	String dateMessage = date.getText().toString();
