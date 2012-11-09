@@ -26,7 +26,7 @@ public class EventDetails extends Activity {
 		event = db.getEvent(theDate);
 	
 		TextView name = (TextView) findViewById(R.id.name);
-		name.setText("Name:" + event.getName());
+		name.setText("Name: " + event.getName());
 		
 		TextView date = (TextView) findViewById(R.id.date);
 		date.setText("Date: " + event.getDate());
