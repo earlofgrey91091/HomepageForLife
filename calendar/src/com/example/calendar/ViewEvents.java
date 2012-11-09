@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -55,6 +54,7 @@ public class ViewEvents extends Activity {
         linearLayout.removeAllViews();
         for(int i=0; i<event_list.size(); i++) {
         	final Button btn = new Button(this);
+        	btn.setText(event_list.get(i).getDate()+" - "+event_list.get(i).getName());
             btn.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                 	Button b = (Button)v;
