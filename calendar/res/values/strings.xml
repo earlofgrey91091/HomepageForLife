@@ -16,6 +16,7 @@
     <string name="title_activity_event_details">EventDetails</string>
     <string name="button_message2">delete</string>
     <string name="button_message3">edit</string>
+    <string name="selected_file_name">No selected file</string>
     <string name="title_activity_android_explorer">AndroidExplorer</string>
 
 </resources>

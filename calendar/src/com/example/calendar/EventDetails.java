@@ -26,7 +26,7 @@ public class EventDetails extends Activity {
 		event = db.getEvent(theDate);
 	
 		TextView name = (TextView) findViewById(R.id.name);
-		name.setText("Name: " + event.getName());
+		name.setText("Name:" + event.getName());
 		
 		TextView date = (TextView) findViewById(R.id.date);
 		date.setText("Date: " + event.getDate());
@@ -37,40 +37,19 @@ public class EventDetails extends Activity {
 		mExpandableList = (ExpandableListView)findViewById(R.id.expandable_list);
 		 
         ArrayList<Parent> arrayParents = new ArrayList<Parent>();
-        ArrayList<String> arrayContacts = new ArrayList<String>();
-        ArrayList<String> arrayApps = new ArrayList<String>();
-        ArrayList<String> arrayFiles = new ArrayList<String>();
+        ArrayList<String> arrayChildren = new ArrayList<String>();
  
         //here we set the parents and the children
-
+        for (int i = 0; i < 10; i++){
             //for each "i" create a new Parent object to set the title and the children
-        Parent contactsParent = new Parent();
-        contactsParent.setTitle("Contacts");
-        for(int i=1;i<=3;i++) {
-            arrayContacts.add("Contact "+i);
+            Parent parent = new Parent();
+            parent.setTitle("Parent " + i);
+            arrayChildren.add("Child " + i);
+            parent.setArrayChildren(arrayChildren);
+ 
+            //in this array we add the Parent object. We will use the arrayParents at the setAdapter
+            arrayParents.add(parent);
         }
-        contactsParent.setArrayChildren(arrayContacts);
-        //in this array we add the Parent object. We will use the arrayParents at the setAdapter
-        arrayParents.add(contactsParent);
-        
-        Parent appsParent = new Parent();
-        appsParent.setTitle("Apps");
-        for(int i=1;i<=3;i++) {
-            arrayApps.add("App "+i);
-        }
-        appsParent.setArrayChildren(arrayApps);
-        //in this array we add the Parent object. We will use the arrayParents at the setAdapter
-        arrayParents.add(appsParent);
-        
-        Parent filesParent = new Parent();
-        filesParent.setTitle("Files");
-        for(int i=1;i<=3;i++) {
-            arrayFiles.add("File "+i);
-        }
-        filesParent.setArrayChildren(arrayFiles);
-        //in this array we add the Parent object. We will use the arrayParents at the setAdapter
-        arrayParents.add(filesParent);
-
  
         //sets the adapter that provides data to the list.
         mExpandableList.setAdapter(new MyCustomAdapter(EventDetails.this,arrayParents));

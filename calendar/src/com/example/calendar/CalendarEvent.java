@@ -1,6 +1,7 @@
 package com.example.calendar;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class CalendarEvent implements Serializable{
 	/**
@@ -11,27 +12,37 @@ public class CalendarEvent implements Serializable{
 	String _date;
 	String _name;
 	String _location;
+	ArrayList<EventFile> _files;
 	
 	public CalendarEvent() {
-		this(-1,"","","");
+		this(-1,"","","",new ArrayList<EventFile>());
 	}
 	public CalendarEvent(String date) {
-		this(-1, date,"","");
+		this(-1, date,"","",new ArrayList<EventFile>());
 	}
 	
 	public CalendarEvent(String date, String name) {
-		this(-1, date,name,"");
+		this(-1, date,name,"",new ArrayList<EventFile>());
 	}
 	
 	public CalendarEvent(String date, String name, String location) {
-		this(-1, date,name,location);
+		this(-1, date,name,location,new ArrayList<EventFile>());
 	}
 	
 	public CalendarEvent(int id, String date, String name, String location) {
+		this(id,date,name,location,new ArrayList<EventFile>());
+	}
+	
+	public CalendarEvent(String date, String name, String location, ArrayList<EventFile> files) {
+		this(-1, date,name,location,files);
+	}
+	
+	public CalendarEvent(int id, String date, String name, String location, ArrayList<EventFile> files) {
 		this._id = id;
 		this._date = date;
 		this._name = name;
 		this._location = location;
+		_files = files;
 	}
 	
 	// getting ID
@@ -72,5 +83,13 @@ public class CalendarEvent implements Serializable{
 	// setting location
 	public void setLocation(String location){
 		this._location = location;
+	}
+	
+	public ArrayList<EventFile> getFiles() {
+		return _files;
+	}
+	
+	public void setFiles(ArrayList<EventFile> files) {
+		_files = files;
 	}
 }
