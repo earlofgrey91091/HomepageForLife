@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -85,7 +86,7 @@ public class NewEvent extends Activity {
 	{
 		//shamelessly stolen from http://stackoverflow.com/questions/2695746/how-to-get-a-list-of-installed-android-applications-and-pick-one-to-run
 		
-		final PackageManager pm = getPackageManager();
+		/*final PackageManager pm = getPackageManager();
 		//get a list of installed apps.
         List<ApplicationInfo> packages = pm
                 .getInstalledApplications(PackageManager.GET_META_DATA);
@@ -96,7 +97,7 @@ public class NewEvent extends Activity {
             //pm.getLaunchIntentForPackage(packageInfo.packageName)); 
         }// the getLaunchIntentForPackage returns an intent that you can use with startActivity()
         //should print out name of app
-        final CharSequence [] items = (CharSequence[]) packagenames.toArray();
+        final CharSequence [] items = packagenames.toArray(new CharSequence[packagenames.size()]);
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Options for App choice");
         builder.setItems(items, new DialogInterface.OnClickListener() {
@@ -104,6 +105,29 @@ public class NewEvent extends Activity {
                 Toast.makeText(getApplicationContext(), items[item], Toast.LENGTH_SHORT).show();
             }
         }).show();
+        
+        
+   	 Attach a button to call this and it will show any app that has a ACTION_MAIN
+   	 So it shows any app*/
+      	Intent intent = new Intent (Intent.ACTION_MAIN);
+      	//	title is set as "Choose app"
+      	String title = "Choose an App";
+      	Intent chooser = Intent.createChooser(intent, title);
+      	
+      	PackageManager packageManager = getPackageManager();
+      	List<ResolveInfo> activities = packageManager.queryIntentActivities(chooser, 0);
+      	boolean isIntentSafe = activities.size() > 0;
+      	  
+      	// Start an activity if it's safe
+      	if (isIntentSafe) {
+      	    startActivity(chooser);
+      	}
+   	 
+        
+	}
+	private boolean isSystemPackage(ResolveInfo ri){
+	    return (ri.activityInfo.applicationInfo.flags&ApplicationInfo.FLAG_SYSTEM)!=0;
+
 	}
 
 	public void add(View view) {

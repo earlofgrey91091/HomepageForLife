@@ -35,16 +35,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:paddingTop="10dp"
-                android:paddingLeft="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:textSize="24dp"
-                android:text="Files"/>
-
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -52,6 +42,17 @@
                 android:layout_alignParentTop="true"
                 android:onClick="addFile"
                 android:text="@string/button_message" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:text="Files"
+                android:textSize="24dp" />
+
         </RelativeLayout>
         
         <ScrollView
@@ -76,7 +77,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/note_message" />
-    
+    
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -84,11 +85,32 @@
         android:layout_height="match_parent" >
 
         <Button
+            android:id="@+id/button2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:onClick="add"
             android:text="@string/button_message" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:text="@string/appText"
+            android:textSize="24dp" />
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+           	android:onClick="addApp"
+            android:text="@string/add_button" />
+
     </RelativeLayout>
 
 </LinearLayout>
