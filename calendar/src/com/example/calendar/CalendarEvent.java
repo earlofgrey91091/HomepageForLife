@@ -13,6 +13,7 @@ public class CalendarEvent implements Serializable{
 	String _name;
 	String _location;
 	ArrayList<EventFile> _files;
+	String _notes;
 	
 	public CalendarEvent() {
 		this(-1,"","","",new ArrayList<EventFile>());
@@ -91,5 +92,13 @@ public class CalendarEvent implements Serializable{
 	
 	public void setFiles(ArrayList<EventFile> files) {
 		_files = files;
+	}
+	
+	public void setNotes(String notes) {
+		_notes = notes;
+	}
+	
+	public String getNotes() {
+		return _notes;
 	}
 }
