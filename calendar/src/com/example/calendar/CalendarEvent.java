@@ -46,6 +46,19 @@ public class CalendarEvent implements Serializable{
 		_files = files;
 	}
 	
+	public CalendarEvent(int id, String date, String name, String location, ArrayList<EventFile> files, String notes) {
+		this._id = id;
+		this._date = date;
+		this._name = name;
+		this._location = location;
+		this._files = files;
+		this._notes = notes;
+	}
+	
+	public CalendarEvent(String date, String name, String location, ArrayList<EventFile> files, String notes) {
+		this(-1,date,name,location,files,notes);
+	}
+	
 	// getting ID
 	public int getID(){
 		return this._id;
