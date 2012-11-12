@@ -106,7 +106,7 @@ public class NewEvent extends Activity {
 	{
 		//shamelessly stolen from http://stackoverflow.com/questions/2695746/how-to-get-a-list-of-installed-android-applications-and-pick-one-to-run
 		
-		/*final PackageManager pm = getPackageManager();
+		final PackageManager pm = getPackageManager();
 		//get a list of installed apps.
         List<ApplicationInfo> packages = pm
                 .getInstalledApplications(PackageManager.GET_META_DATA);
@@ -127,9 +127,9 @@ public class NewEvent extends Activity {
         }).show();
         
         
-   	 Attach a button to call this and it will show any app that has a ACTION_MAIN
-   	 So it shows any app*/
-      	Intent intent = new Intent (Intent.ACTION_MAIN);
+   	 //Attach a button to call this and it will show any app that has a ACTION_MAIN
+   	 //So it shows any app
+      	/*Intent intent = new Intent (Intent.ACTION_MAIN);
       	//	title is set as "Choose app"
       	String title = "Choose an App";
       	Intent chooser = Intent.createChooser(intent, title);
@@ -141,10 +141,9 @@ public class NewEvent extends Activity {
       	// Start an activity if it's safe
       	if (isIntentSafe) {
       	    startActivity(chooser);
-      	}
-   	 
-        
+      	}*/
 	}
+   	 
 	private boolean isSystemPackage(ResolveInfo ri){
 	    return (ri.activityInfo.applicationInfo.flags&ApplicationInfo.FLAG_SYSTEM)!=0;
 
@@ -160,7 +159,7 @@ public class NewEvent extends Activity {
 		EditText notes = (EditText) findViewById(R.id.note_message);
 		String notesMessage = notes.getText().toString();
 		CalendarEvent newEvent = new CalendarEvent(dateMessage, nameMessage,
-				locationMessage,files,notesMessage);
+				locationMessage,files, notesMessage);
 		db.addEvent(newEvent);
 		Intent i = new Intent();
 		i.putExtra("event", newEvent);
