@@ -21,11 +21,20 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+//Nagle imports for contacts
+import android.database.Cursor;
+import android.net.Uri;
+import android.widget.TextView;
+import android.content.ContentResolver;
+import android.provider.ContactsContract;
+import android.provider.ContactsContract.Contacts;
+import android.provider.ContactsContract.CommonDataKinds.Email;  
+
 public class NewEvent extends Activity {
 
 	final static int ADD_FILE = 3;
 	final static int ADD_APP = 4;
-
+	final static int ADD_CONTACT = 1001;//1001
 	ArrayList<EventFile> files = new ArrayList<EventFile>();
 	DbHandler db;
 
@@ -94,6 +103,30 @@ public class NewEvent extends Activity {
 					linearLayout.addView(name);*/
 				}
 				break;
+				
+			case ADD_CONTACT:
+				if(resultCode == RESULT_OK){
+				//do something with contact result
+					String email="";
+					LinearLayout linearLayout = (LinearLayout)findViewById(R.id.contacts_layout);
+					Uri result= data.getData();
+					String id = result.getLastPathSegment();
+					Cursor cursor = getContentResolver().query(  
+					        Email.CONTENT_URI, null,  
+					        Email.CONTACT_ID + "=?",  
+					        new String[]{id}, null); 
+					if (cursor.moveToFirst()) {  
+					    int emailIdx = cursor.getColumnIndex(Email.DATA);  
+					    email = cursor.getString(emailIdx);  
+					} 
+					 
+					TextView name= new TextView(this);
+					name.setText(email);
+					if (email.length() == 0) {  
+					    Toast.makeText(this, "No email found for contact.", Toast.LENGTH_LONG).show();  
+					} 					
+				}
+				break;
 		}
 	}
 
@@ -149,6 +182,12 @@ public class NewEvent extends Activity {
 
 	}
 
+    public void addContact(View view){
+    	 Intent contactPickerIntent = new Intent(Intent.ACTION_PICK,  
+    	            Contacts.CONTENT_URI);  
+    	 startActivityForResult(contactPickerIntent, ADD_CONTACT);
+    }
+    
 	public void add(View view) {
 		EditText date = (EditText) findViewById(R.id.date_message);
 		String dateMessage = date.getText().toString();
