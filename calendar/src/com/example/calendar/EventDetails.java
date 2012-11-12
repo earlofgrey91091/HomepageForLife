@@ -32,7 +32,7 @@ public class EventDetails extends Activity {
 		date.setText("Date: " + event.getDate());
 	
 		TextView location = (TextView) findViewById(R.id.location);
-		location.setText("Locaction" + event.getLocation());
+		location.setText("Location: " + event.getLocation());
 		
 		mExpandableList = (ExpandableListView)findViewById(R.id.expandable_list);
 		 

@@ -1,19 +1,28 @@
 package com.example.calendar;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class NewEvent extends Activity {
 
-	final static int ADD_FILE = 1;
+	final static int ADD_FILE = 3;
+	final static int ADD_APP = 4;
+
 	ArrayList<EventFile> files = new ArrayList<EventFile>();
 	DbHandler db;
 
@@ -43,22 +52,58 @@ public class NewEvent extends Activity {
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		switch (requestCode) {
-		case ADD_FILE:
-			if (resultCode == RESULT_OK) {
-				LinearLayout linearLayout = (LinearLayout)findViewById(R.id.file_layout);
-				EventFile f = (EventFile) data.getSerializableExtra("file");
-				files.add(f);
-				TextView name = new TextView(this);
-				name.setText(f.getName());
-				linearLayout.addView(name);
-			}
-			break;
+			case ADD_FILE:
+				if (resultCode == RESULT_OK) {
+					LinearLayout linearLayout = (LinearLayout)findViewById(R.id.file_layout);
+					EventFile f = (EventFile) data.getSerializableExtra("file");
+					files.add(f);
+					TextView name = new TextView(this);
+					name.setText(f.getName());
+					linearLayout.addView(name);
+				}
+				break;
+			
+			case ADD_APP:
+				if (resultCode == RESULT_OK) {
+					/*LinearLayout linearLayout = (LinearLayout)findViewById(R.id.file_layout);
+					EventFile f = (EventFile) data.getSerializableExtra("file");
+					files.add(f);
+					TextView name = new TextView(this);
+					name.setText(f.getName());
+					linearLayout.addView(name);*/
+				}
+				break;
 		}
 	}
 
 	public void addFile(View view) {
 		Intent intent = new Intent(this, AndroidExplorer.class);
 		startActivityForResult(intent, ADD_FILE);
+	}
+	
+	public void addApp(View view)
+	{
+		//shamelessly stolen from http://stackoverflow.com/questions/2695746/how-to-get-a-list-of-installed-android-applications-and-pick-one-to-run
+		
+		final PackageManager pm = getPackageManager();
+		//get a list of installed apps.
+        List<ApplicationInfo> packages = pm
+                .getInstalledApplications(PackageManager.GET_META_DATA);
+    	List<CharSequence> packagenames = new ArrayList<CharSequence>();
+
+        for (ApplicationInfo packageInfo : packages) {
+        	packagenames.add(packageInfo.packageName);
+            //pm.getLaunchIntentForPackage(packageInfo.packageName)); 
+        }// the getLaunchIntentForPackage returns an intent that you can use with startActivity()
+        //should print out name of app
+        final CharSequence [] items = (CharSequence[]) packagenames.toArray();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Options for App choice");
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+                Toast.makeText(getApplicationContext(), items[item], Toast.LENGTH_SHORT).show();
+            }
+        }).show();
 	}
 
 	public void add(View view) {
