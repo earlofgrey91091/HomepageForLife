@@ -25,7 +25,7 @@ public class DbHandler extends SQLiteOpenHelper {
 	private static final String KEY_DATE = "Date";
 	private static final String KEY_NAME = "Name";
 	private static final String KEY_LOC = "Location";
-
+	private static final String KEY_NOTES = "NOTES";
 	// This is the commandline to be used in the lower call of execSQL(). This
 	// is where the schema for the db is determined
 
@@ -40,7 +40,7 @@ public class DbHandler extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		String DICTIONARY_TABLE_CREATE = "CREATE TABLE "
 				+ EVENT_TABLE + " (" + KEY_ID + " INTEGER PRIMARY KEY, " + KEY_DATE + " TEXT, " + KEY_NAME + " TEXT, "
-				+ KEY_LOC + " TEXT);";
+				+ KEY_LOC +"TEXT" + KEY_NOTES + " TEXT);";
 		db.execSQL(DICTIONARY_TABLE_CREATE);
 	}
 
