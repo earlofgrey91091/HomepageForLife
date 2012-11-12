@@ -20,7 +20,7 @@
               android:text="Location"
               />
 
-    <ExpandableListView android:id="@+id/expandable_list"
+    <ExpandableListView android:id="@+id/contact_list"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:transcriptMode="alwaysScroll"

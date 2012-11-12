@@ -18,7 +18,7 @@ public class EventDetails extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 	
 		super.onCreate(savedInstanceState);
-		ExpandableListView mExpandableList;
+		ExpandableListView contactList;
 		db = new DbHandler(this);
 		setContentView(R.layout.activity_event_details);
 		Intent data = getIntent();
@@ -33,26 +33,19 @@ public class EventDetails extends Activity {
 	
 		TextView location = (TextView) findViewById(R.id.location);
 		location.setText("Location: " + event.getLocation());
-		
-		mExpandableList = (ExpandableListView)findViewById(R.id.expandable_list);
-		 
-        ArrayList<Parent> arrayParents = new ArrayList<Parent>();
-        ArrayList<String> arrayChildren = new ArrayList<String>();
  
         //here we set the parents and the children
-        for (int i = 0; i < 10; i++){
-            //for each "i" create a new Parent object to set the title and the children
-            Parent parent = new Parent();
-            parent.setTitle("Parent " + i);
-            arrayChildren.add("Child " + i);
-            parent.setArrayChildren(arrayChildren);
- 
-            //in this array we add the Parent object. We will use the arrayParents at the setAdapter
-            arrayParents.add(parent);
+        contactList = (ExpandableListView)findViewById(R.id.contact_list);
+		Parent contactParent = new Parent();
+		ArrayList<Parent> arrayParentsContact = new ArrayList<Parent>();
+		contactParent.setTitle("Contacts");
+		ArrayList<String> arrayContacts = new ArrayList<String>();
+		for(int i=1;i<=3;i++) {
+            arrayContacts.add("Contact "+i);
         }
- 
-        //sets the adapter that provides data to the list.
-        mExpandableList.setAdapter(new MyCustomAdapter(EventDetails.this,arrayParents));
+		contactParent.setArrayChildren(arrayContacts);
+		arrayParentsContact.add(contactParent);
+		contactList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsContact));
 		
 	}
 	
