@@ -3,6 +3,7 @@ package com.example.calendar;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -11,11 +12,12 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,9 +60,27 @@ public class NewEvent extends Activity {
 					LinearLayout linearLayout = (LinearLayout)findViewById(R.id.file_layout);
 					EventFile f = (EventFile) data.getSerializableExtra("file");
 					files.add(f);
+					RelativeLayout relativeLayout = new RelativeLayout(this);
+					
+					
 					TextView name = new TextView(this);
 					name.setText(f.getName());
-					linearLayout.addView(name);
+					RelativeLayout.LayoutParams name_params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
+					name_params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+					relativeLayout.addView(name, name_params);
+					
+					RelativeLayout.LayoutParams btn_params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
+					btn_params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+					final Button btn = new Button(this);
+		        	btn.setText("Delete");
+		            btn.setOnClickListener(new View.OnClickListener() {
+		                public void onClick(View v) {
+		                	RelativeLayout r = (RelativeLayout) v.getParent();
+		                	r.removeAllViews();
+		                }
+		            });
+		            relativeLayout.addView(btn,btn_params);
+					linearLayout.addView(relativeLayout);
 				}
 				break;
 			
