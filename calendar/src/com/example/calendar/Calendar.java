@@ -97,4 +97,24 @@ public class Calendar extends Activity {
 		intent.putExtra("Date","placeholder");//TODO fix date get
 		startActivity(intent);
 	}
+	
+	/*
+	 Attach a button to call this and it will show any app that has a ACTION_MAIN
+	 So it shows any app
+	 public void getApp(View view) {
+   	Intent intent = new Intent (Intent.ACTION_MAIN);
+   	//	title is set as "Choose app"
+   	String title = (String) getResources().getText(R.string.chooser_title);
+   	Intent chooser = Intent.createChooser(intent, title);
+   	
+   	PackageManager packageManager = getPackageManager();
+   	List<ResolveInfo> activities = packageManager.queryIntentActivities(chooser, 0);
+   	boolean isIntentSafe = activities.size() > 0;
+   	  
+   	// Start an activity if it's safe
+   	if (isIntentSafe) {
+   	    startActivity(chooser);
+   	}
+   }
+	 */
 }
