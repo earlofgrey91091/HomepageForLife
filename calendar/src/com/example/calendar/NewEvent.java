@@ -145,8 +145,17 @@ public class NewEvent extends Activity {
                 .getInstalledApplications(PackageManager.GET_META_DATA);
     	List<CharSequence> packagenames = new ArrayList<CharSequence>();
 
-        for (ApplicationInfo packageInfo : packages) {
-        	packagenames.add(packageInfo.packageName);
+        for (ApplicationInfo app : packages) {
+        	if((app.flags & ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) == 1) {
+                packagenames.add(app.packageName);
+            //it's a system app, not interested
+            } else if ((app.flags & ApplicationInfo.FLAG_SYSTEM) == 1) {
+                //Discard this one
+            //in this case, it should be a user-installed app
+            } else {
+                
+            }
+        	
             //pm.getLaunchIntentForPackage(packageInfo.packageName)); 
         }// the getLaunchIntentForPackage returns an intent that you can use with startActivity()
         //should print out name of app

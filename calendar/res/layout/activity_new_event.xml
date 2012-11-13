@@ -4,131 +4,168 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <EditText
-        android:id="@+id/date_message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="@string/date_message" />
-
-    <EditText
-        android:id="@+id/name_message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="@string/name_message" />
-
-    <EditText
-        android:id="@+id/location_message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="@string/location_message" />
-
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <ScrollView
+        android:id="@+id/scrollView1"
         android:layout_width="match_parent"
-        android:layout_height="125dp"
-        android:orientation="vertical" >
+        android:layout_height="wrap_content" >
 
-        <RelativeLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:onClick="addFile"
-                android:text="@string/button_message" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:paddingLeft="10dp"
-                android:paddingTop="10dp"
-                android:text="Files"
-                android:textSize="24dp" />
-
-        </RelativeLayout>
-        
-        <ScrollView
+        <LinearLayout
+            android:id="@+id/LinearLayout1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fadeScrollbars="false" >
+            android:orientation="vertical" >
+
+            <EditText
+                android:id="@+id/date_message"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/date_message" >
+
+                <requestFocus />
+            </EditText>
+
+            <EditText
+                android:id="@+id/name_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="@string/name_message" />
+
+            <EditText
+                android:id="@+id/location_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="@string/location_message" />
 
             <LinearLayout
                 xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
-                android:id="@+id/file_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingLeft="10dp" />
-        </ScrollView>
-        
-    </LinearLayout>
-    
-    
-	<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="125dp"
-        android:orientation="vertical" >
+                android:layout_height="243dp"
+                android:orientation="vertical" >
 
-        <RelativeLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                <RelativeLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
 
-            <TextView
-                android:paddingTop="10dp"
-                android:paddingLeft="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:textSize="24dp"
-                android:text="Contacts"/>
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:onClick="addFile"
+                        android:text="@string/button_message" />
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:onClick="addContact"
-                android:text="Add" />
-        </RelativeLayout>
-        
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fadeScrollbars="false" >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="10dp"
+                        android:text="Files"
+                        android:textSize="24dp" />
+                </RelativeLayout>
 
-            <LinearLayout
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:id="@+id/contacts_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingLeft="10dp" />
-        </ScrollView>
-        
-        
-        
-    </LinearLayout>
-    <EditText
-        android:id="@+id/note_message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="@string/note_message" />
-    
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fadeScrollbars="false" >
+
+                    <LinearLayout
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        xmlns:tools="http://schemas.android.com/tools"
+                        android:id="@+id/file_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingLeft="10dp" >
+                    </LinearLayout>
+                </ScrollView>
+
+                <RelativeLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="10dp"
+                        android:text="Contacts"
+                        android:textSize="24dp" />
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:onClick="addContact"
+                        android:text="Add" />
+                </RelativeLayout>
+
+                <ScrollView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fadeScrollbars="false" >
+
+                    <LinearLayout
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        xmlns:tools="http://schemas.android.com/tools"
+                        android:id="@+id/contacts_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingLeft="10dp" >
+
+                    </LinearLayout>
+                </ScrollView>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:id="@+id/textView1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="false"
+                        android:layout_alignParentTop="true"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="10dp"
+                        android:text="@string/appText"
+                        android:textSize="24dp" />
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:onClick="addApp"
+                        android:text="@string/button_message" />
+
+                </RelativeLayout>
+
+                <EditText
+                    android:id="@+id/note_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/note_message" />
+
+                    </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
     <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -140,27 +177,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
             android:onClick="add"
             android:text="@string/button_message" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:paddingLeft="10dp"
-            android:paddingTop="10dp"
-            android:text="@string/appText"
-            android:textSize="24dp" />
-
-        <Button
-            android:id="@+id/button1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-           	android:onClick="addApp"
-            android:text="@string/add_button" />
 
     </RelativeLayout>
 
