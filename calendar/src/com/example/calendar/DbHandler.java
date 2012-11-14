@@ -219,7 +219,6 @@ public class DbHandler extends SQLiteOpenHelper {
 		// looping through all rows and adding to list
 		if (cursor.moveToFirst()) {
 			do {
-				
 				contactList.add(cursor.getString(1));
 			} while (cursor.moveToNext());
 		}
@@ -230,26 +229,55 @@ public class DbHandler extends SQLiteOpenHelper {
 		//db.close(); // Closing database connection
 	}
 
-	// Updating single Contact
-	public int updateContact(CalendarEvent event) {
+	// Deleting single Contact
+	public void deleteContact(int eventId, String theContact) {
 		SQLiteDatabase db = this.getWritableDatabase();
-
-		ContentValues values = new ContentValues();
-		values.put(KEY_ID, event.getID());
-		values.put(KEY_NAME, event.getName());
-		values.put(KEY_DATE, event.getDate());
-		values.put(KEY_LOC, event.getLocation());
-
-		// updating row
-		return db.update(EVENT_TABLE, values, KEY_ID + " = ?",
-				new String[] {  String.valueOf(event.getID()) });
+		db.delete(CONTACT_TABLE, KEY_ID + " = ? , " + KEY_CONTACT_VALUE + " = ?",
+				new String[] { String.valueOf(eventId), theContact });
+		db.close();
+	}
+	
+	public void addFile(int eventId, String theFile) {
+		SQLiteDatabase db = getWritableDatabase();
+		
+		ContentValues cv = new ContentValues();
+		cv.put(KEY_EVENT_ID, eventId);
+		cv.put(KEY_FILE, theFile);		
+		// Inserting Row
+		db.insert(FILE_TABLE, null, cv);
+		db.close(); // Closing database connection
 	}
 
-	// Deleting single Contact
-	public void deleteContact(CalendarEvent event) {
+	// Getting single Event
+	List<String> getFiles(int eventId) 
+	{
+		
+		ArrayList<String> fileList = new ArrayList<String>();
+		
+		// Select All Query
+		String selectQuery = "SELECT "+ KEY_FILE +" FROM " + FILE_TABLE + " WHERE " + KEY_EVENT_ID + " = " + eventId;
+
 		SQLiteDatabase db = this.getWritableDatabase();
-		db.delete(EVENT_TABLE, KEY_ID + " = ?",
-				new String[] { String.valueOf(event.getID()) });
+		Cursor cursor = db.rawQuery(selectQuery, null);
+
+		// looping through all rows and adding to list
+		if (cursor.moveToFirst()) {
+			do {
+				fileList.add(cursor.getString(1));
+			} while (cursor.moveToNext());
+		}
+
+		// return contact list
+		return fileList;
+
+		//db.close(); // Closing database connection
+	}
+
+	// Deleting single file
+	public void deleteFile(int eventId, String theFile) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.delete(FILE_TABLE, KEY_ID + " = ? , " + KEY_FILE + " = ?",
+				new String[] { String.valueOf(eventId), theFile});
 		db.close();
 	}
 }
