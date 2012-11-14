@@ -156,7 +156,7 @@ public class DbHandler extends SQLiteOpenHelper {
 	}
 
 
-	// Getting contacts Count
+	// Getting Event Count
 	public int getEventsCount() {
 		String countQuery = "SELECT  * FROM " + EVENT_TABLE;
 		SQLiteDatabase db = this.getReadableDatabase();
@@ -167,4 +167,120 @@ public class DbHandler extends SQLiteOpenHelper {
 		return cursor.getCount();
 	}
 
+	public void addContact(int eventId, String theContact) {
+		SQLiteDatabase db = getWritableDatabase();
+		
+		ContentValues cv = new ContentValues();
+		cv.put(KEY_EVENTID, eventID);
+		cv.put(KEY_CONTACTID, theContact);		
+		// Inserting Row
+		db.insert(CONTACTS_TABLE, null, cv);
+		db.close(); // Closing database connection
+	}
+
+	// Getting single Event
+	List<String> getContacts(int eventId) 
+	{
+		
+		ArrayList<String> contactList = new ArrayList<String>();
+		
+		// Select All Query
+		String selectQuery = "SELECT "+ KEY_CONTACTVALUE +" FROM " + CONTACTS_TABLE + " WHERE " + KEY_EVENTID + " = " + eventId;
+
+		SQLiteDatabase db = this.getWritableDatabase();
+		Cursor cursor = db.rawQuery(selectQuery, null);
+
+		// looping through all rows and adding to list
+		if (cursor.moveToFirst()) {
+			do {
+				CalendarEvent e = new CalendarEvent();
+				e.setID(cursor.getInt(0));
+				e.setDate(cursor.getString(1));
+				e.setName(cursor.getString(2));
+				e.setLocation(cursor.getString(3));
+				// Adding contact to list
+				eventList.add(e);
+			} while (cursor.moveToNext());
+		}
+
+		// return contact list
+		return eventList;
+
+		//db.close(); // Closing database connection
+		if (cur != null)
+			cur.moveToFirst();
+		//else return null;
+
+		CalendarEvent event = new CalendarEvent(cur.getInt(0),
+				cur.getString(1), cur.getString(2), cur.getString(3));
+		// return event
+		return event;
+	}
+	
+	CalendarEvent getEvent(int id) {
+		SQLiteDatabase db = this.getReadableDatabase();
+
+		Cursor cur = db.query(EVENT_TABLE, new String[] { KEY_ID, KEY_DATE,
+				KEY_NAME, KEY_LOC }, KEY_ID + "=?",
+				new String[] { String.valueOf(id) }, null, null, null, null);
+
+		db.close(); // Closing database connection
+		if (cur != null)
+			cur.moveToFirst();
+
+		CalendarEvent event = new CalendarEvent(cur.getInt(0),
+				cur.getString(1), cur.getString(2), cur.getString(3));
+		// return event
+		return event;
+	}
+	
+	// Getting All Contacts
+	public ArrayList<CalendarEvent> getAllEvents() {
+		ArrayList<CalendarEvent> eventList = new ArrayList<CalendarEvent>();
+		
+		// Select All Query
+		String selectQuery = "SELECT  * FROM " + EVENT_TABLE;
+
+		SQLiteDatabase db = this.getWritableDatabase();
+		Cursor cursor = db.rawQuery(selectQuery, null);
+
+		// looping through all rows and adding to list
+		if (cursor.moveToFirst()) {
+			do {
+				CalendarEvent e = new CalendarEvent();
+				e.setID(cursor.getInt(0));
+				e.setDate(cursor.getString(1));
+				e.setName(cursor.getString(2));
+				e.setLocation(cursor.getString(3));
+				// Adding contact to list
+				eventList.add(e);
+			} while (cursor.moveToNext());
+		}
+
+		// return contact list
+		return eventList;
+	}
+
+	// Updating single Event
+	public int updateEvent(CalendarEvent event) {
+		SQLiteDatabase db = this.getWritableDatabase();
+
+		ContentValues values = new ContentValues();
+		values.put(KEY_ID, event.getID());
+		values.put(KEY_NAME, event.getName());
+		values.put(KEY_DATE, event.getDate());
+		values.put(KEY_LOC, event.getLocation());
+
+		// updating row
+		return db.update(EVENT_TABLE, values, KEY_ID + " = ?",
+				new String[] {  String.valueOf(event.getID()) });
+	}
+
+	// Deleting single event
+	public void deleteEvent(CalendarEvent event) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.delete(EVENT_TABLE, KEY_ID + " = ?",
+				new String[] { String.valueOf(event.getID()) });
+		db.close();
+	}
 }
