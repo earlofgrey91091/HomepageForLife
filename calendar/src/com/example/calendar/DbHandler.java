@@ -99,7 +99,7 @@ public class DbHandler extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getReadableDatabase();
 
 		Cursor cur = db.query(EVENT_TABLE, new String[] { KEY_ID, KEY_DATE,
-				KEY_NAME, KEY_LOC }, KEY_DATE + "=?",
+				KEY_NAME, KEY_LOC, KEY_NOTES }, KEY_DATE + "=?",
 				new String[] { eventDate }, null, null, null, null);
 
 		//db.close(); // Closing database connection
@@ -117,7 +117,7 @@ public class DbHandler extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getReadableDatabase();
 
 		Cursor cur = db.query(EVENT_TABLE, new String[] { KEY_ID, KEY_DATE,
-				KEY_NAME, KEY_LOC }, KEY_ID + "=?",
+				KEY_NAME, KEY_LOC, KEY_NOTES }, KEY_ID + "=?",
 				new String[] { String.valueOf(id) }, null, null, null, null);
 
 		db.close(); // Closing database connection
@@ -148,6 +148,7 @@ public class DbHandler extends SQLiteOpenHelper {
 				e.setDate(cursor.getString(1));
 				e.setName(cursor.getString(2));
 				e.setLocation(cursor.getString(3));
+				e.setNotes(cursor.getString(4));
 				// Adding contact to list
 				eventList.add(e);
 			} while (cursor.moveToNext());
