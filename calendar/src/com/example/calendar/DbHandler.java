@@ -13,19 +13,30 @@ public class DbHandler extends SQLiteOpenHelper {
 
 	// All Static variables
 	// Database Version
-	private static final int DATABASE_VERSION = 3;
+	private static final int DATABASE_VERSION = 4;
 	
 	// Database Name
 	private static final String DATABASE_NAME = "HPL";
 	
 	// Table Name(s)
+	//Event table
 	private static final String EVENT_TABLE = "Events";
-	
 	private static final String KEY_ID = "Id";
 	private static final String KEY_DATE = "Date";
 	private static final String KEY_NAME = "Name";
 	private static final String KEY_LOC = "Location";
 	private static final String KEY_NOTES = "NOTES";
+	//Contact table
+	private static final String CONTACT_TABLE= "Contacts";
+	private static final String KEY_CONTACT_ID= "Contact Id";
+	//File table
+	private static final String FILE_TABLE= "Files";
+	private static final String KEY_FILE_ID= "File Id";
+	//Links table
+	private static final String LINK_TABLE= "Links";
+	private static final String KEY_LINK_ID= "Link name";
+	//App table
+	
 	// This is the commandline to be used in the lower call of execSQL(). This
 	// is where the schema for the db is determined
 
@@ -41,13 +52,17 @@ public class DbHandler extends SQLiteOpenHelper {
 		String DICTIONARY_TABLE_CREATE = "CREATE TABLE "
 				+ EVENT_TABLE + " (" + KEY_ID + " INTEGER PRIMARY KEY, " + KEY_DATE + " TEXT, " + KEY_NAME + " TEXT, "
 				+ KEY_LOC +"TEXT" + KEY_NOTES + " TEXT);";
+		String CONTACT_TABLE_CREATE= "CREATE TABLE "
+				+ CONTACT_TABLE + " (" + KEY_ID + " INTEGER PRIMARY KEY, " + KEY_CONTACT_ID + " TEXT);";
 		db.execSQL(DICTIONARY_TABLE_CREATE);
+		db.execSQL(CONTACT_TABLE_CREATE);
+		
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		db.execSQL("DROP TABLE IF EXISTS " + EVENT_TABLE);
-
+		db.execSQL("DROP TABLE IF EXISTS " + CONTACT_TABLE);
 		onCreate(db);
 	}
 
@@ -68,6 +83,7 @@ public class DbHandler extends SQLiteOpenHelper {
 		db.insert(EVENT_TABLE, null, cv);
 		db.close(); // Closing database connection
 	}
+	
 
 	// Getting single Event
 	CalendarEvent getEvent(String eventDate) {
