@@ -19,6 +19,7 @@ public class EventDetails extends Activity {
 	
 		super.onCreate(savedInstanceState);
 		ExpandableListView contactList;
+		ExpandableListView fileList;
 		db = new DbHandler(this);
 		setContentView(R.layout.activity_event_details);
 		Intent data = getIntent();
@@ -45,10 +46,22 @@ public class EventDetails extends Activity {
         }
 		contactParent.setArrayChildren(arrayContacts);
 		arrayParentsContact.add(contactParent);
-		contactList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsContact));
+		contactList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsContact,0));
 
+		fileList = (ExpandableListView)findViewById(R.id.file_list);
+		Parent fileParent = new Parent();
+		ArrayList<Parent> arrayParentsFile = new ArrayList<Parent>();
+		contactParent.setTitle("Files");
+		ArrayList<String> arrayFiles = new ArrayList<String>();
+		for(int i=1;i<=3;i++) {
+            arrayFiles.add("File "+i);
+        }
+		fileParent.setArrayChildren(arrayFiles);
+		arrayParentsFile.add(fileParent);
+		fileList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsContact,1));
+		
 		TextView notes = (TextView) findViewById(R.id.notes);
-		notes.setText("Notes: /n" + event.getNotes());
+		notes.setText("Notes: \n" + event.getNotes());
 	}
 	
 	public void removeEvent(View view) {

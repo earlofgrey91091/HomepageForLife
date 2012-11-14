@@ -35,6 +35,19 @@
 
     </LinearLayout>
     
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <ExpandableListView
+            android:id="@+id/file_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+        </ExpandableListView>
+
+    </LinearLayout>
+    
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
