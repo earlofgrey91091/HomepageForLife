@@ -28,17 +28,8 @@ public class DbHandler extends SQLiteOpenHelper {
 	private static final String KEY_NOTES = "NOTES";
 	//Contact table
 	private static final String CONTACT_TABLE= "Contacts";
-<<<<<<< HEAD
 	private static final String KEY_EVENT_ID= "EventId";
 	private static final String KEY_CONTACT_VALUE= "ContactValue";
-	//File table
-	private static final String FILE_TABLE= "Files";
-	private static final String KEY_FILE_ID= "FileId";
-	//Links table
-	private static final String LINK_TABLE= "Links";
-	private static final String KEY_LINK_ID= "Linkname";
-=======
-	private static final String KEY_CONTACT= "Contact";
 	//File table
 	private static final String FILE_TABLE= "Files";
 	private static final String KEY_FILE= "File";
@@ -46,8 +37,6 @@ public class DbHandler extends SQLiteOpenHelper {
 	private static final String LINK_TABLE= "Links";
 	private static final String KEY_LINK_NAME= "Link_Name";
 	private static final String KEY_LINK_URL= "Link_url";
-	
->>>>>>> 92593faef713354e8b5d791e8dc894097751e882
 	//App table
 	
 	// This is the commandline to be used in the lower call of execSQL(). This
