@@ -57,9 +57,9 @@ public class DbHandler extends SQLiteOpenHelper {
 		String CONTACT_TABLE_CREATE= "CREATE TABLE "
 				+ CONTACT_TABLE + " (" + KEY_EVENT_ID + " INTEGER, " + KEY_CONTACT_VALUE + " TEXT);";
 		String FILE_TABLE_CREATE= "CREATE TABLE "
-				+ FILE_TABLE + " (" + KEY_ID + " INTEGER, " + KEY_FILE + " TEXT);";
+				+ FILE_TABLE + " (" + KEY_EVENT_ID + " INTEGER, " + KEY_FILE + " TEXT);";
 		String LINK_TABLE_CREATE= "CREATE TABLE "
-				+ LINK_TABLE + " (" + KEY_ID + " INTEGER, " + KEY_LINK_NAME + " TEXT, " + KEY_LINK_URL + " TEXT);";
+				+ LINK_TABLE + " (" + KEY_EVENT_ID + " INTEGER, " + KEY_LINK_NAME + " TEXT, " + KEY_LINK_URL + " TEXT);";
 		db.execSQL(DICTIONARY_TABLE_CREATE);
 		db.execSQL(CONTACT_TABLE_CREATE);
 		db.execSQL(FILE_TABLE_CREATE);
