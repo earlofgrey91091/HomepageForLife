@@ -25,7 +25,6 @@ public class DbHandler extends SQLiteOpenHelper {
 	private static final String KEY_DATE = "Date";
 	private static final String KEY_NAME = "Name";
 	private static final String KEY_LOC = "Location";
-	private static final String KEY_NOTES = "NOTES";
 	//Contact table
 	private static final String CONTACT_TABLE= "Contacts";
 	private static final String KEY_EVENT_ID= "EventId";
@@ -53,7 +52,7 @@ public class DbHandler extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		String DICTIONARY_TABLE_CREATE = "CREATE TABLE "
 				+ EVENT_TABLE + " (" + KEY_ID + " INTEGER PRIMARY KEY, " + KEY_DATE + " TEXT, " + KEY_NAME + " TEXT, "
-				+ KEY_LOC +"TEXT" + KEY_NOTES + " TEXT);";
+				+ KEY_LOC +"TEXT);";
 		String CONTACT_TABLE_CREATE= "CREATE TABLE "
 				+ CONTACT_TABLE + " (" + KEY_EVENT_ID + " INTEGER, " + KEY_CONTACT_VALUE + " TEXT);";
 		String FILE_TABLE_CREATE= "CREATE TABLE "
@@ -99,7 +98,7 @@ public class DbHandler extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getReadableDatabase();
 
 		Cursor cur = db.query(EVENT_TABLE, new String[] { KEY_ID, KEY_DATE,
-				KEY_NAME, KEY_LOC, KEY_NOTES }, KEY_DATE + "=?",
+				KEY_NAME, KEY_LOC }, KEY_DATE + "=?",
 				new String[] { eventDate }, null, null, null, null);
 
 		//db.close(); // Closing database connection
@@ -117,7 +116,7 @@ public class DbHandler extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getReadableDatabase();
 
 		Cursor cur = db.query(EVENT_TABLE, new String[] { KEY_ID, KEY_DATE,
-				KEY_NAME, KEY_LOC, KEY_NOTES }, KEY_ID + "=?",
+				KEY_NAME, KEY_LOC }, KEY_ID + "=?",
 				new String[] { String.valueOf(id) }, null, null, null, null);
 
 		db.close(); // Closing database connection
