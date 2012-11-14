@@ -59,7 +59,7 @@ public class DbHandler extends SQLiteOpenHelper {
 		String FILE_TABLE_CREATE= "CREATE TABLE "
 				+ FILE_TABLE + " (" + KEY_ID + " INTEGER, " + KEY_FILE + " TEXT);";
 		String LINK_TABLE_CREATE= "CREATE TABLE "
-				+ FILE_TABLE + " (" + KEY_ID + " INTEGER, " + KEY_LINK_NAME + " TEXT, " + KEY_LINK_URL + " TEXT);";
+				+ LINK_TABLE + " (" + KEY_ID + " INTEGER, " + KEY_LINK_NAME + " TEXT, " + KEY_LINK_URL + " TEXT);";
 		db.execSQL(DICTIONARY_TABLE_CREATE);
 		db.execSQL(CONTACT_TABLE_CREATE);
 		db.execSQL(FILE_TABLE_CREATE);
@@ -70,6 +70,8 @@ public class DbHandler extends SQLiteOpenHelper {
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		db.execSQL("DROP TABLE IF EXISTS " + EVENT_TABLE);
 		db.execSQL("DROP TABLE IF EXISTS " + CONTACT_TABLE);
+		db.execSQL("DROP TABLE IF EXISTS " + FILE_TABLE);
+		db.execSQL("DROP TABLE IF EXISTS " + LINK_TABLE);
 		onCreate(db);
 	}
 
@@ -217,7 +219,7 @@ public class DbHandler extends SQLiteOpenHelper {
 		if (cursor.moveToFirst()) {
 			do {
 				
-				//eventList.add(e);
+				contactList.add(cursor.getString(1));
 			} while (cursor.moveToNext());
 		}
 
@@ -227,7 +229,7 @@ public class DbHandler extends SQLiteOpenHelper {
 		//db.close(); // Closing database connection
 	}
 
-	// Updating single Event
+	// Updating single Contact
 	public int updateContact(CalendarEvent event) {
 		SQLiteDatabase db = this.getWritableDatabase();
 
@@ -242,7 +244,7 @@ public class DbHandler extends SQLiteOpenHelper {
 				new String[] {  String.valueOf(event.getID()) });
 	}
 
-	// Deleting single event
+	// Deleting single Contact
 	public void deleteContact(CalendarEvent event) {
 		SQLiteDatabase db = this.getWritableDatabase();
 		db.delete(EVENT_TABLE, KEY_ID + " = ?",
