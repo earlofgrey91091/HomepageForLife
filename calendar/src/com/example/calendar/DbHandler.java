@@ -28,6 +28,7 @@ public class DbHandler extends SQLiteOpenHelper {
 	private static final String KEY_NOTES = "NOTES";
 	//Contact table
 	private static final String CONTACT_TABLE= "Contacts";
+<<<<<<< HEAD
 	private static final String KEY_EVENT_ID= "EventId";
 	private static final String KEY_CONTACT_VALUE= "ContactValue";
 	//File table
@@ -36,6 +37,17 @@ public class DbHandler extends SQLiteOpenHelper {
 	//Links table
 	private static final String LINK_TABLE= "Links";
 	private static final String KEY_LINK_ID= "Linkname";
+=======
+	private static final String KEY_CONTACT= "Contact";
+	//File table
+	private static final String FILE_TABLE= "Files";
+	private static final String KEY_FILE= "File";
+	//Links table
+	private static final String LINK_TABLE= "Links";
+	private static final String KEY_LINK_NAME= "Link_Name";
+	private static final String KEY_LINK_URL= "Link_url";
+	
+>>>>>>> 92593faef713354e8b5d791e8dc894097751e882
 	//App table
 	
 	// This is the commandline to be used in the lower call of execSQL(). This
@@ -55,9 +67,14 @@ public class DbHandler extends SQLiteOpenHelper {
 				+ KEY_LOC +"TEXT" + KEY_NOTES + " TEXT);";
 		String CONTACT_TABLE_CREATE= "CREATE TABLE "
 				+ CONTACT_TABLE + " (" + KEY_EVENT_ID + " INTEGER, " + KEY_CONTACT_VALUE + " TEXT);";
+		String FILE_TABLE_CREATE= "CREATE TABLE "
+				+ FILE_TABLE + " (" + KEY_ID + " INTEGER, " + KEY_FILE + " TEXT);";
+		String LINK_TABLE_CREATE= "CREATE TABLE "
+				+ FILE_TABLE + " (" + KEY_ID + " INTEGER, " + KEY_LINK_NAME + " TEXT, " + KEY_LINK_URL + " TEXT);";
 		db.execSQL(DICTIONARY_TABLE_CREATE);
 		db.execSQL(CONTACT_TABLE_CREATE);
-		
+		db.execSQL(FILE_TABLE_CREATE);
+		db.execSQL(LINK_TABLE_CREATE);
 	}
 
 	@Override
