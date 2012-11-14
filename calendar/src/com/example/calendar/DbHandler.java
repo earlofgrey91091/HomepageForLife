@@ -36,8 +36,12 @@ public class DbHandler extends SQLiteOpenHelper {
 	private static final String LINK_TABLE= "Links";
 	private static final String KEY_LINK_NAME= "Link_Name";
 	private static final String KEY_LINK_URL= "Link_url";
+	//Notes
+	private static final String NOTE_TABLE="Notes";
+	private static final String KEY_NOTE= "Note";
 	//App table
-	
+	private static final String APP_TABLE="Apps";
+	private static final String KEY_APP_NAME= "AppName";
 	
 	// This is the commandline to be used in the lower call of execSQL(). This
 	// is where the schema for the db is determined
@@ -59,10 +63,16 @@ public class DbHandler extends SQLiteOpenHelper {
 				+ FILE_TABLE + " (" + KEY_EVENT_ID + " INTEGER, " + KEY_FILE + " TEXT);";
 		String LINK_TABLE_CREATE= "CREATE TABLE "
 				+ LINK_TABLE + " (" + KEY_EVENT_ID + " INTEGER, " + KEY_LINK_NAME + " TEXT, " + KEY_LINK_URL + " TEXT);";
+		String NOTE_TABLE_CREATE= "CREATE TABLE "
+				+ NOTE_TABLE + " (" + KEY_EVENT_ID + " INTEGER, " + KEY_NOTE + " TEXT);";
+		String APP_TABLE_CREATE= "CREATE TABLE "
+				+ NOTE_TABLE + " (" + KEY_EVENT_ID + " INTEGER, " + KEY_APP_NAME + " TEXT);";
 		db.execSQL(DICTIONARY_TABLE_CREATE);
 		db.execSQL(CONTACT_TABLE_CREATE);
 		db.execSQL(FILE_TABLE_CREATE);
 		db.execSQL(LINK_TABLE_CREATE);
+		db.execSQL(NOTE_TABLE_CREATE);
+		db.execSQL(APP_TABLE_CREATE);
 	}
 
 	@Override
@@ -71,6 +81,8 @@ public class DbHandler extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE IF EXISTS " + CONTACT_TABLE);
 		db.execSQL("DROP TABLE IF EXISTS " + FILE_TABLE);
 		db.execSQL("DROP TABLE IF EXISTS " + LINK_TABLE);
+		db.execSQL("DROP TABLE IF EXISTS " + NOTE_TABLE);
+		db.execSQL("DROP TABLE IF EXISTS " + APP_TABLE);
 		onCreate(db);
 	}
 
