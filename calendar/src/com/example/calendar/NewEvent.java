@@ -146,15 +146,15 @@ public class NewEvent extends Activity {
     	List<CharSequence> packagenames = new ArrayList<CharSequence>();
 
         for (ApplicationInfo app : packages) {
-        	if((app.flags & ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) == 1) {
+        	//if((app.flags & ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) == 1) {
                 packagenames.add(app.packageName);
-            //it's a system app, not interested
+            /*//it's a system app, not interested
             } else if ((app.flags & ApplicationInfo.FLAG_SYSTEM) == 1) {
                 //Discard this one
             //in this case, it should be a user-installed app
             } else {
                 
-            }
+            }*/
         	
             //pm.getLaunchIntentForPackage(packageInfo.packageName)); 
         }// the getLaunchIntentForPackage returns an intent that you can use with startActivity()
@@ -184,11 +184,6 @@ public class NewEvent extends Activity {
       	if (isIntentSafe) {
       	    startActivity(chooser);
       	}*/
-	}
-   	 
-	private boolean isSystemPackage(ResolveInfo ri){
-	    return (ri.activityInfo.applicationInfo.flags&ApplicationInfo.FLAG_SYSTEM)!=0;
-
 	}
 
     public void addContact(View view){

@@ -13,25 +13,38 @@ public class DbHandler extends SQLiteOpenHelper {
 
 	// All Static variables
 	// Database Version
-	private static final int DATABASE_VERSION = 3;
+	private static final int DATABASE_VERSION = 4;
 	
 	// Database Name
 	private static final String DATABASE_NAME = "HPL";
 	
 	// Table Name(s)
+	//Event table
 	private static final String EVENT_TABLE = "Events";
-	
 	private static final String KEY_ID = "Id";
 	private static final String KEY_DATE = "Date";
 	private static final String KEY_NAME = "Name";
 	private static final String KEY_LOC = "Location";
 	private static final String KEY_NOTES = "NOTES";
+	//Contact table
+	private static final String CONTACT_TABLE= "Contacts";
+	private static final String KEY_EVENT_ID= "EventId";
+	private static final String KEY_CONTACT_VALUE= "ContactValue";
+	//File table
+	private static final String FILE_TABLE= "Files";
+	private static final String KEY_FILE= "File";
+	//Links table
+	private static final String LINK_TABLE= "Links";
+	private static final String KEY_LINK_NAME= "Link_Name";
+	private static final String KEY_LINK_URL= "Link_url";
+	//App table
+	
+	
 	// This is the commandline to be used in the lower call of execSQL(). This
 	// is where the schema for the db is determined
 
 	// Proposed alternative would be just having event_id as the key and and
 	// event object as the second column
-
 	public DbHandler(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
@@ -41,13 +54,22 @@ public class DbHandler extends SQLiteOpenHelper {
 		String DICTIONARY_TABLE_CREATE = "CREATE TABLE "
 				+ EVENT_TABLE + " (" + KEY_ID + " INTEGER PRIMARY KEY, " + KEY_DATE + " TEXT, " + KEY_NAME + " TEXT, "
 				+ KEY_LOC +"TEXT" + KEY_NOTES + " TEXT);";
+		String CONTACT_TABLE_CREATE= "CREATE TABLE "
+				+ CONTACT_TABLE + " (" + KEY_EVENT_ID + " INTEGER, " + KEY_CONTACT_VALUE + " TEXT);";
+		String FILE_TABLE_CREATE= "CREATE TABLE "
+				+ FILE_TABLE + " (" + KEY_ID + " INTEGER, " + KEY_FILE + " TEXT);";
+		String LINK_TABLE_CREATE= "CREATE TABLE "
+				+ FILE_TABLE + " (" + KEY_ID + " INTEGER, " + KEY_LINK_NAME + " TEXT, " + KEY_LINK_URL + " TEXT);";
 		db.execSQL(DICTIONARY_TABLE_CREATE);
+		db.execSQL(CONTACT_TABLE_CREATE);
+		db.execSQL(FILE_TABLE_CREATE);
+		db.execSQL(LINK_TABLE_CREATE);
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		db.execSQL("DROP TABLE IF EXISTS " + EVENT_TABLE);
-
+		db.execSQL("DROP TABLE IF EXISTS " + CONTACT_TABLE);
 		onCreate(db);
 	}
 
@@ -68,6 +90,7 @@ public class DbHandler extends SQLiteOpenHelper {
 		db.insert(EVENT_TABLE, null, cv);
 		db.close(); // Closing database connection
 	}
+	
 
 	// Getting single Event
 	CalendarEvent getEvent(String eventDate) {
@@ -156,7 +179,7 @@ public class DbHandler extends SQLiteOpenHelper {
 	}
 
 
-	// Getting contacts Count
+	// Getting Event Count
 	public int getEventsCount() {
 		String countQuery = "SELECT  * FROM " + EVENT_TABLE;
 		SQLiteDatabase db = this.getReadableDatabase();
@@ -167,4 +190,63 @@ public class DbHandler extends SQLiteOpenHelper {
 		return cursor.getCount();
 	}
 
+	public void addContact(int eventId, String theContact) {
+		SQLiteDatabase db = getWritableDatabase();
+		
+		ContentValues cv = new ContentValues();
+		cv.put(KEY_EVENT_ID, eventId);
+		cv.put(KEY_CONTACT_VALUE, theContact);		
+		// Inserting Row
+		db.insert(CONTACT_TABLE, null, cv);
+		db.close(); // Closing database connection
+	}
+
+	// Getting single Event
+	List<String> getContacts(int eventId) 
+	{
+		
+		ArrayList<String> contactList = new ArrayList<String>();
+		
+		// Select All Query
+		String selectQuery = "SELECT "+ KEY_CONTACT_VALUE +" FROM " + CONTACT_TABLE + " WHERE " + KEY_EVENT_ID + " = " + eventId;
+
+		SQLiteDatabase db = this.getWritableDatabase();
+		Cursor cursor = db.rawQuery(selectQuery, null);
+
+		// looping through all rows and adding to list
+		if (cursor.moveToFirst()) {
+			do {
+				
+				//eventList.add(e);
+			} while (cursor.moveToNext());
+		}
+
+		// return contact list
+		return contactList;
+
+		//db.close(); // Closing database connection
+	}
+
+	// Updating single Event
+	public int updateContact(CalendarEvent event) {
+		SQLiteDatabase db = this.getWritableDatabase();
+
+		ContentValues values = new ContentValues();
+		values.put(KEY_ID, event.getID());
+		values.put(KEY_NAME, event.getName());
+		values.put(KEY_DATE, event.getDate());
+		values.put(KEY_LOC, event.getLocation());
+
+		// updating row
+		return db.update(EVENT_TABLE, values, KEY_ID + " = ?",
+				new String[] {  String.valueOf(event.getID()) });
+	}
+
+	// Deleting single event
+	public void deleteContact(CalendarEvent event) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.delete(EVENT_TABLE, KEY_ID + " = ?",
+				new String[] { String.valueOf(event.getID()) });
+		db.close();
+	}
 }
