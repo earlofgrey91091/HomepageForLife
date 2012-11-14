@@ -39,12 +39,12 @@ public class DbHandler extends SQLiteOpenHelper {
 	private static final String KEY_LINK_URL= "Link_url";
 	//App table
 	
+	
 	// This is the commandline to be used in the lower call of execSQL(). This
 	// is where the schema for the db is determined
 
 	// Proposed alternative would be just having event_id as the key and and
 	// event object as the second column
-
 	public DbHandler(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}

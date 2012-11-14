@@ -22,10 +22,12 @@ public class ContactCustomAdapter extends BaseExpandableListAdapter {
  
     private LayoutInflater inflater;
     private ArrayList<Parent> mParent;
+    private int flag;
  
-    public ContactCustomAdapter(Context context, ArrayList<Parent> parent){
+    public ContactCustomAdapter(Context context, ArrayList<Parent> parent, int flag1){
         mParent = parent;
         inflater = LayoutInflater.from(context);
+        this.flag = flag1;
     }
  
  
@@ -71,17 +73,26 @@ public class ContactCustomAdapter extends BaseExpandableListAdapter {
 //    @Override
     //in this method you must set the text to see the parent/group on the list
     public View getGroupView(int i, boolean b, View view, ViewGroup viewGroup) {
+    	if (flag==0) {
+    		if (view == null) {
+        		view = inflater.inflate(R.layout.list_item_parent, viewGroup,false);
+        	}
  
-        if (view == null) {
-            view = inflater.inflate(R.layout.list_item_parent, viewGroup,false);
-        }
+        	TextView textView = (TextView) view.findViewById(R.id.list_item_text_view);
+        	//"i" is the position of the parent/group in the list
+        	textView.setText(getGroup(i).toString());
+        	Button btn = (Button) view.findViewById(R.id.button);
+        	btn.setText("Text Everyone");
+    	}
+    	else {
+    		if (view == null) {
+        		view = inflater.inflate(R.layout.list_item_parent_buttonless, viewGroup,false);
+        	}
  
-        TextView textView = (TextView) view.findViewById(R.id.list_item_text_view);
-        //"i" is the position of the parent/group in the list
-        textView.setText(getGroup(i).toString());
-        Button btn = (Button) view.findViewById(R.id.button);
-        btn.setText("Text Everyone");
-        
+        	TextView textView = (TextView) view.findViewById(R.id.list_item_text_view);
+        	//"i" is the position of the parent/group in the list
+        	textView.setText(getGroup(i).toString());
+    	}
         //return the entire view
         return view;
     }
