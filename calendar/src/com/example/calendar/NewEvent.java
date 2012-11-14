@@ -192,7 +192,7 @@ public class NewEvent extends Activity {
     	 startActivityForResult(contactPickerIntent, ADD_CONTACT);
     }
     
-	public void add(View view) {
+	public void save(View view) {
 		EditText date = (EditText) findViewById(R.id.date_message);
 		String dateMessage = date.getText().toString();
 		EditText name = (EditText) findViewById(R.id.name_message);
@@ -207,6 +207,12 @@ public class NewEvent extends Activity {
 		Intent i = new Intent();
 		i.putExtra("event", newEvent);
 		setResult(RESULT_OK, i);
+		finish();
+	}
+	
+	public void cancel(View view) {
+		Intent i = new Intent();
+		setResult(RESULT_CANCELED, i);
 		finish();
 	}
 }

@@ -1,18 +1,20 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    >
 
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_above="@id/button2" >
 
         <LinearLayout
             android:id="@+id/LinearLayout1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical" >
 
             <EditText
@@ -21,8 +23,6 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="@string/date_message" >
-
-                <requestFocus />
             </EditText>
 
             <EditText
@@ -45,7 +45,7 @@
                 xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
-                android:layout_height="243dp"
+                android:layout_height="wrap_content"
                 android:orientation="vertical" >
 
                 <RelativeLayout
@@ -73,21 +73,15 @@
                         android:textSize="24dp" />
                 </RelativeLayout>
 
-                <ScrollView
+                <LinearLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:id="@+id/file_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fadeScrollbars="false" >
-
-                    <LinearLayout
-                        xmlns:android="http://schemas.android.com/apk/res/android"
-                        xmlns:tools="http://schemas.android.com/tools"
-                        android:id="@+id/file_layout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:paddingLeft="10dp" >
-                    </LinearLayout>
-                </ScrollView>
+                    android:orientation="vertical"
+                    android:paddingLeft="10dp" >
+                </LinearLayout>
 
                 <RelativeLayout
                     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -114,23 +108,16 @@
                         android:text="Add" />
                 </RelativeLayout>
 
-                <ScrollView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:id="@+id/contacts_layout"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fadeScrollbars="false" >
+                    android:orientation="vertical"
+                    android:paddingLeft="10dp" >
+                </LinearLayout>
 
-                    <LinearLayout
-                        xmlns:android="http://schemas.android.com/apk/res/android"
-                        xmlns:tools="http://schemas.android.com/tools"
-                        android:id="@+id/contacts_layout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:paddingLeft="10dp" >
-
-                    </LinearLayout>
-                </ScrollView>
-
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" >
@@ -145,6 +132,7 @@
                         android:paddingTop="10dp"
                         android:text="@string/appText"
                         android:textSize="24dp" />
+
                     <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -152,7 +140,6 @@
                         android:layout_alignParentTop="true"
                         android:onClick="addApp"
                         android:text="@string/button_message" />
-
                 </RelativeLayout>
 
                 <EditText
@@ -161,17 +148,16 @@
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:hint="@string/note_message" />
-
-                    </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
-    <RelativeLayout
+<!--    <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
+        android:layout_height="wrap_content" >
+-->
         <Button
             android:id="@+id/button2"
             android:layout_width="wrap_content"
@@ -179,8 +165,19 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:onClick="add"
-            android:text="@string/button_message" />
+            android:text="Save" />
+        
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:onClick="cancel"
+            android:text="Cancel" />
+        
+        
+    <!-- </RelativeLayout>
+    -->
 
-    </RelativeLayout>
-
-</LinearLayout>
+</RelativeLayout>
