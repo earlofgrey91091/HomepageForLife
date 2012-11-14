@@ -28,13 +28,14 @@ public class DbHandler extends SQLiteOpenHelper {
 	private static final String KEY_NOTES = "NOTES";
 	//Contact table
 	private static final String CONTACT_TABLE= "Contacts";
-	private static final String KEY_CONTACT_ID= "Contact Id";
+	private static final String KEY_EVENT_ID= "EventId";
+	private static final String KEY_CONTACT_VALUE= "ContactValue";
 	//File table
 	private static final String FILE_TABLE= "Files";
-	private static final String KEY_FILE_ID= "File Id";
+	private static final String KEY_FILE_ID= "FileId";
 	//Links table
 	private static final String LINK_TABLE= "Links";
-	private static final String KEY_LINK_ID= "Link name";
+	private static final String KEY_LINK_ID= "Linkname";
 	//App table
 	
 	// This is the commandline to be used in the lower call of execSQL(). This
@@ -53,7 +54,7 @@ public class DbHandler extends SQLiteOpenHelper {
 				+ EVENT_TABLE + " (" + KEY_ID + " INTEGER PRIMARY KEY, " + KEY_DATE + " TEXT, " + KEY_NAME + " TEXT, "
 				+ KEY_LOC +"TEXT" + KEY_NOTES + " TEXT);";
 		String CONTACT_TABLE_CREATE= "CREATE TABLE "
-				+ CONTACT_TABLE + " (" + KEY_ID + " INTEGER PRIMARY KEY, " + KEY_CONTACT_ID + " TEXT);";
+				+ CONTACT_TABLE + " (" + KEY_EVENT_ID + " INTEGER, " + KEY_CONTACT_VALUE + " TEXT);";
 		db.execSQL(DICTIONARY_TABLE_CREATE);
 		db.execSQL(CONTACT_TABLE_CREATE);
 		
@@ -187,10 +188,10 @@ public class DbHandler extends SQLiteOpenHelper {
 		SQLiteDatabase db = getWritableDatabase();
 		
 		ContentValues cv = new ContentValues();
-		cv.put(KEY_EVENTID, eventID);
-		cv.put(KEY_CONTACTID, theContact);		
+		cv.put(KEY_EVENT_ID, eventId);
+		cv.put(KEY_CONTACT_VALUE, theContact);		
 		// Inserting Row
-		db.insert(CONTACTS_TABLE, null, cv);
+		db.insert(CONTACT_TABLE, null, cv);
 		db.close(); // Closing database connection
 	}
 
@@ -201,7 +202,7 @@ public class DbHandler extends SQLiteOpenHelper {
 		ArrayList<String> contactList = new ArrayList<String>();
 		
 		// Select All Query
-		String selectQuery = "SELECT "+ KEY_CONTACTVALUE +" FROM " + CONTACTS_TABLE + " WHERE " + KEY_EVENTID + " = " + eventId;
+		String selectQuery = "SELECT "+ KEY_CONTACT_VALUE +" FROM " + CONTACT_TABLE + " WHERE " + KEY_EVENT_ID + " = " + eventId;
 
 		SQLiteDatabase db = this.getWritableDatabase();
 		Cursor cursor = db.rawQuery(selectQuery, null);
@@ -209,76 +210,19 @@ public class DbHandler extends SQLiteOpenHelper {
 		// looping through all rows and adding to list
 		if (cursor.moveToFirst()) {
 			do {
-				CalendarEvent e = new CalendarEvent();
-				e.setID(cursor.getInt(0));
-				e.setDate(cursor.getString(1));
-				e.setName(cursor.getString(2));
-				e.setLocation(cursor.getString(3));
-				// Adding contact to list
-				eventList.add(e);
+				
+				//eventList.add(e);
 			} while (cursor.moveToNext());
 		}
 
 		// return contact list
-		return eventList;
+		return contactList;
 
 		//db.close(); // Closing database connection
-		if (cur != null)
-			cur.moveToFirst();
-		//else return null;
-
-		CalendarEvent event = new CalendarEvent(cur.getInt(0),
-				cur.getString(1), cur.getString(2), cur.getString(3));
-		// return event
-		return event;
-	}
-	
-	CalendarEvent getEvent(int id) {
-		SQLiteDatabase db = this.getReadableDatabase();
-
-		Cursor cur = db.query(EVENT_TABLE, new String[] { KEY_ID, KEY_DATE,
-				KEY_NAME, KEY_LOC }, KEY_ID + "=?",
-				new String[] { String.valueOf(id) }, null, null, null, null);
-
-		db.close(); // Closing database connection
-		if (cur != null)
-			cur.moveToFirst();
-
-		CalendarEvent event = new CalendarEvent(cur.getInt(0),
-				cur.getString(1), cur.getString(2), cur.getString(3));
-		// return event
-		return event;
-	}
-	
-	// Getting All Contacts
-	public ArrayList<CalendarEvent> getAllEvents() {
-		ArrayList<CalendarEvent> eventList = new ArrayList<CalendarEvent>();
-		
-		// Select All Query
-		String selectQuery = "SELECT  * FROM " + EVENT_TABLE;
-
-		SQLiteDatabase db = this.getWritableDatabase();
-		Cursor cursor = db.rawQuery(selectQuery, null);
-
-		// looping through all rows and adding to list
-		if (cursor.moveToFirst()) {
-			do {
-				CalendarEvent e = new CalendarEvent();
-				e.setID(cursor.getInt(0));
-				e.setDate(cursor.getString(1));
-				e.setName(cursor.getString(2));
-				e.setLocation(cursor.getString(3));
-				// Adding contact to list
-				eventList.add(e);
-			} while (cursor.moveToNext());
-		}
-
-		// return contact list
-		return eventList;
 	}
 
 	// Updating single Event
-	public int updateEvent(CalendarEvent event) {
+	public int updateContact(CalendarEvent event) {
 		SQLiteDatabase db = this.getWritableDatabase();
 
 		ContentValues values = new ContentValues();
@@ -293,7 +237,7 @@ public class DbHandler extends SQLiteOpenHelper {
 	}
 
 	// Deleting single event
-	public void deleteEvent(CalendarEvent event) {
+	public void deleteContact(CalendarEvent event) {
 		SQLiteDatabase db = this.getWritableDatabase();
 		db.delete(EVENT_TABLE, KEY_ID + " = ?",
 				new String[] { String.valueOf(event.getID()) });
