@@ -83,7 +83,7 @@ public class Calendar extends Activity {
 					{
 						db.addContact(event.getID(), theContact);
 					}
-					if(notes!="") db.addNote(event.getID(), notes);
+					if(!notes.equals("")) db.addNote(event.getID(), notes);
 					Toast.makeText(getApplicationContext(), 
 							"event added", Toast.LENGTH_LONG).show();
 				} break;
