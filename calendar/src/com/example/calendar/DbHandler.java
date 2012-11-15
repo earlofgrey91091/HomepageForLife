@@ -214,7 +214,7 @@ public class DbHandler extends SQLiteOpenHelper {
 	}
 
 	// Getting single Event
-	List<String> getContacts(int eventId) 
+	ArrayList<String> getContacts(int eventId) 
 	{
 		
 		ArrayList<String> contactList = new ArrayList<String>();
@@ -258,7 +258,7 @@ public class DbHandler extends SQLiteOpenHelper {
 	}
 
 	// Getting single Event
-	List<String> getFiles(int eventId) 
+	ArrayList<String> getFiles(int eventId) 
 	{
 		
 		ArrayList<String> fileList = new ArrayList<String>();
@@ -302,7 +302,7 @@ public class DbHandler extends SQLiteOpenHelper {
 	}
 
 	// Getting all apps
-	List<String> getApps(int eventId) 
+	ArrayList<String> getApps(int eventId) 
 	{
 		
 		ArrayList<String> fileList = new ArrayList<String>();
@@ -345,7 +345,7 @@ public class DbHandler extends SQLiteOpenHelper {
 	}
 
 	// Getting all notes
-	List<String> getNotes(int eventId) 
+	ArrayList<String> getNotes(int eventId) 
 	{
 		
 		ArrayList<String> fileList = new ArrayList<String>();
