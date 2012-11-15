@@ -347,7 +347,7 @@ public class DbHandler extends SQLiteOpenHelper {
 		cv.put(KEY_LINK_URL, theLink);
 		cv.put(KEY_LINK_NAME, theName);
 		// Inserting Row
-		db.insert(NOTE_TABLE, null, cv);
+		db.insert(LINK_TABLE, null, cv);
 		db.close(); // Closing database connection
 	}
 
