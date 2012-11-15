@@ -201,7 +201,7 @@ public class NewEvent extends Activity {
 		EditText notes = (EditText) findViewById(R.id.note_message);
 		String notesMessage = notes.getText().toString();
 		CalendarEvent newEvent = new CalendarEvent(dateMessage, nameMessage,
-				locationMessage,files, notesMessage);
+				locationMessage);
 		db.addEvent(newEvent);
 		Intent i = new Intent();
 		i.putExtra("event", newEvent);
