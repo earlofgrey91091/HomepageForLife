@@ -25,6 +25,9 @@ public class ContactCustomAdapter extends BaseExpandableListAdapter {
 	private int flag;
 	private Context context;
 	private Uri uri;
+	static final int CONTACT = 0;
+	static final int NOTE = 2;
+	static final int LINK = 3;
 
 	public ContactCustomAdapter(Context context, ArrayList<Parent> parent,
 			int flag1, ArrayList<String> actuals, Uri uri) {
@@ -80,7 +83,7 @@ public class ContactCustomAdapter extends BaseExpandableListAdapter {
 	// @Override
 	// in this method you must set the text to see the parent/group on the list
 	public View getGroupView(int i, boolean b, View view, ViewGroup viewGroup) {
-		if (flag == 0) {
+		if (flag == CONTACT) {
 			if (view == null) {
 				view = inflater.inflate(R.layout.list_item_parent, viewGroup,
 						false);
@@ -111,7 +114,7 @@ public class ContactCustomAdapter extends BaseExpandableListAdapter {
 	// in this method you must set the text to see the children on the list
 	public View getChildView(int i, int i1, boolean b, View view,
 			ViewGroup viewGroup) {
-		if (flag == 2) {
+		if (flag == NOTE) {
 			if (view == null) {
 				view = inflater.inflate(R.layout.list_item_child, viewGroup,
 						false);
@@ -125,14 +128,14 @@ public class ContactCustomAdapter extends BaseExpandableListAdapter {
 
 			// return the entire view
 			return view;
-		} else if (flag == 3) {
+		} else if (flag == LINK) {
 			if (view == null) {
-				view = inflater.inflate(R.layout.list_item_child, viewGroup,
+				view = inflater.inflate(R.layout.list_item_link, viewGroup,
 						false);
 			}
 
 			TextView text = (TextView) view
-					.findViewById(R.id.list_item_text_child);
+					.findViewById(R.id.link);
 			// "i" is the position of the parent/group in the list and
 			// "i1" is the position of the child
 			text.setText(mParent.get(i).getArrayChildren().get(i1));

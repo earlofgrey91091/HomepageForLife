@@ -83,7 +83,7 @@ public class EventDetails extends Activity {
 		linkParent.setTitle("Links");
 		ArrayList<String> arrayLinks = new ArrayList<String>();
 		for(int i=1;i<=3;i++) {
-            arrayLinks.add("Link "+i);
+            arrayLinks.add("google");
         }
 		linkParent.setArrayChildren(arrayLinks);
 		arrayParentsLink.add(linkParent);
