@@ -135,7 +135,7 @@ public class ContactCustomAdapter extends BaseExpandableListAdapter {
 			// "i" is the position of the parent/group in the list and
 			// "i1" is the position of the child
 			btn.setText(mParent.get(i).getArrayChildren().get(i1));
-			btn.setHint("1");
+			btn.setHint(Uri.parse(actual_names.get(i1)).getLastPathSegment());
 			btn.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View v) {
 					Button btn = (Button) v;
@@ -157,7 +157,7 @@ public class ContactCustomAdapter extends BaseExpandableListAdapter {
 			// "i" is the position of the parent/group in the list and
 			// "i1" is the position of the child
 			btn.setText(mParent.get(i).getArrayChildren().get(i1));
-			btn.setHint("http://www.google.com");
+			btn.setHint(actual_names.get(i1));
 			btn.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View v) {
 					Button btn = (Button) v;

@@ -43,6 +43,8 @@ public class NewEvent extends Activity {
 	ArrayList<String> contacts = new ArrayList<String>();
 	ArrayList<String> links = new ArrayList<String>();
 	String curLink="";
+	String templink="";
+	String tempname="";
 	DbHandler db;
 
 	@Override
@@ -114,6 +116,7 @@ public class NewEvent extends Activity {
 		case ADD_CONTACT:
 			if (resultCode == RESULT_OK) {
 				Uri contactUri = data.getData();
+				contacts.add(contactUri.toString());
 				String[] projection = { Phone.NUMBER, Phone.DISPLAY_NAME };
 				Cursor cursor = getContentResolver().query(contactUri,
 						projection, null, null, null);
@@ -245,9 +248,11 @@ public class NewEvent extends Activity {
 		public void onClick(DialogInterface dialog, int whichButton) {
 			if(input.getText().toString().equals("")){
 				  curLink+= "www.google.com";
+				  templink=curLink;
 			  }
 			  else{
 				  curLink+= input.getText().toString() + "\n";
+				  templink= input.getText().toString();
 			  }
 			AlertDialog.Builder alert1 = new AlertDialog.Builder(NewEvent.this);
 			alert1.setTitle("New Link");
@@ -259,16 +264,18 @@ public class NewEvent extends Activity {
 			public void onClick(DialogInterface dialog, int whichButton) {
 				if(input1.getText().toString().equals("")){
 					  curLink+= "TBobstaclesAG";
+					  tempname= "TBobstaclesAG";
 				  }
 				  else{
-					  curLink+= input1.getText().toString();		  
+					  curLink+= input1.getText().toString();	
+					  tempname= input1.getText().toString();
 				  }
 
 				links.add(curLink);
+				
 				Button btn = new Button(NewEvent.this);
-				StringTokenizer stk = new StringTokenizer(curLink, "\n");
-				btn.setHint(stk.nextToken());
-				btn.setText(stk.nextToken());
+				btn.setHint(templink);
+				btn.setText(tempname);
 				btn.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						Button b = (Button) v;
