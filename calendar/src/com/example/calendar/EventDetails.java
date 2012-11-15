@@ -68,7 +68,7 @@ public class EventDetails extends Activity {
 		contactParent.setArrayChildren(arrayContactNames);
 		arrayParentsContact.add(contactParent);
 		contactList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsContact,ContactCustomAdapter.CONTACT,arrayContacts));
-
+/*
 		//file list
 		fileList = (ExpandableListView)findViewById(R.id.file_list);
 		Parent fileParent = new Parent();
@@ -87,7 +87,9 @@ public class EventDetails extends Activity {
 		fileParent.setArrayChildren(arrayListNames);
 		arrayParentsFile.add(fileParent);
 		fileList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsFile,ContactCustomAdapter.FILE,null));//arrayFiles
-		
+*/
+
+/*		
 		//apps should go here
 		appList = (ExpandableListView)findViewById(R.id.app_list);
 		Parent appParent = new Parent();
@@ -103,7 +105,7 @@ public class EventDetails extends Activity {
 		// to run app, given the name
 		// final PackageManager pm = getPackageManager();
 		// startActivity(pm.getLaunchIntentForPackage(packageInfo.packageName)));
-
+*/
 		// links should go here
 		linkList = (ExpandableListView)findViewById(R.id.link_list);
 		Parent linkParent = new Parent();
