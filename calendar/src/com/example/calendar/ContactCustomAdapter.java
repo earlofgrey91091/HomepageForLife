@@ -24,7 +24,6 @@ public class ContactCustomAdapter extends BaseExpandableListAdapter {
 	private ArrayList<String> actual_names;
 	private int flag;
 	private Context context;
-	private Uri uri;
 	static final int CONTACT = 0;
 	static final int NOTE = 2;
 	static final int LINK = 3;
@@ -32,13 +31,12 @@ public class ContactCustomAdapter extends BaseExpandableListAdapter {
 	static final int FILE = 5;
 
 	public ContactCustomAdapter(Context context, ArrayList<Parent> parent,
-			int flag1, ArrayList<String> actuals, Uri uri) {
+			int flag1, ArrayList<String> actuals) {
 		this.context = context;
 		mParent = parent;
 		inflater = LayoutInflater.from(context);
 		this.flag = flag1;
 		actual_names = actuals;
-		this.uri = uri;
 	}
 
 	// @Override
@@ -127,26 +125,7 @@ public class ContactCustomAdapter extends BaseExpandableListAdapter {
 			// "i" is the position of the parent/group in the list and
 			// "i1" is the position of the child
 			text.setText(mParent.get(i).getArrayChildren().get(i1));
-
-			// return the entire view
-			return view;
-		} else if (flag == LINK) {
-			if (view == null) {
-				view = inflater.inflate(R.layout.list_item_link, viewGroup,
-						false);
-			}
-
-			TextView text = (TextView) view
-					.findViewById(R.id.link);
-			// "i" is the position of the parent/group in the list and
-			// "i1" is the position of the child
-			text.setText(mParent.get(i).getArrayChildren().get(i1));
-
-			// return the entire view
-			return view;
-		}
-		
-		else {
+		} else if (flag == CONTACT) {
 			if (view == null) {
 				view = inflater.inflate(R.layout.list_item_contact, viewGroup,
 						false);
@@ -156,25 +135,42 @@ public class ContactCustomAdapter extends BaseExpandableListAdapter {
 			// "i" is the position of the parent/group in the list and
 			// "i1" is the position of the child
 			btn.setText(mParent.get(i).getArrayChildren().get(i1));
-			btn.setHint(uri+"~"+"1");
+			btn.setHint("1");
 			btn.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View v) {
 					Button btn = (Button) v;
 					Intent intent = new Intent(Intent.ACTION_VIEW);
-					String hint = String.valueOf(btn.getHint());
-					int marker = hint.lastIndexOf("~");
-					String our_uri = hint.substring(0,marker);
-					String name = hint.substring(marker+1);
 					Uri uri = Uri.withAppendedPath(
-							Uri.parse(our_uri),
-							name);
+							ContactsContract.Contacts.CONTENT_URI,
+							String.valueOf(btn.getHint()));
 					intent.setData(uri);
 					context.startActivity(intent);
 				}
 			});
-			// return the entire view
-			return view;
+		} else if (flag == LINK) {
+			if (view == null) {
+				view = inflater.inflate(R.layout.list_item_contact, viewGroup,
+						false);
+			}
+
+			Button btn = (Button) view.findViewById(R.id.contact);
+			// "i" is the position of the parent/group in the list and
+			// "i1" is the position of the child
+			btn.setText(mParent.get(i).getArrayChildren().get(i1));
+			btn.setHint("http://www.google.com");
+			btn.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+					Button btn = (Button) v;
+					Intent intent = new Intent(Intent.ACTION_VIEW);
+					Uri uri = Uri.withAppendedPath(
+							Uri.parse(String.valueOf(btn.getHint())),
+							"");
+					intent.setData(uri);
+					context.startActivity(intent);
+				}
+			});
 		}
+		return view;
 	}
 
 	// @Override
