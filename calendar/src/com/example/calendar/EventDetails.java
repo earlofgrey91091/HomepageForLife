@@ -25,7 +25,6 @@ public class EventDetails extends Activity {
 	ArrayList<String> arrayNotes;
 	
 	public void onCreate(Bundle savedInstanceState) {
-	
 		super.onCreate(savedInstanceState);
 		ExpandableListView contactList;
 		ExpandableListView fileList;

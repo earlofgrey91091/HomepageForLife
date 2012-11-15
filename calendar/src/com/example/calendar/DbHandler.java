@@ -120,6 +120,7 @@ public class DbHandler extends SQLiteOpenHelper {
 
 		CalendarEvent event = new CalendarEvent(cur.getInt(0),
 				cur.getString(1), cur.getString(2), cur.getString(3));
+		db.close();
 		// return event
 		return event;
 	}
@@ -147,6 +148,7 @@ public class DbHandler extends SQLiteOpenHelper {
 			} while (cursor.moveToNext());
 		}
 
+		db.close();
 		// return contact list
 		return eventList;
 	}
@@ -251,6 +253,7 @@ public class DbHandler extends SQLiteOpenHelper {
 				fileList.add(cursor.getString(1));
 			} while (cursor.moveToNext());
 		}
+		db.close();
 		return fileList;
 	}
 
@@ -327,6 +330,7 @@ public class DbHandler extends SQLiteOpenHelper {
 				noteList.add(cursor.getString(1));
 			} while (cursor.moveToNext());
 		}
+		db.close();
 		return noteList;
 	}
 
@@ -371,10 +375,10 @@ public class DbHandler extends SQLiteOpenHelper {
 			} while (cursor.moveToNext());
 		}
 
+		db.close(); // Closing database connection
 		// return link list
 		return linkList;
 
-		//db.close(); // Closing database connection
 	}
 
 	// Deleting single note
