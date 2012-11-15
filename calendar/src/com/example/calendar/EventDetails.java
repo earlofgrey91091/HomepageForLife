@@ -20,6 +20,7 @@ public class EventDetails extends Activity {
 		super.onCreate(savedInstanceState);
 		ExpandableListView contactList;
 		ExpandableListView fileList;
+		ExpandableListView noteList;
 		db = new DbHandler(this);
 		setContentView(R.layout.activity_event_details);
 		Intent data = getIntent();
@@ -27,7 +28,7 @@ public class EventDetails extends Activity {
 		event = db.getEvent(theDate);
 	
 		TextView name = (TextView) findViewById(R.id.name);
-		name.setText("Name:" + event.getName());
+		name.setText("Name: " + event.getName());
 		
 		TextView date = (TextView) findViewById(R.id.date);
 		date.setText("Date: " + event.getDate());
@@ -35,7 +36,7 @@ public class EventDetails extends Activity {
 		TextView location = (TextView) findViewById(R.id.location);
 		location.setText("Location: " + event.getLocation());
  
-        //here we set the parents and the children
+        //contact list
         contactList = (ExpandableListView)findViewById(R.id.contact_list);
 		Parent contactParent = new Parent();
 		ArrayList<Parent> arrayParentsContact = new ArrayList<Parent>();
@@ -48,6 +49,7 @@ public class EventDetails extends Activity {
 		arrayParentsContact.add(contactParent);
 		contactList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsContact,0));
 
+		//file list
 		fileList = (ExpandableListView)findViewById(R.id.file_list);
 		Parent fileParent = new Parent();
 		ArrayList<Parent> arrayParentsFile = new ArrayList<Parent>();
@@ -58,10 +60,22 @@ public class EventDetails extends Activity {
         }
 		fileParent.setArrayChildren(arrayFiles);
 		arrayParentsFile.add(fileParent);
-		fileList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsContact,1));
+		fileList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsFile,1));
+		
 		//apps should go here
-		TextView notes = (TextView) findViewById(R.id.notes);
-		notes.setText("Notes:");
+		
+		//note list
+		noteList = (ExpandableListView)findViewById(R.id.note_list);
+		Parent noteParent = new Parent();
+		ArrayList<Parent> arrayParentsNote = new ArrayList<Parent>();
+		noteParent.setTitle("Notes");
+		ArrayList<String> arrayNotes = new ArrayList<String>();
+		for(int i=1;i<=3;i++) {
+            arrayNotes.add("Note "+i);
+        }
+		noteParent.setArrayChildren(arrayNotes);
+		arrayParentsNote.add(noteParent);
+		noteList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsNote,2));
 		//notes.setText("Notes: \n" + event.getNotes());
 	}
 	

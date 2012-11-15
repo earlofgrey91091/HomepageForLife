@@ -100,17 +100,32 @@ public class ContactCustomAdapter extends BaseExpandableListAdapter {
 //    @Override
     //in this method you must set the text to see the children on the list
     public View getChildView(int i, int i1, boolean b, View view, ViewGroup viewGroup) {
-        if (view == null) {
-            view = inflater.inflate(R.layout.list_item_contact, viewGroup,false);
-        }
+    	if (flag==2) {
+    		if (view == null) {
+            	view = inflater.inflate(R.layout.list_item_child, viewGroup,false);
+        	}
  
-        Button btn = (Button) view.findViewById(R.id.contact);
-        //"i" is the position of the parent/group in the list and
-        //"i1" is the position of the child
-        btn.setText(mParent.get(i).getArrayChildren().get(i1));
+        	TextView text = (TextView) view.findViewById(R.id.list_item_text_child);
+        	//"i" is the position of the parent/group in the list and
+        	//"i1" is the position of the child
+        	text.setText(mParent.get(i).getArrayChildren().get(i1));
  
-        //return the entire view
-        return view;
+        	//return the entire view
+        	return view;
+    	} 
+    	else {
+    		if (view == null) {
+            	view = inflater.inflate(R.layout.list_item_contact, viewGroup,false);
+        	}
+ 
+        	Button btn = (Button) view.findViewById(R.id.contact);
+        	//"i" is the position of the parent/group in the list and
+        	//"i1" is the position of the child
+        	btn.setText(mParent.get(i).getArrayChildren().get(i1));
+ 
+        	//return the entire view
+        	return view;
+    	}
     }
  
 //    @Override
