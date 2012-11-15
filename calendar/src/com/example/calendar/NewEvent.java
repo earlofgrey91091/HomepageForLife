@@ -237,7 +237,7 @@ public class NewEvent extends Activity {
 	}
 
 	public void save(View view) {
-		EditText date = (EditText) findViewById(R.id.date_button);
+		Button date = (Button) findViewById(R.id.date_button);
 		String dateMessage = date.getText().toString();
 		EditText name = (EditText) findViewById(R.id.name_message);
 		String nameMessage = name.getText().toString();
