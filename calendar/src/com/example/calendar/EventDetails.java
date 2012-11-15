@@ -129,7 +129,10 @@ public class EventDetails extends Activity {
 		Parent noteParent = new Parent();
 		ArrayList<Parent> arrayParentsNote = new ArrayList<Parent>();
 		noteParent.setTitle("Note");
+
 		arrayNotes = db.getNotes(event.getID());
+		Log.d("EVENTDETAILS", "arraynotes.returned size is " + arrayNotes.size());
+
 		noteParent.setArrayChildren(arrayNotes);
 		arrayParentsNote.add(noteParent);
 		noteList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsNote,ContactCustomAdapter.NOTE,null));
@@ -144,6 +147,8 @@ public class EventDetails extends Activity {
 		}
 		for(String note: arrayNotes)
 		{
+			Log.d("EVENTDETAILS", "notetodelete has note" + note);
+
 			db.deleteNote(event.getID(), note);
 		}
 		for(String file: arrayFiles)

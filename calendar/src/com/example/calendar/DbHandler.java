@@ -221,7 +221,7 @@ public class DbHandler extends SQLiteOpenHelper {
 	// Deleting single Contact
 	public void deleteContact(int eventId, String theContact) {
 		SQLiteDatabase db = this.getWritableDatabase();
-		db.delete(CONTACT_TABLE, KEY_ID + " = ? , " + KEY_CONTACT_VALUE + " = ?",
+		db.delete(CONTACT_TABLE, KEY_EVENT_ID + " = ? AND " + KEY_CONTACT_VALUE + " = ?",
 				new String[] { String.valueOf(eventId), theContact });
 		db.close();
 	}
@@ -260,7 +260,7 @@ public class DbHandler extends SQLiteOpenHelper {
 	// Deleting single file
 	public void deleteFile(int eventId, String theFile) {
 		SQLiteDatabase db = this.getWritableDatabase();
-		db.delete(FILE_TABLE, KEY_ID + " = ? , " + KEY_FILE + " = ?",
+		db.delete(FILE_TABLE, KEY_ID + " = ? AND " + KEY_FILE + " = ?",
 				new String[] { String.valueOf(eventId), theFile});
 		db.close();
 	}
@@ -298,7 +298,7 @@ public class DbHandler extends SQLiteOpenHelper {
 	// Deleting single app
 	public void deleteApp(int eventId, String theApp) {
 		SQLiteDatabase db = this.getWritableDatabase();
-		db.delete(APP_TABLE, KEY_ID + " = ? , " + KEY_APP_NAME + " = ?",
+		db.delete(APP_TABLE, KEY_EVENT_ID + " = ? AND " + KEY_APP_NAME + " = ?",
 				new String[] { String.valueOf(eventId), theApp});
 		db.close();
 	}
@@ -337,7 +337,7 @@ public class DbHandler extends SQLiteOpenHelper {
 	// Deleting single note
 	public void deleteNote(int eventId, String theNote) {
 		SQLiteDatabase db = this.getWritableDatabase();
-		db.delete(NOTE_TABLE, KEY_ID + " = ? , " + KEY_NOTE + " = ?",
+		db.delete(NOTE_TABLE, KEY_EVENT_ID + " = ? AND " + KEY_NOTE + " = ?",
 				new String[] { String.valueOf(eventId), theNote});
 		db.close();
 	}
@@ -384,7 +384,7 @@ public class DbHandler extends SQLiteOpenHelper {
 	// Deleting single note
 	public void deleteLink(int eventId, String theLink) {
 		SQLiteDatabase db = this.getWritableDatabase();
-		db.delete(LINK_TABLE, KEY_ID + " = ? , " + KEY_LINK_URL + " = ?",
+		db.delete(LINK_TABLE, KEY_EVENT_ID + " = ? AND " + KEY_LINK_URL + " = ?",
 				new String[] { String.valueOf(eventId), theLink});
 		db.close();
 	}
