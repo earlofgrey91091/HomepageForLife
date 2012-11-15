@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.View;
@@ -86,8 +87,8 @@ public class EventDetails extends Activity {
             arrayLinks.add("Link "+i);
         }
 		linkParent.setArrayChildren(arrayLinks);
-		arrayParentsLink.add(linkParent);
-		linkList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsLink,1,null,ContactsContract.Contacts.CONTENT_URI));
+		arrayParentsLink.add(linkParent);								// this null should be the links
+		linkList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsLink,1,null,Uri.parse("")));
 		
 		//note list
 		noteList = (ExpandableListView)findViewById(R.id.note_list);
