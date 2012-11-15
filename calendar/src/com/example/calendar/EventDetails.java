@@ -56,6 +56,7 @@ public class EventDetails extends Activity {
 		Log.d("EVENTDETAILS", "arrayContacts.returned size is " + arrayContacts.size());
 		for (int i = 0; i<arrayContacts.size(); i++)
 		{
+			Log.d("EVENTDETAILS", "added contact " + arrayContacts.get(i));
 			String[] projection = {Phone.DISPLAY_NAME };
 			Cursor cursor = getContentResolver().query(Uri.parse(arrayContacts.get(i)),
 					projection, null, null, null);
@@ -77,6 +78,7 @@ public class EventDetails extends Activity {
 		Log.d("EVENTDETAILS", "arrayFiles.returned size is " + arrayFiles.size());
 		ArrayList<String> arrayListNames = new ArrayList<String>();
 		for(int i = 0; i<arrayFiles.size(); i++) {
+			Log.d("EVENTDETAILS", "added files " + arrayFiles.get(i));
 			int name_loc = arrayFiles.get(i).lastIndexOf("/");
 			arrayListNames.add(arrayFiles.get(i).substring(name_loc + 1));
 		}
@@ -115,6 +117,7 @@ public class EventDetails extends Activity {
 
 		for (int i = 0; i<arrayLinks.size(); i++)
 		{
+			Log.d("EVENTDETAILS", "added links " + arrayLinks.get(i));
 			StringTokenizer stk = new StringTokenizer(arrayLinks.get(i), "\n");
 			arrayLinkNames.add(stk.nextToken());
 			arrayLinkURLs.add(stk.nextToken());
@@ -147,7 +150,7 @@ public class EventDetails extends Activity {
 		}
 		for(String note: arrayNotes)
 		{
-			Log.d("EVENTDETAILS", "notetodelete has note" + note);
+			//Log.d("EVENTDETAILS", "notetodelete has note " + note);
 
 			db.deleteNote(event.getID(), note);
 		}
