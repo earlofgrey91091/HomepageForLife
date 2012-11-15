@@ -51,7 +51,7 @@ public class EventDetails extends Activity {
 		fileList = (ExpandableListView)findViewById(R.id.file_list);
 		Parent fileParent = new Parent();
 		ArrayList<Parent> arrayParentsFile = new ArrayList<Parent>();
-		contactParent.setTitle("Files");
+		fileParent.setTitle("Files");
 		ArrayList<String> arrayFiles = new ArrayList<String>();
 		for(int i=1;i<=3;i++) {
             arrayFiles.add("File "+i);
@@ -61,6 +61,7 @@ public class EventDetails extends Activity {
 		fileList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsContact,1));
 		
 		TextView notes = (TextView) findViewById(R.id.notes);
+		notes.setText("Notes:");
 		//notes.setText("Notes: \n" + event.getNotes());
 	}
 	
