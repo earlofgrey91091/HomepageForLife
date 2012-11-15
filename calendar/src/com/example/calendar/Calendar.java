@@ -77,6 +77,10 @@ public class Calendar extends Activity {
 					event_list = db.getAllEvents();
 					
 					Log.d("Calendar", "returned rowid is " + String.valueOf(foundrow));
+					Log.d("Calendar", "# of links " + links.size());
+					Log.d("Calendar", "# of contacts " + contacts.size());
+					Log.d("Calendar", "# of files " + files.size());
+					Log.d("Calendar", "# of apps " + apps.size());
 					//event = db.getEvent(data.getIntExtra("ID", -1));
 					event_list.add(event);
 

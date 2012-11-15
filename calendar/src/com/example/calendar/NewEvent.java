@@ -19,6 +19,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -83,19 +84,19 @@ public class NewEvent extends Activity {
 		switch (requestCode) {
 		case ADD_FILE:
 			if (resultCode == RESULT_OK) {
-				LinearLayout linearLayout = (LinearLayout) findViewById(R.id.file_layout);
+				LinearLayout fileLinearLayout = (LinearLayout) findViewById(R.id.file_layout);
 				String f = (String) data.getSerializableExtra("file");
 				files.add(f);
 				int name_loc = f.lastIndexOf("/");
 				String f_name = f.substring(name_loc + 1);
-				RelativeLayout relativeLayout = new RelativeLayout(this);
+				RelativeLayout fileRelativeLayout = new RelativeLayout(this);
 
 				TextView name = new TextView(this);
 				name.setText(f_name);
 				RelativeLayout.LayoutParams name_params = new RelativeLayout.LayoutParams(
 						LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 				name_params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-				relativeLayout.addView(name, name_params);
+				fileRelativeLayout.addView(name, name_params);
 
 				RelativeLayout.LayoutParams btn_params = new RelativeLayout.LayoutParams(
 						LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
@@ -108,8 +109,8 @@ public class NewEvent extends Activity {
 						r.removeAllViews();
 					}
 				});
-				relativeLayout.addView(btn, btn_params);
-				linearLayout.addView(relativeLayout);
+				fileRelativeLayout.addView(btn, btn_params);
+				fileLinearLayout.addView(fileRelativeLayout);
 			}
 			break;
 
@@ -125,15 +126,15 @@ public class NewEvent extends Activity {
 				int column = cursor.getColumnIndex(Phone.DISPLAY_NAME);
 				String cont_name = cursor.getString(column);
 
-				LinearLayout linearLayout = (LinearLayout) findViewById(R.id.contacts_layout);
-				RelativeLayout relativeLayout = new RelativeLayout(this);
+				LinearLayout contactsLinearLayout = (LinearLayout) findViewById(R.id.contacts_layout);
+				RelativeLayout contactsRelativeLayout = new RelativeLayout(this);
 
 				TextView name = new TextView(this);
 				name.setText(cont_name);
 				RelativeLayout.LayoutParams name_params = new RelativeLayout.LayoutParams(
 						LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 				name_params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-				relativeLayout.addView(name, name_params);
+				contactsRelativeLayout.addView(name, name_params);
 
 				RelativeLayout.LayoutParams btn_params = new RelativeLayout.LayoutParams(
 						LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
@@ -146,8 +147,8 @@ public class NewEvent extends Activity {
 						r.removeAllViews();
 					}
 				});
-				relativeLayout.addView(btn, btn_params);
-				linearLayout.addView(relativeLayout);
+				contactsRelativeLayout.addView(btn, btn_params);
+				contactsLinearLayout.addView(contactsRelativeLayout);
 			}
 			break;
 		}
@@ -183,14 +184,14 @@ public class NewEvent extends Activity {
 				.toArray(new CharSequence[packagenames.size()]);
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle("Options for App choice");
-		builder.setItems(items, new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int item) {
-
+		builder.setItems(items, new DialogInterface.OnClickListener() 
+		{
+			public void onClick(DialogInterface dialog, int item) 
+			{
 				String app_name = (String) items[item];
-
-				LinearLayout linearLayout = (LinearLayout) findViewById(R.id.app_layout);
+				LinearLayout appsLinearLayout = (LinearLayout) findViewById(R.id.app_layout);
 				apps.add(app_name);
-				RelativeLayout relativeLayout = new RelativeLayout(
+				RelativeLayout appsRelativeLayout = new RelativeLayout(
 						NewEvent.this);
 
 				TextView name = new TextView(NewEvent.this);
@@ -200,7 +201,7 @@ public class NewEvent extends Activity {
 				RelativeLayout.LayoutParams name_params = new RelativeLayout.LayoutParams(
 						LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 				name_params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-				relativeLayout.addView(name, name_params);
+				appsRelativeLayout.addView(name, name_params);
 
 				RelativeLayout.LayoutParams btn_params = new RelativeLayout.LayoutParams(
 						LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
@@ -213,8 +214,8 @@ public class NewEvent extends Activity {
 						r.removeAllViews();
 					}
 				});
-				relativeLayout.addView(btn, btn_params);
-				linearLayout.addView(relativeLayout);
+				appsRelativeLayout.addView(btn, btn_params);
+				appsLinearLayout.addView(appsRelativeLayout);
 
 			}
 		}).show();
@@ -240,37 +241,41 @@ public class NewEvent extends Activity {
 
 		final EditText input = new EditText(this);
 		alert.setView(input);
-		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-		public void onClick(DialogInterface dialog, int whichButton) {
-			if(input.getText().toString().equals("")){
-				  curLink+= "www.google.com";
-				  templink=curLink;
-			  }
-			  else{
-				  curLink+= input.getText().toString() + "\n";
-				  templink= input.getText().toString();
-			  }
-			AlertDialog.Builder alert1 = new AlertDialog.Builder(NewEvent.this);
-			alert1.setTitle("New Link");
-			alert1.setMessage("Change name of link for display");
+		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() 
+		{
+			public void onClick(DialogInterface dialog, int whichButton) 
+			{
+				if(input.getText().toString().equals("")){
+					curLink+= "www.google.com";
+					templink=curLink;
+				}
+				else{
+					curLink+= input.getText().toString() + "\n";
+					templink= input.getText().toString();
+				}
+				AlertDialog.Builder alert1 = new AlertDialog.Builder(NewEvent.this);
+				alert1.setTitle("New Link");
+				alert1.setMessage("Change name of link for display");
 
-			final EditText input1 = new EditText(NewEvent.this);
-			alert1.setView(input1);
-			alert1.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int whichButton) {
-				if(input1.getText().toString().equals("")){
-					  curLink+= "TBobstaclesAG";
-					  tempname= "TBobstaclesAG";
-				  }
-				  else{
-					  curLink+= input1.getText().toString();	
-					  tempname= input1.getText().toString();
-				  }
+				final EditText input1 = new EditText(NewEvent.this);
+				alert1.setView(input1);
+				alert1.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int whichButton) {
+				if(input1.getText().toString().equals(""))
+				{
+					curLink+= "TBobstaclesAG";
+					tempname= "TBobstaclesAG";
+				}
+				else
+				{
+					curLink+= input1.getText().toString();	
+					tempname= input1.getText().toString();
+				}
 
 				links.add(curLink);				
 				
-				LinearLayout linearLayout = (LinearLayout) findViewById(R.id.links_layout);
-				RelativeLayout relativeLayout = new RelativeLayout(NewEvent.this);
+				LinearLayout linkLinearLayout = (LinearLayout) findViewById(R.id.links_layout);
+				RelativeLayout linkRelativeLayout = new RelativeLayout(NewEvent.this);
 
 				Button btn = new Button(NewEvent.this);
 				btn.setHint(templink);
@@ -289,8 +294,7 @@ public class NewEvent extends Activity {
 				RelativeLayout.LayoutParams name_params = new RelativeLayout.LayoutParams(
 						LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 				name_params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-				relativeLayout.addView(btn, name_params);
-
+				linkRelativeLayout.addView(btn, name_params);
 				RelativeLayout.LayoutParams btn_params = new RelativeLayout.LayoutParams(
 						LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 				btn_params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
@@ -302,8 +306,8 @@ public class NewEvent extends Activity {
 						r.removeAllViews();
 					}
 				});
-				relativeLayout.addView(btns, btn_params);
-				linearLayout.addView(relativeLayout);
+				linkRelativeLayout.addView(btns, btn_params);
+				linkLinearLayout.addView(linkRelativeLayout);
 			  }
 			});
 			alert1.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -323,7 +327,8 @@ public class NewEvent extends Activity {
 		
 	}
 
-	public void save(View view) {
+	public void save(View view) 
+	{
 		Button date = (Button) findViewById(R.id.date_button);
 		String dateMessage = date.getText().toString();
 		EditText name = (EditText) findViewById(R.id.name_message);
@@ -333,8 +338,15 @@ public class NewEvent extends Activity {
 		EditText notes = (EditText) findViewById(R.id.note_message);
 		String notesMessage = notes.getText().toString();
 		CalendarEvent newEvent = new CalendarEvent(dateMessage, nameMessage,
-				locationMessage);
+													locationMessage);
 		int rowVal = db.addEvent(newEvent);
+		Log.d("NewEVENT", "new event.returned ID is " + rowVal);
+		Log.d("NewEVENT", "# of links " + links.size());
+		Log.d("NewEVENT", "# of contacts " + contacts.size());
+		Log.d("NewEVENT", "# of files " + files.size());
+		Log.d("NewEVENT", "# of apps " + apps.size());
+
+
 		Intent i = new Intent();
 		i.putExtra("ID", rowVal);
 		i.putStringArrayListExtra("apps", apps);

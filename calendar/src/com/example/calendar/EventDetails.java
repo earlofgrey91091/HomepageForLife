@@ -35,7 +35,8 @@ public class EventDetails extends Activity {
 		setContentView(R.layout.activity_event_details);
 		Intent data = getIntent();
 		event = db.getEvent(data.getIntExtra("ID", -1));
-	
+		Log.d("EVENTDETAILS", "event.returned ID is " + event.getID());
+
 		TextView name = (TextView) findViewById(R.id.name);
 		name.setText("Name: " + event.getName());
 		
@@ -52,6 +53,7 @@ public class EventDetails extends Activity {
 		contactParent.setTitle("Contacts");
 		ArrayList<String> arrayContactNames = new ArrayList<String>();
 		arrayContacts = db.getContacts(event.getID());
+		Log.d("EVENTDETAILS", "arrayContacts.returned size is " + arrayContacts.size());
 		for (int i = 0; i<arrayContacts.size(); i++)
 		{
 			String[] projection = {Phone.DISPLAY_NAME };
@@ -72,14 +74,17 @@ public class EventDetails extends Activity {
 		ArrayList<Parent> arrayParentsFile = new ArrayList<Parent>();
 		fileParent.setTitle("Files");
 		arrayFiles = db.getFiles(event.getID());
+		Log.d("EVENTDETAILS", "arrayFiles.returned size is " + arrayFiles.size());
 		ArrayList<String> arrayListNames = new ArrayList<String>();
 		for(int i = 0; i<arrayFiles.size(); i++) {
 			int name_loc = arrayFiles.get(i).lastIndexOf("/");
 			arrayListNames.add(arrayFiles.get(i).substring(name_loc + 1));
 		}
+		Log.d("EVENTDETAILS", "for file arrayListNames.returned size is " + arrayListNames.size());
+
 		fileParent.setArrayChildren(arrayListNames);
 		arrayParentsFile.add(fileParent);
-		fileList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsFile,ContactCustomAdapter.FILE,arrayFiles));
+		fileList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsFile,ContactCustomAdapter.FILE,null));//arrayFiles
 		
 		//apps should go here
 		appList = (ExpandableListView)findViewById(R.id.app_list);
@@ -88,6 +93,8 @@ public class EventDetails extends Activity {
 		appParent.setTitle("Apps");
 
 		arrayApps = db.getApps(event.getID());
+		Log.d("EVENTDETAILS", "arrayApps.returned size is " + arrayApps.size());
+
 		appParent.setArrayChildren(arrayApps);
 		arrayParentsApp.add(appParent);
 		appList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsApp,ContactCustomAdapter.APP,null));
@@ -104,6 +111,8 @@ public class EventDetails extends Activity {
 		ArrayList<String> arrayLinkNames = new ArrayList<String>();
 		ArrayList<String> arrayLinkURLs = new ArrayList<String>();
 		arrayLinks = db.getLinks(event.getID());
+		Log.d("EVENTDETAILS", "arraylinks.returned size is " + arrayLinks.size());
+
 		for (int i = 0; i<arrayLinks.size(); i++)
 		{
 			StringTokenizer stk = new StringTokenizer(arrayLinks.get(i), "\n");
