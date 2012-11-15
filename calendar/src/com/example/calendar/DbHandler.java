@@ -366,7 +366,7 @@ public class DbHandler extends SQLiteOpenHelper {
 			Log.d("DbHandler", "event is id " + String.valueOf(eventId));
 
 			do {
-				Log.d("DbHandler", "output at row is " + cursor.getString(0) +" and " + cursor.getString(1));
+				Log.d("DbHandler", "link output at row is " + cursor.getString(0) +" and " + cursor.getString(1));
 				linkList.add(cursor.getString(1) + "\n" + cursor.getString(2));
 			} while (cursor.moveToNext());
 		}

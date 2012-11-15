@@ -95,7 +95,7 @@ public class Calendar extends Activity {
 					}
 					for(String theLink : links)
 					{
-						StringTokenizer st = new StringTokenizer("Link\nName", "\n");
+						StringTokenizer st = new StringTokenizer(theLink, "\n");
 						db.addLink(event.getID(), st.nextToken(), st.nextToken());
 					}
 					if(!notes.equals("")) db.addNote(event.getID(), notes);
