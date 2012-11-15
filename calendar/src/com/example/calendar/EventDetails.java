@@ -70,7 +70,10 @@ public class EventDetails extends Activity {
 		ArrayList<Parent> arrayParentsNote = new ArrayList<Parent>();
 		noteParent.setTitle("Note");
 		ArrayList<String> arrayNotes = new ArrayList<String>();
-		arrayNotes = db.getNotes(event.getID());
+		for(int i=1;i<=3;i++) {
+            arrayNotes.add("Note "+i);
+        }
+		ArrayList<String> notes = db.getNotes(event.getID());
 		noteParent.setArrayChildren(arrayNotes);
 		arrayParentsNote.add(noteParent);
 		noteList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsNote,2));

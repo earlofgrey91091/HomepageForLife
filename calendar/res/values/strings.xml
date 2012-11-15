@@ -18,7 +18,7 @@
     <string name="button_message3">edit</string>
     <string name="selected_file_name">No selected file</string>
     <string name="title_activity_android_explorer">AndroidExplorer</string>
-    <string name="note_message">Notes</string>
+    <string name="note_message">Note</string>
     <string name="appText">Apps</string>
 
 </resources>
