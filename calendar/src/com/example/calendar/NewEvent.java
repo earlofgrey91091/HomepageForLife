@@ -116,6 +116,7 @@ public class NewEvent extends Activity {
 		case ADD_CONTACT:
 			if (resultCode == RESULT_OK) {
 				Uri contactUri = data.getData();
+				contacts.add(contactUri.toString());
 				String[] projection = { Phone.NUMBER, Phone.DISPLAY_NAME };
 				Cursor cursor = getContentResolver().query(contactUri,
 						projection, null, null, null);

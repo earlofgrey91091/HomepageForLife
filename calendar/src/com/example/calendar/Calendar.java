@@ -70,6 +70,8 @@ public class Calendar extends Activity {
 					ArrayList<String> files = (ArrayList<String>) data.getStringArrayListExtra("files");
 					ArrayList<String> apps = (ArrayList<String>) data.getStringArrayListExtra("apps");
 					ArrayList<String> contacts = (ArrayList<String>) data.getStringArrayListExtra("contacts");
+					Toast.makeText(getApplicationContext(), 
+							contacts.get(0), Toast.LENGTH_LONG).show();
 					ArrayList<String> links = (ArrayList<String>) data.getStringArrayListExtra("links");
 					String notes = (String) data.getStringExtra("notes");
 					event_list = db.getAllEvents();
