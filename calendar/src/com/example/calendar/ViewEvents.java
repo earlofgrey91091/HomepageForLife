@@ -27,19 +27,29 @@ public class ViewEvents extends Activity {
 			case EDIT_EVENT: 
 				if (resultCode == RESULT_OK) {
 					CalendarEvent event = (CalendarEvent) data.getSerializableExtra("event");
+					ArrayList<String> files = (ArrayList<String>) data.getStringArrayListExtra("files");
+					ArrayList<String> apps = (ArrayList<String>) data.getStringArrayListExtra("apps");
+					ArrayList<String> contacts = (ArrayList<String>) data.getStringArrayListExtra("contacts");
+					String notes = (String) data.getStringExtra("notes");
 					event_list = db.getAllEvents();
-					event_list.add(db.getEvent(event.getDate()));
+					event = db.getEvent(event.getDate());
+					event_list.add(event);
+					for(String theFile : files)
+					{
+						db.addFile(event.getID(), theFile);
+					}
+					for(String theApp : apps)
+					{
+						db.addApp(event.getID(), theApp);
+					}
+					for(String theContact : contacts)
+					{
+						db.addContact(event.getID(), theContact);
+					}
+					if(notes!="") db.addNote(event.getID(), notes);
 					Toast.makeText(getApplicationContext(), 
 							"event added", Toast.LENGTH_LONG).show();
-				} break;
-			case VIEW_EVENT: 
-				if (resultCode == RESULT_OK) {
-					CalendarEvent event = (CalendarEvent) data.getSerializableExtra("event");
-					event_list = db.getAllEvents();
-					event_list.add(db.getEvent(event.getDate()));
-					Toast.makeText(getApplicationContext(), 
-							"event added", Toast.LENGTH_LONG).show();
-						
+					makeList();
 			}	break;
 		}
 	}
@@ -47,7 +57,11 @@ public class ViewEvents extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        db = new DbHandler(this);
+        makeList();
+    }
+
+	private void makeList() {
+		db = new DbHandler(this);
         setContentView(R.layout.activity_view_events);
         event_list = db.getAllEvents();
         LinearLayout linearLayout = (LinearLayout)findViewById(R.id.view_layout);
@@ -68,7 +82,7 @@ public class ViewEvents extends Activity {
             });
             linearLayout.addView(btn); 
         }
-    }
+	}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -76,15 +90,8 @@ public class ViewEvents extends Activity {
         return true;
     }
     
-    public void add(View view) {
-    	LinearLayout linearLayout = (LinearLayout)findViewById(R.id.view_layout);
-        Button btn = new Button(this); 
-        String name = "Event";
-        
-        if(num!=0)
-        	name+=" "+num;
-        btn.setText(name);
-        num++;
-        linearLayout.addView(btn); 
+    public void newEvent(View view) {
+    	Intent intent = new Intent(this, NewEvent.class);
+	    startActivityForResult(intent,EDIT_EVENT);
     }
 }
