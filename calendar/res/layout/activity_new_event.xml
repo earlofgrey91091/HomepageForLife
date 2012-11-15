@@ -28,7 +28,7 @@
                     android:paddingRight="10dp"
                     android:paddingTop="10dp"
                     android:text="Date:"
-                    android:textSize="24dp" />
+                    style="@android:style/TextAppearance.Medium" />"
 
                 <Button
                     android:id="@+id/date_button"
@@ -43,6 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                style="@android:style/TextAppearance.Medium"
                 android:hint="@string/name_message" />
 
             <EditText
@@ -51,6 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
+                style="@android:style/TextAppearance.Medium"
                 android:hint="@string/location_message" />
 
             <LinearLayout
@@ -72,6 +74,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_alignParentTop="true"
                         android:onClick="addFile"
+                        style="?android:attr/buttonStyleSmall"
                         android:text="@string/button_message" />
 
                     <TextView
@@ -82,7 +85,7 @@
                         android:paddingLeft="10dp"
                         android:paddingTop="10dp"
                         android:text="Files"
-                        android:textSize="24dp" />
+                        style="@android:style/TextAppearance.Medium" />
                 </RelativeLayout>
 
                 <LinearLayout
@@ -109,7 +112,7 @@
                         android:paddingLeft="10dp"
                         android:paddingTop="10dp"
                         android:text="Contacts"
-                        android:textSize="24dp" />
+                        style="@android:style/TextAppearance.Medium" />
 
                     <Button
                         android:layout_width="wrap_content"
@@ -117,6 +120,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_alignParentTop="true"
                         android:onClick="addContact"
+                        style="?android:attr/buttonStyleSmall"
                         android:text="Add" />
                 </RelativeLayout>
 
@@ -144,7 +148,7 @@
                         android:paddingLeft="10dp"
                         android:paddingTop="10dp"
                         android:text="Apps"
-                        android:textSize="24dp" />
+                        style="@android:style/TextAppearance.Medium" />
 
                     <Button
                         android:layout_width="wrap_content"
@@ -152,6 +156,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_alignParentTop="true"
                         android:onClick="addApp"
+                        style="?android:attr/buttonStyleSmall"
                         android:text="Add" />
                 </RelativeLayout>
 
@@ -180,7 +185,7 @@
                         android:paddingLeft="10dp"
                         android:paddingTop="10dp"
                         android:text="Links"
-                        android:textSize="24dp" />
+                        style="@android:style/TextAppearance.Medium" />
 
                     <Button
                         android:layout_width="wrap_content"
@@ -188,6 +193,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_alignParentTop="true"
                         android:onClick="addLink"
+                        style="?android:attr/buttonStyleSmall"
                         android:text="Add" />
                 </RelativeLayout>
 
@@ -206,6 +212,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    style="@android:style/TextAppearance.Medium"
                     android:hint="@string/note_message" />
             </LinearLayout>
         </LinearLayout>
