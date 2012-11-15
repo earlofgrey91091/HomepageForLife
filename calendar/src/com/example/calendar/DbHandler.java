@@ -8,6 +8,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class DbHandler extends SQLiteOpenHelper {
 
@@ -355,13 +356,15 @@ public class DbHandler extends SQLiteOpenHelper {
 
 		SQLiteDatabase db = this.getWritableDatabase();
 		//Cursor cursor = db.rawQuery(selectQuery, null);
-		Cursor cursor = db.query(NOTE_TABLE, new String[]{KEY_NOTE}, KEY_EVENT_ID + " = ?", 
+		Cursor cursor = db.query(NOTE_TABLE, new String[]{KEY_EVENT_ID, KEY_NOTE}, KEY_EVENT_ID + " = ?", 
 					new String[]{String.valueOf(eventId)}, null, null, null);
 		// looping through all rows and adding to list
 		if (cursor.moveToFirst()) {
+			Log.d("DbHandler", "event is id " + String.valueOf(eventId));
+
 			do {
-				noteList.add(cursor.getString(0));
-				
+				Log.d("DbHandler", "output at row is " + cursor.getString(0) +" and " + cursor.getString(1));
+				noteList.add(cursor.getString(1));
 			} while (cursor.moveToNext());
 		}
 
