@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
+import android.util.Log;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
@@ -34,7 +35,6 @@ public class EventDetails extends Activity {
 		db = new DbHandler(this);
 		setContentView(R.layout.activity_event_details);
 		Intent data = getIntent();
-		String theDate = (String) data.getSerializableExtra("Date");
 		event = db.getEvent(data.getIntExtra("ID", -1));
 	
 		TextView name = (TextView) findViewById(R.id.name);
@@ -52,7 +52,8 @@ public class EventDetails extends Activity {
 		ArrayList<Parent> arrayParentsContact = new ArrayList<Parent>();
 		contactParent.setTitle("Contacts");
 		ArrayList<String> arrayContactNames = new ArrayList<String>();
-		ArrayList<String> arrayContacts = db.getLinks(event.getID());
+		ArrayList<String> arrayContacts = db.getContacts(event.getID());
+		Log.d("EVENTDETAILS", "size of contacts is " + String.valueOf(arrayContacts.size()));
 		for (int i = 0; i<arrayContacts.size(); i++)
 		{
 			String[] projection = {Phone.DISPLAY_NAME };
