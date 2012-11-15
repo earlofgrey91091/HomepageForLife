@@ -26,6 +26,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class NewEvent extends Activity {
 
@@ -39,6 +40,8 @@ public class NewEvent extends Activity {
 	ArrayList<String> files = new ArrayList<String>();
 	ArrayList<String> apps = new ArrayList<String>();
 	ArrayList<String> contacts = new ArrayList<String>();
+	ArrayList<String> links = new ArrayList<String>();
+	String curLink="";
 	DbHandler db;
 
 	@Override
@@ -229,38 +232,59 @@ public class NewEvent extends Activity {
 	}
 	
 	public void addLink(View view){
-		//Make an intent for the add url and name
-		//Intent intent=new Intent(
+		curLink="";
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+		alert.setTitle("Rename link");
+		alert.setMessage("Change name of link for display");
 
-		alert.setTitle("Add Link");
-		alert.setMessage("Message");
-
-		// Set an EditText view to get user input 
-		final EditText input0 = new EditText(this);
-		final EditText input1 = new EditText(this);
-		
-		alert.setView(input0);
-
+		final EditText input = new EditText(this);
+		alert.setView(input);
 		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 		public void onClick(DialogInterface dialog, int whichButton) {
-		  String link = input0.getText().toString();
-		  String name= input1.getText().toString();
-		  // write link to database, write name to database
+			if(input.getText().toString().equals("")){
+				  curLink+= "TBobstaclesAG";
+			  }
+			  else{
+				  curLink+= input.getText().toString();
+				  
+			  }
+			Toast.makeText(getApplicationContext(), 
+					curLink, Toast.LENGTH_LONG).show();
 		  }
 		});
-
 		alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
 		  public void onClick(DialogInterface dialog, int whichButton) {
 		    // Canceled.
 		  }
 		});
-
 		alert.show();
 		
-		//startActivityForResult(intent, ADD_LINK);
+		AlertDialog.Builder alert1 = new AlertDialog.Builder(this);
+		alert.setTitle("New Link");
+		alert.setMessage("Insert link:");
+
+		final EditText input1 = new EditText(this);
+		alert.setView(input1);
+		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+		public void onClick(DialogInterface dialog, int whichButton) {
+		  curLink+= input1.getText().toString();
+		  curLink+= "\n";
+		  }
+		});
+		alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+		  public void onClick(DialogInterface dialog, int whichButton) {
+		    // Canceled.
+		  }
+		});
+		alert.show();
+		links.add(curLink);
+		
+		
 		
 	}
+
+	  
+	  
 
 	public void save(View view) {
 		Button date = (Button) findViewById(R.id.date_button);
