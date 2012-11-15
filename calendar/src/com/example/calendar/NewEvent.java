@@ -30,6 +30,7 @@ public class NewEvent extends Activity {
 	final static int ADD_FILE = 3;
 	final static int ADD_APP = 4;
 	final static int ADD_CONTACT = 1001;// 1001
+	final static int ADD_LINK=5;
 	ArrayList<String> files = new ArrayList<String>();
 	ArrayList<String> apps = new ArrayList<String>();
 	ArrayList<String> contacts = new ArrayList<String>();
@@ -133,6 +134,11 @@ public class NewEvent extends Activity {
 				linearLayout.addView(relativeLayout);
 			}
 			break;
+		
+		case ADD_LINK:
+			//handle whatever happens after the activity to make file and filename
+			
+			break;
 		}
 	}
 
@@ -212,6 +218,14 @@ public class NewEvent extends Activity {
 		Intent pickContactIntent = new Intent(Intent.ACTION_PICK, t);
 		pickContactIntent.setType(Phone.CONTENT_TYPE);
 		startActivityForResult(pickContactIntent, ADD_CONTACT);
+	}
+	
+	public void addLink(View view){
+		//Make an intent for the add url and name
+		//Intent intent=new Intent(
+		
+		//startActivityForResult(intent, ADD_LINK);
+		
 	}
 
 	public void save(View view) {
