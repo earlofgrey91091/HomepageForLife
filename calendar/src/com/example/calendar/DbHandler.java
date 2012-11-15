@@ -220,7 +220,7 @@ public class DbHandler extends SQLiteOpenHelper {
 		ArrayList<String> contactList = new ArrayList<String>();
 		
 		// Select All Query
-		String selectQuery = "SELECT "+ KEY_CONTACT_VALUE +" FROM " + CONTACT_TABLE + " WHERE " + KEY_EVENT_ID + " = " + eventId;
+		String selectQuery = "SELECT * FROM " + CONTACT_TABLE + " WHERE " + KEY_EVENT_ID + " = " + eventId;
 
 		SQLiteDatabase db = this.getWritableDatabase();
 		Cursor cursor = db.rawQuery(selectQuery, null);
@@ -264,7 +264,7 @@ public class DbHandler extends SQLiteOpenHelper {
 		ArrayList<String> fileList = new ArrayList<String>();
 		
 		// Select All Query
-		String selectQuery = "SELECT "+ KEY_FILE +" FROM " + FILE_TABLE + " WHERE " + KEY_EVENT_ID + " = " + eventId;
+		String selectQuery = "SELECT * FROM " + FILE_TABLE + " WHERE " + KEY_EVENT_ID + " = " + eventId;
 
 		SQLiteDatabase db = this.getWritableDatabase();
 		Cursor cursor = db.rawQuery(selectQuery, null);
@@ -308,7 +308,7 @@ public class DbHandler extends SQLiteOpenHelper {
 		ArrayList<String> fileList = new ArrayList<String>();
 		
 		// Select All Query
-		String selectQuery = "SELECT "+ KEY_APP_NAME +" FROM " + APP_TABLE + " WHERE " + KEY_EVENT_ID + " = " + eventId;
+		String selectQuery = "SELECT * FROM " + APP_TABLE + " WHERE " + KEY_EVENT_ID + " = " + eventId;
 
 		SQLiteDatabase db = this.getWritableDatabase();
 		Cursor cursor = db.rawQuery(selectQuery, null);
@@ -348,23 +348,24 @@ public class DbHandler extends SQLiteOpenHelper {
 	ArrayList<String> getNotes(int eventId) 
 	{
 		
-		ArrayList<String> fileList = new ArrayList<String>();
+		ArrayList<String> noteList = new ArrayList<String>();
 		
 		// Select All Query
-		String selectQuery = "SELECT * FROM " + NOTE_TABLE + " WHERE " + KEY_EVENT_ID + " = " + eventId;
+		//String selectQuery = "SELECT * FROM " + NOTE_TABLE + " WHERE " + KEY_EVENT_ID + " = " + eventId;
 
 		SQLiteDatabase db = this.getWritableDatabase();
-		Cursor cursor = db.rawQuery(selectQuery, null);
-
+		//Cursor cursor = db.rawQuery(selectQuery, null);
+		Cursor cursor = db.query(NOTE_TABLE, new String[]{KEY_NOTE}, KEY_EVENT_ID + " = ?", 
+					new String[]{String.valueOf(eventId)}, null, null, null);
 		// looping through all rows and adding to list
 		if (cursor.moveToFirst()) {
 			do {
-				fileList.add(cursor.getString(1));
+				noteList.add(cursor.getString(0));
 			} while (cursor.moveToNext());
 		}
 
 		// return contact list
-		return fileList;
+		return noteList;
 
 		//db.close(); // Closing database connection
 	}
