@@ -28,7 +28,7 @@
         android:orientation="vertical" >
 
         <ExpandableListView
-            android:id="@+id/contact_list"
+            android:id="@+id/file_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
         </ExpandableListView>
@@ -41,13 +41,39 @@
         android:orientation="vertical" >
 
         <ExpandableListView
-            android:id="@+id/file_list"
+            android:id="@+id/contact_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
         </ExpandableListView>
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <ExpandableListView
+            android:id="@+id/app_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+        </ExpandableListView>
+
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <ExpandableListView
+            android:id="@+id/link_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+        </ExpandableListView>
+
+    </LinearLayout>
+    
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
