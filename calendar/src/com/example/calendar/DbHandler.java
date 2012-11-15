@@ -63,7 +63,7 @@ public class DbHandler extends SQLiteOpenHelper {
 		String FILE_TABLE_CREATE= "CREATE TABLE "
 				+ FILE_TABLE + " (" + KEY_EVENT_ID + " INTEGER, " + KEY_FILE + " TEXT);";
 		String LINK_TABLE_CREATE= "CREATE TABLE "
-				+ LINK_TABLE + " (" + KEY_EVENT_ID + " INTEGER, " + KEY_LINK_NAME + " TEXT, " + KEY_LINK_URL + " TEXT);";
+				+ LINK_TABLE + " (" + KEY_EVENT_ID + " INTEGER, " + KEY_LINK_URL + " TEXT, " + KEY_LINK_NAME + " TEXT);";
 		String NOTE_TABLE_CREATE= "CREATE TABLE "
 				+ NOTE_TABLE + " (" + KEY_EVENT_ID + " INTEGER, " + KEY_NOTE + " TEXT);";
 		String APP_TABLE_CREATE= "CREATE TABLE "
