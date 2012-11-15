@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -26,13 +27,16 @@ public class ViewEvents extends Activity {
 		switch(requestCode) {
 			case EDIT_EVENT: 
 				if (resultCode == RESULT_OK) {
-					CalendarEvent event = (CalendarEvent) data.getSerializableExtra("event");
+					int foundrow = data.getIntExtra("ID", -1);
+					CalendarEvent event = db.getEvent(foundrow);
 					ArrayList<String> files = (ArrayList<String>) data.getStringArrayListExtra("files");
 					ArrayList<String> apps = (ArrayList<String>) data.getStringArrayListExtra("apps");
 					ArrayList<String> contacts = (ArrayList<String>) data.getStringArrayListExtra("contacts");
 					String notes = (String) data.getStringExtra("notes");
 					event_list = db.getAllEvents();
-					event = db.getEvent(event.getDate());
+					
+					//Log.d("Calendar", "returned rowid is " + String.valueOf(foundrow));
+					//event = db.getEvent(data.getIntExtra("ID", -1));
 					event_list.add(event);
 					for(String theFile : files)
 					{
@@ -68,6 +72,7 @@ public class ViewEvents extends Activity {
         linearLayout.removeAllViews();
         for(int i=0; i<event_list.size(); i++) {
         	final Button btn = new Button(this);
+        	final int j = i;
         	btn.setText(event_list.get(i).getDate()+" - "+event_list.get(i).getName());
             btn.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
@@ -76,7 +81,7 @@ public class ViewEvents extends Activity {
                     int dash = buttonText.indexOf(" - ");
                     buttonText = buttonText.substring(0, dash);
                     Intent intent = new Intent(ViewEvents.this, EventDetails.class);
-            		intent.putExtra("Date", buttonText);
+            		intent.putExtra("ID", (event_list.get(j).getID()));
             		startActivity(intent);
                 }
             });

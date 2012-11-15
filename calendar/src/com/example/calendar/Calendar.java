@@ -2,6 +2,7 @@ package com.example.calendar;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import android.app.Activity;
 import android.content.Context;
@@ -64,16 +65,20 @@ public class Calendar extends Activity {
 		switch(requestCode) {
 			case EDIT_EVENT: 
 				if (resultCode == RESULT_OK) {
-					CalendarEvent event = (CalendarEvent) data.getSerializableExtra("event");
+					int foundrow = data.getIntExtra("ID", -1);
+					CalendarEvent event = db.getEvent(foundrow);
 					ArrayList<String> files = (ArrayList<String>) data.getStringArrayListExtra("files");
 					ArrayList<String> apps = (ArrayList<String>) data.getStringArrayListExtra("apps");
 					ArrayList<String> contacts = (ArrayList<String>) data.getStringArrayListExtra("contacts");
 					ArrayList<String> links = (ArrayList<String>) data.getStringArrayListExtra("links");
 					String notes = (String) data.getStringExtra("notes");
 					event_list = db.getAllEvents();
-					event = db.getEvent(event.getDate());
+					
+					Log.d("Calendar", "returned rowid is " + String.valueOf(foundrow));
+					//event = db.getEvent(data.getIntExtra("ID", -1));
 					event_list.add(event);
-					Log.d("Calendar", "newly added event is id " + String.valueOf(event.getID()));
+
+					//Log.d("Calendar", "newly added event is id " + String.valueOf(event.getID()));
 					for(String theFile : files)
 					{
 						db.addFile(event.getID(), theFile);
@@ -86,6 +91,11 @@ public class Calendar extends Activity {
 					{
 						db.addContact(event.getID(), theContact);
 					}
+					for(String theLink : links)
+					{
+						StringTokenizer st = new StringTokenizer(theLink, "/n");
+						db.addLink(event.getID(), st.nextToken(), st.nextToken());
+					}
 					if(!notes.equals("")) db.addNote(event.getID(), notes);
 					Toast.makeText(getApplicationContext(), 
 							"event added", Toast.LENGTH_LONG).show();
@@ -94,7 +104,7 @@ public class Calendar extends Activity {
 				if (resultCode == RESULT_OK) {
 					CalendarEvent event = (CalendarEvent) data.getSerializableExtra("event");
 					event_list = db.getAllEvents();
-					event_list.add(db.getEvent(event.getDate()));
+					event_list.add(db.getEvent(event.getID()));
 					Toast.makeText(getApplicationContext(), 
 							"event added", Toast.LENGTH_LONG).show();
 						

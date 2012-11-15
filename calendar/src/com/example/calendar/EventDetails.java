@@ -14,6 +14,12 @@ import android.widget.TextView;
 public class EventDetails extends Activity {
 	DbHandler db;
 	CalendarEvent event;
+	ArrayList<String> arrayContacts;
+	ArrayList<String> arrayFiles;
+	ArrayList<String> arrayApps;
+	ArrayList<String> arrayLinks;
+	ArrayList<String> arrayNotes;
+	
 	
 	public void onCreate(Bundle savedInstanceState) {
 	
@@ -26,8 +32,7 @@ public class EventDetails extends Activity {
 		db = new DbHandler(this);
 		setContentView(R.layout.activity_event_details);
 		Intent data = getIntent();
-		String theDate = (String) data.getSerializableExtra("Date");
-		event = db.getEvent(theDate);
+		event = db.getEvent(data.getIntExtra("ID", -1));
 	
 		TextView name = (TextView) findViewById(R.id.name);
 		name.setText("Name: " + event.getName());
@@ -42,67 +47,84 @@ public class EventDetails extends Activity {
         contactList = (ExpandableListView)findViewById(R.id.contact_list);
 		Parent contactParent = new Parent();
 		ArrayList<Parent> arrayParentsContact = new ArrayList<Parent>();
+		
 		contactParent.setTitle("Contacts");
-		ArrayList<String> arrayContacts = new ArrayList<String>();
+		arrayContacts = new ArrayList<String>();
 		for(int i=1;i<=3;i++) {
             arrayContacts.add("Contact "+i);
         }
 		contactParent.setArrayChildren(arrayContacts);
 		arrayParentsContact.add(contactParent);
-		contactList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsContact,ContactCustomAdapter.CONTACT,null,ContactsContract.Contacts.CONTENT_URI));
+		contactList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsContact,ContactCustomAdapter.CONTACT,null));
 
 		//file list
 		fileList = (ExpandableListView)findViewById(R.id.file_list);
 		Parent fileParent = new Parent();
 		ArrayList<Parent> arrayParentsFile = new ArrayList<Parent>();
 		fileParent.setTitle("Files");
-		ArrayList<String> arrayFiles = new ArrayList<String>();
+		arrayFiles = new ArrayList<String>();
 		for(int i=1;i<=3;i++) {
             arrayFiles.add("File "+i);
         }
 		fileParent.setArrayChildren(arrayFiles);
 		arrayParentsFile.add(fileParent);
-		fileList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsFile,ContactCustomAdapter.FILE,null,ContactsContract.Contacts.CONTENT_URI));
+		fileList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsFile,ContactCustomAdapter.FILE,null));
 		
 		//apps should go here
 		appList = (ExpandableListView)findViewById(R.id.app_list);
 		Parent appParent = new Parent();
 		ArrayList<Parent> arrayParentsApp = new ArrayList<Parent>();
 		appParent.setTitle("Apps");
-		ArrayList<String> arrayApps = new ArrayList<String>();
+		arrayApps = new ArrayList<String>();
 		for(int i=1;i<=3;i++) {
             arrayApps.add("App "+i);
         }
 		appParent.setArrayChildren(arrayApps);
 		arrayParentsApp.add(appParent);
-		appList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsApp,ContactCustomAdapter.APP,null,ContactsContract.Contacts.CONTENT_URI));
+		appList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsApp,ContactCustomAdapter.APP,null));
 		
 		// links should go here
 		linkList = (ExpandableListView)findViewById(R.id.link_list);
 		Parent linkParent = new Parent();
 		ArrayList<Parent> arrayParentsLink = new ArrayList<Parent>();
 		linkParent.setTitle("Links");
-		ArrayList<String> arrayLinks = new ArrayList<String>();
+		arrayLinks = new ArrayList<String>();
 		for(int i=1;i<=3;i++) {
             arrayLinks.add("google");
         }
 		linkParent.setArrayChildren(arrayLinks);
 		arrayParentsLink.add(linkParent);								// this null should be the links
-		linkList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsLink,ContactCustomAdapter.LINK,null,Uri.parse("")));
+		linkList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsLink,ContactCustomAdapter.LINK,null));
 		
 		//note list
 		noteList = (ExpandableListView)findViewById(R.id.note_list);
 		Parent noteParent = new Parent();
 		ArrayList<Parent> arrayParentsNote = new ArrayList<Parent>();
 		noteParent.setTitle("Note");
-		ArrayList<String> arrayNotes = db.getNotes(event.getID());
+		arrayNotes = db.getNotes(event.getID());
 		noteParent.setArrayChildren(arrayNotes);
 		arrayParentsNote.add(noteParent);
-		noteList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsNote,ContactCustomAdapter.NOTE,null,ContactsContract.Contacts.CONTENT_URI));
+		noteList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsNote,ContactCustomAdapter.NOTE,null));
 		//notes.setText("Notes: \n" + event.getNotes());
 	}
 	
 	public void removeEvent(View view) {
+		for(String link: arrayLinks)
+		{
+			db.deleteLink(event.getID(), link);
+		}
+		for(String note: arrayNotes)
+		{
+			db.deleteNote(event.getID(), note);
+		}
+		for(String file: arrayFiles)
+		{
+			db.deleteFile(event.getID(), file);
+		}
+		for(String app: arrayApps)
+		{
+			db.deleteApp(event.getID(), app);
+		}
 		db.deleteEvent(event);
 		finish();
 		Intent intent = new Intent(this, ViewEvents.class);
