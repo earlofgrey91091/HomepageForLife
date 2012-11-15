@@ -24,14 +24,16 @@ public class ContactCustomAdapter extends BaseExpandableListAdapter {
 	private ArrayList<String> actual_names;
 	private int flag;
 	private Context context;
+	private Uri uri;
 
 	public ContactCustomAdapter(Context context, ArrayList<Parent> parent,
-			int flag1, ArrayList<String> actuals) {
+			int flag1, ArrayList<String> actuals, Uri uri) {
 		this.context = context;
 		mParent = parent;
 		inflater = LayoutInflater.from(context);
 		this.flag = flag1;
 		actual_names = actuals;
+		this.uri = uri;
 	}
 
 	// @Override
@@ -133,14 +135,18 @@ public class ContactCustomAdapter extends BaseExpandableListAdapter {
 			// "i" is the position of the parent/group in the list and
 			// "i1" is the position of the child
 			btn.setText(mParent.get(i).getArrayChildren().get(i1));
-			btn.setHint("1");
+			btn.setHint(uri+"~"+"1");
 			btn.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View v) {
 					Button btn = (Button) v;
 					Intent intent = new Intent(Intent.ACTION_VIEW);
+					String hint = String.valueOf(btn.getHint());
+					int marker = hint.lastIndexOf("~");
+					String our_uri = hint.substring(0,marker);
+					String name = hint.substring(marker+1);
 					Uri uri = Uri.withAppendedPath(
-							ContactsContract.Contacts.CONTENT_URI,
-							String.valueOf(btn.getHint()));
+							Uri.parse(our_uri),
+							name);
 					intent.setData(uri);
 					context.startActivity(intent);
 				}

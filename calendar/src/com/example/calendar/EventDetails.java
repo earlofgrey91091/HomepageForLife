@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
@@ -47,7 +48,7 @@ public class EventDetails extends Activity {
         }
 		contactParent.setArrayChildren(arrayContacts);
 		arrayParentsContact.add(contactParent);
-		contactList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsContact,0,null));
+		contactList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsContact,0,null,ContactsContract.Contacts.CONTENT_URI));
 
 		//file list
 		fileList = (ExpandableListView)findViewById(R.id.file_list);
@@ -60,7 +61,7 @@ public class EventDetails extends Activity {
         }
 		fileParent.setArrayChildren(arrayFiles);
 		arrayParentsFile.add(fileParent);
-		fileList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsFile,1,null));
+		fileList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsFile,1,null,ContactsContract.Contacts.CONTENT_URI));
 		
 		//apps should go here
 		appList = (ExpandableListView)findViewById(R.id.app_list);
@@ -73,7 +74,7 @@ public class EventDetails extends Activity {
         }
 		appParent.setArrayChildren(arrayApps);
 		arrayParentsApp.add(appParent);
-		appList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsApp,1,null));
+		appList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsApp,1,null,ContactsContract.Contacts.CONTENT_URI));
 		
 		// links should go here
 		linkList = (ExpandableListView)findViewById(R.id.link_list);
@@ -86,7 +87,7 @@ public class EventDetails extends Activity {
         }
 		linkParent.setArrayChildren(arrayLinks);
 		arrayParentsLink.add(linkParent);
-		linkList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsLink,1,null));
+		linkList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsLink,1,null,ContactsContract.Contacts.CONTENT_URI));
 		
 		//note list
 		noteList = (ExpandableListView)findViewById(R.id.note_list);
@@ -96,7 +97,7 @@ public class EventDetails extends Activity {
 		ArrayList<String> arrayNotes = db.getNotes(event.getID());
 		noteParent.setArrayChildren(arrayNotes);
 		arrayParentsNote.add(noteParent);
-		noteList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsNote,2,null));
+		noteList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsNote,2,null,ContactsContract.Contacts.CONTENT_URI));
 		//notes.setText("Notes: \n" + event.getNotes());
 	}
 	
