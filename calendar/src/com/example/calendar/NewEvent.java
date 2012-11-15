@@ -52,7 +52,7 @@ public class NewEvent extends Activity {
 		int cur_year = c.get(Calendar.YEAR);
 		int cur_month = c.get(Calendar.MONTH);
 		int cur_day = c.get(Calendar.DAY_OF_MONTH);
-		String cur_date = cur_month + "/" + cur_day + "/" + cur_year;
+		String cur_date = (cur_month+1) + "/" + cur_day + "/" + cur_year;
 		Button date_f = (Button) findViewById(R.id.date_button);
 		date_f.setText(cur_date);
 		
@@ -331,7 +331,7 @@ public class NewEvent extends Activity {
 
 		public void onDateSet(DatePicker view, int year, int month, int day) {
 			Button date_field = (Button) findViewById(R.id.date_button);
-			String date = month + "/" + day + "/" + year;
+			String date = (month+1) + "/" + day + "/" + year;
 			date_field.setText(date);
 		}
 	}
