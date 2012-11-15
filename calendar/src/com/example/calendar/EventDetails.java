@@ -62,10 +62,7 @@ public class EventDetails extends Activity {
 		Parent fileParent = new Parent();
 		ArrayList<Parent> arrayParentsFile = new ArrayList<Parent>();
 		fileParent.setTitle("Files");
-		arrayFiles = new ArrayList<String>();
-		for(int i=1;i<=3;i++) {
-            arrayFiles.add("File "+i);
-        }
+		arrayFiles = db.getFiles(event.getID());
 		fileParent.setArrayChildren(arrayFiles);
 		arrayParentsFile.add(fileParent);
 		fileList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsFile,ContactCustomAdapter.FILE,null));
@@ -75,23 +72,21 @@ public class EventDetails extends Activity {
 		Parent appParent = new Parent();
 		ArrayList<Parent> arrayParentsApp = new ArrayList<Parent>();
 		appParent.setTitle("Apps");
-		arrayApps = new ArrayList<String>();
-		for(int i=1;i<=3;i++) {
-            arrayApps.add("App "+i);
-        }
+		arrayApps = db.getApps(event.getID());
 		appParent.setArrayChildren(arrayApps);
 		arrayParentsApp.add(appParent);
 		appList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsApp,ContactCustomAdapter.APP,null));
+		// to run app, given the name
+		// final PackageManager pm = getPackageManager();
+		// startActivity(pm.getLaunchIntentForPackage(packageInfo.packageName)));
+		
 		
 		// links should go here
 		linkList = (ExpandableListView)findViewById(R.id.link_list);
 		Parent linkParent = new Parent();
 		ArrayList<Parent> arrayParentsLink = new ArrayList<Parent>();
 		linkParent.setTitle("Links");
-		arrayLinks = new ArrayList<String>();
-		for(int i=1;i<=3;i++) {
-            arrayLinks.add("google");
-        }
+		arrayLinks = db.getLinks(event.getID());
 		linkParent.setArrayChildren(arrayLinks);
 		arrayParentsLink.add(linkParent);								// this null should be the links
 		linkList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsLink,ContactCustomAdapter.LINK,null));
