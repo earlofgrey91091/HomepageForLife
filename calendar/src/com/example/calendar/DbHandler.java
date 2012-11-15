@@ -351,7 +351,7 @@ public class DbHandler extends SQLiteOpenHelper {
 		ArrayList<String> fileList = new ArrayList<String>();
 		
 		// Select All Query
-		String selectQuery = "SELECT "+ KEY_NOTE +" FROM " + NOTE_TABLE + " WHERE " + KEY_EVENT_ID + " = " + eventId;
+		String selectQuery = "SELECT * FROM " + NOTE_TABLE + " WHERE " + KEY_EVENT_ID + " = " + eventId;
 
 		SQLiteDatabase db = this.getWritableDatabase();
 		Cursor cursor = db.rawQuery(selectQuery, null);
