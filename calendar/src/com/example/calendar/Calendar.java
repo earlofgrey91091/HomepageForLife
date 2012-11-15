@@ -91,11 +91,13 @@ public class Calendar extends Activity {
 					{
 						db.addContact(event.getID(), theContact);
 					}
+					Log.d("Calendar", "did contacts, about to do links");
 					for(String theLink : links)
 					{
-						StringTokenizer st = new StringTokenizer(theLink, "/n");
+						StringTokenizer st = new StringTokenizer("Link\nName", "\n");
 						db.addLink(event.getID(), st.nextToken(), st.nextToken());
 					}
+					Log.d("Calendar", "did links");
 					if(!notes.equals("")) db.addNote(event.getID(), notes);
 					Toast.makeText(getApplicationContext(), 
 							"event added", Toast.LENGTH_LONG).show();
