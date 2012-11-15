@@ -66,7 +66,7 @@ public class DbHandler extends SQLiteOpenHelper {
 		String NOTE_TABLE_CREATE= "CREATE TABLE "
 				+ NOTE_TABLE + " (" + KEY_EVENT_ID + " INTEGER, " + KEY_NOTE + " TEXT);";
 		String APP_TABLE_CREATE= "CREATE TABLE "
-				+ NOTE_TABLE + " (" + KEY_EVENT_ID + " INTEGER, " + KEY_APP_NAME + " TEXT);";
+				+ APP_TABLE + " (" + KEY_EVENT_ID + " INTEGER, " + KEY_APP_NAME + " TEXT);";
 		db.execSQL(DICTIONARY_TABLE_CREATE);
 		db.execSQL(CONTACT_TABLE_CREATE);
 		db.execSQL(FILE_TABLE_CREATE);
