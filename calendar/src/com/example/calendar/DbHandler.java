@@ -361,6 +361,7 @@ public class DbHandler extends SQLiteOpenHelper {
 		if (cursor.moveToFirst()) {
 			do {
 				noteList.add(cursor.getString(0));
+				
 			} while (cursor.moveToNext());
 		}
 
