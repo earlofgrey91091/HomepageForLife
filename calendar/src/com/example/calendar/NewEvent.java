@@ -231,6 +231,32 @@ public class NewEvent extends Activity {
 	public void addLink(View view){
 		//Make an intent for the add url and name
 		//Intent intent=new Intent(
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+		alert.setTitle("Add Link");
+		alert.setMessage("Message");
+
+		// Set an EditText view to get user input 
+		final EditText input0 = new EditText(this);
+		final EditText input1 = new EditText(this);
+		
+		alert.setView(input0);
+
+		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+		public void onClick(DialogInterface dialog, int whichButton) {
+		  String link = input0.getText().toString();
+		  String name= input1.getText().toString();
+		  // write link to database, write name to database
+		  }
+		});
+
+		alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+		  public void onClick(DialogInterface dialog, int whichButton) {
+		    // Canceled.
+		  }
+		});
+
+		alert.show();
 		
 		//startActivityForResult(intent, ADD_LINK);
 		
