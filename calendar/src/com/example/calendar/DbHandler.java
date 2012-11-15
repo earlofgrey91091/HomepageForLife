@@ -13,7 +13,7 @@ public class DbHandler extends SQLiteOpenHelper {
 
 	// All Static variables
 	// Database Version
-	private static final int DATABASE_VERSION = 4;
+	private static final int DATABASE_VERSION = 5;
 	
 	// Database Name
 	private static final String DATABASE_NAME = "HPL";
@@ -159,7 +159,6 @@ public class DbHandler extends SQLiteOpenHelper {
 				e.setDate(cursor.getString(1));
 				e.setName(cursor.getString(2));
 				e.setLocation(cursor.getString(3));
-				e.setNotes(cursor.getString(4));
 				// Adding contact to list
 				eventList.add(e);
 			} while (cursor.moveToNext());
