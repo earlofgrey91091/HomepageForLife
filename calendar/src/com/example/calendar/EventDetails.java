@@ -1,15 +1,13 @@
 package com.example.calendar;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.ExpandableListView;
-import android.app.ExpandableListActivity;
-
-import java.util.ArrayList;
+import android.widget.TextView;
 
 public class EventDetails extends Activity {
 	DbHandler db;
@@ -49,7 +47,7 @@ public class EventDetails extends Activity {
         }
 		contactParent.setArrayChildren(arrayContacts);
 		arrayParentsContact.add(contactParent);
-		contactList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsContact,0));
+		contactList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsContact,0,null));
 
 		//file list
 		fileList = (ExpandableListView)findViewById(R.id.file_list);
@@ -62,7 +60,7 @@ public class EventDetails extends Activity {
         }
 		fileParent.setArrayChildren(arrayFiles);
 		arrayParentsFile.add(fileParent);
-		fileList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsFile,1));
+		fileList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsFile,1,null));
 		
 		//apps should go here
 		appList = (ExpandableListView)findViewById(R.id.app_list);
@@ -98,7 +96,7 @@ public class EventDetails extends Activity {
 		ArrayList<String> arrayNotes = db.getNotes(event.getID());
 		noteParent.setArrayChildren(arrayNotes);
 		arrayParentsNote.add(noteParent);
-		noteList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsNote,2));
+		noteList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsNote,2,null));
 		//notes.setText("Notes: \n" + event.getNotes());
 	}
 	
