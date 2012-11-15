@@ -228,6 +228,10 @@ public class NewEvent extends Activity {
 		db.addEvent(newEvent);
 		Intent i = new Intent();
 		i.putExtra("event", newEvent);
+		i.putStringArrayListExtra("apps", apps);
+		i.putStringArrayListExtra("contacts", contacts);
+		i.putStringArrayListExtra("files", files);
+		i.putExtra("notes", notesMessage);
 		setResult(RESULT_OK, i);
 		finish();
 	}

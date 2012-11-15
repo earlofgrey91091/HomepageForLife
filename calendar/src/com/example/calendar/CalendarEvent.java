@@ -12,7 +12,6 @@ public class CalendarEvent implements Serializable{
 	String _date;
 	String _name;
 	String _location;
-	ArrayList<EventFile> _files;
 	
 	public CalendarEvent() {
 		this(-1,"","","");

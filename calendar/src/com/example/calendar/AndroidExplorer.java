@@ -108,9 +108,8 @@ public class AndroidExplorer extends ListActivity {
 								}
 							}).show();
 		else {
-			EventFile f = new EventFile(selected_name, selected_path);
 			Intent i = new Intent();
-			i.putExtra("file",f);
+			i.putExtra("file",selected_path);
 			setResult(RESULT_OK, i);
 			finish();
 		}

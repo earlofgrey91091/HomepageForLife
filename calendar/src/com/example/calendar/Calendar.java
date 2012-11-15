@@ -64,6 +64,10 @@ public class Calendar extends Activity {
 			case EDIT_EVENT: 
 				if (resultCode == RESULT_OK) {
 					CalendarEvent event = (CalendarEvent) data.getSerializableExtra("event");
+					ArrayList<String> files = (ArrayList<String>) data.getStringArrayListExtra("files");
+					ArrayList<String> apps = (ArrayList<String>) data.getStringArrayListExtra("apps");
+					ArrayList<String> contacts = (ArrayList<String>) data.getStringArrayListExtra("contacts");
+					String notes = (String) data.getStringExtra("notes");
 					event_list = db.getAllEvents();
 					event_list.add(db.getEvent(event.getDate()));
 					Toast.makeText(getApplicationContext(), 
