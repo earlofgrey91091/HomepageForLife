@@ -68,11 +68,9 @@ public class EventDetails extends Activity {
 		noteList = (ExpandableListView)findViewById(R.id.note_list);
 		Parent noteParent = new Parent();
 		ArrayList<Parent> arrayParentsNote = new ArrayList<Parent>();
-		noteParent.setTitle("Notes");
+		noteParent.setTitle("Note");
 		ArrayList<String> arrayNotes = new ArrayList<String>();
-		for(int i=1;i<=3;i++) {
-            arrayNotes.add("Note "+i);
-        }
+		arrayNotes = db.getNotes(event.getID());
 		noteParent.setArrayChildren(arrayNotes);
 		arrayParentsNote.add(noteParent);
 		noteList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsNote,2));
