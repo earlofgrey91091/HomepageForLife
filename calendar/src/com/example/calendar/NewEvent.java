@@ -236,20 +236,58 @@ public class NewEvent extends Activity {
 	public void addLink(View view){
 		curLink="";
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
-		alert.setTitle("Rename link");
-		alert.setMessage("Change name of link for display");
+		alert.setTitle("New link");
+		alert.setMessage("Insert link");
 
 		final EditText input = new EditText(this);
 		alert.setView(input);
 		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 		public void onClick(DialogInterface dialog, int whichButton) {
 			if(input.getText().toString().equals("")){
-				  curLink+= "TBobstaclesAG";
+				  curLink+= "www.google.com";
 			  }
 			  else{
-				  curLink+= input.getText().toString();
-				  
+				  curLink+= input.getText().toString() + "\n";
 			  }
+			AlertDialog.Builder alert1 = new AlertDialog.Builder(NewEvent.this);
+			alert1.setTitle("New Link");
+			alert1.setMessage("Change name of link for display");
+
+			final EditText input1 = new EditText(NewEvent.this);
+			alert1.setView(input1);
+			alert1.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
+				if(input1.getText().toString().equals("")){
+					  curLink+= "TBobstaclesAG";
+				  }
+				  else{
+					  curLink+= input1.getText().toString();		  
+				  }
+
+				links.add(curLink);
+				Button btn = new Button(NewEvent.this);
+				StringTokenizer stk = new StringTokenizer(curLink, "\n");
+				btn.setHint(stk.nextToken());
+				btn.setText(stk.nextToken());
+				btn.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+						Button b = (Button) v;
+						Intent intent = new Intent(Intent.ACTION_VIEW);
+						Uri uri = Uri.withAppendedPath(
+								Uri.parse(String.valueOf(b.getHint())),
+								"");
+						intent.setData(uri);
+						startActivity(intent);
+					}
+				});
+			  }
+			});
+			alert1.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+			  public void onClick(DialogInterface dialog, int whichButton) {
+			    // Canceled.
+			  }
+			});
+			alert1.show();
 		  }
 		});
 		alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -259,50 +297,7 @@ public class NewEvent extends Activity {
 		});
 		alert.show();
 		
-		AlertDialog.Builder alert1 = new AlertDialog.Builder(this);
-		alert.setTitle("New Link");
-		alert.setMessage("Insert link:");
-
-		final EditText input1 = new EditText(this);
-		alert.setView(input1);
-		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-		public void onClick(DialogInterface dialog, int whichButton) {
-			if(input.getText().toString().equals("")){
-				  curLink+= "google.com";
-			  }
-			  else{
-				  curLink+= input1.getText().toString();
-				  curLink+= "\n";				  
-			  }
-			
-			Button btn = new Button(NewEvent.this);
-			StringTokenizer stk = new StringTokenizer(curLink, "\n");
-			btn.setHint(stk.nextToken());
-			btn.setText(stk.nextToken());
-			btn.setOnClickListener(new View.OnClickListener() {
-				public void onClick(View v) {
-					Button b = (Button) v;
-					Intent intent = new Intent(Intent.ACTION_VIEW);
-					Uri uri = Uri.withAppendedPath(
-							Uri.parse(String.valueOf(b.getHint())),
-							"");
-					intent.setData(uri);
-					startActivity(intent);
-				}
-			});
-		  }
-		});
-		alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-		  public void onClick(DialogInterface dialog, int whichButton) {
-		    // Canceled.
-		  }
-		});
-		alert.show();
-		links.add(curLink);
 	}
-
-	  
-	  
 
 	public void save(View view) {
 		Button date = (Button) findViewById(R.id.date_button);
