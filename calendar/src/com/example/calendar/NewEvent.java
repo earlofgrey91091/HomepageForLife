@@ -106,10 +106,10 @@ public class NewEvent extends Activity {
 				
 			case ADD_CONTACT:
 				if(resultCode == RESULT_OK){
-					String email="";
+							
+					/*String email="";
 					LinearLayout linearLayout = (LinearLayout)findViewById(R.id.contacts_layout);
-					Uri result= data.getData();
-					
+					Uri result= data.getData();	
 					String id = result.getLastPathSegment();
 					Cursor cursor = getContentResolver().query(  
 					        Email.CONTENT_URI, null,  
@@ -124,7 +124,7 @@ public class NewEvent extends Activity {
 					name.setText(email);
 					if (email.length() == 0) {  
 					    Toast.makeText(this, "No email found for contact.", Toast.LENGTH_LONG).show();  
-					} 					
+					} */					
 				}
 				break;
 		}
