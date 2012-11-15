@@ -133,12 +133,14 @@ public class ContactCustomAdapter extends BaseExpandableListAdapter {
 			// "i" is the position of the parent/group in the list and
 			// "i1" is the position of the child
 			btn.setText(mParent.get(i).getArrayChildren().get(i1));
+			btn.setHint("1");
 			btn.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View v) {
+					Button btn = (Button) v;
 					Intent intent = new Intent(Intent.ACTION_VIEW);
 					Uri uri = Uri.withAppendedPath(
 							ContactsContract.Contacts.CONTENT_URI,
-							String.valueOf(1));
+							String.valueOf(btn.getHint()));
 					intent.setData(uri);
 					context.startActivity(intent);
 				}
