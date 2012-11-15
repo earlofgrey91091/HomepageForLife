@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -114,6 +115,7 @@ public class ContactCustomAdapter extends BaseExpandableListAdapter {
 	// in this method you must set the text to see the children on the list
 	public View getChildView(int i, int i1, boolean b, View view,
 			ViewGroup viewGroup) {
+		Log.d("ContactCustomAdapter", "getChildView");
 		if (flag == NOTE) {
 			if (view == null) {
 				view = inflater.inflate(R.layout.list_item_child, viewGroup,
@@ -171,6 +173,7 @@ public class ContactCustomAdapter extends BaseExpandableListAdapter {
 				}
 			}); 
 		} else if (flag == LINK) {
+			Log.d("ContactCustomAdapter", "getChildView for LINK");
 			if (view == null) {
 				view = inflater.inflate(R.layout.list_item_child, viewGroup,
 						false);

@@ -88,7 +88,10 @@ public class EventDetails extends Activity {
 		fileParent.setArrayChildren(arrayListNames);
 		arrayParentsFile.add(fileParent);
 		fileList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsFile,ContactCustomAdapter.FILE,arrayFiles));
-		
+
+
+
+	
 		//apps should go here
 		appList = (ExpandableListView)findViewById(R.id.app_list);
 		Parent appParent = new Parent();
