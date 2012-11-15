@@ -45,7 +45,7 @@ public class Calendar extends Activity {
 							int year, int month, int dayOfMonth) {
 						Intent intent = new Intent(Calendar.this, NewEvent.class);
 						intent.putExtra("year", Integer.toString(year));
-						intent.putExtra("month", Integer.toString(month));
+						intent.putExtra("month", Integer.toString(month+1));
 						intent.putExtra("day", Integer.toString(dayOfMonth));
 						startActivityForResult(intent, EDIT_EVENT);
 					}
