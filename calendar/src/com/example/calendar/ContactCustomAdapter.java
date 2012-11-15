@@ -123,7 +123,22 @@ public class ContactCustomAdapter extends BaseExpandableListAdapter {
 
 			// return the entire view
 			return view;
-		} else {
+		} else if (flag == 3) {
+			if (view == null) {
+				view = inflater.inflate(R.layout.list_item_child, viewGroup,
+						false);
+			}
+
+			TextView text = (TextView) view
+					.findViewById(R.id.list_item_text_child);
+			// "i" is the position of the parent/group in the list and
+			// "i1" is the position of the child
+			text.setText(mParent.get(i).getArrayChildren().get(i1));
+
+			// return the entire view
+			return view;
+		}
+		else {
 			if (view == null) {
 				view = inflater.inflate(R.layout.list_item_contact, viewGroup,
 						false);
