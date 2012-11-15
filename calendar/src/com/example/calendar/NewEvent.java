@@ -316,7 +316,9 @@ public class NewEvent extends Activity {
 		i.putStringArrayListExtra("apps", apps);
 		i.putStringArrayListExtra("contacts", contacts);
 		i.putStringArrayListExtra("files", files);
+		i.putStringArrayListExtra("links", links);
 		i.putExtra("notes", notesMessage);
+		
 		setResult(RESULT_OK, i);
 		finish();
 	}
