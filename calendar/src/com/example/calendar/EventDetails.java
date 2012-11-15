@@ -59,7 +59,7 @@ public class EventDetails extends Activity {
 		fileParent.setArrayChildren(arrayFiles);
 		arrayParentsFile.add(fileParent);
 		fileList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsContact,1));
-		
+		//apps should go here
 		TextView notes = (TextView) findViewById(R.id.notes);
 		notes.setText("Notes:");
 		//notes.setText("Notes: \n" + event.getNotes());
