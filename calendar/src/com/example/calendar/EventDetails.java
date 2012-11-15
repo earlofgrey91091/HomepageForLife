@@ -68,17 +68,13 @@ public class EventDetails extends Activity {
 		contactParent.setArrayChildren(arrayContactNames);
 		arrayParentsContact.add(contactParent);
 		contactList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsContact,ContactCustomAdapter.CONTACT,arrayContacts));
-/*
+
 		//file list
 		fileList = (ExpandableListView)findViewById(R.id.file_list);
 		Parent fileParent = new Parent();
 		ArrayList<Parent> arrayParentsFile = new ArrayList<Parent>();
 		fileParent.setTitle("Files");
-		ArrayList<String> arrayFiles = new ArrayList<String>();
-		
-		for(int i=1;i<=3;i++) {
-            arrayFiles.add("File "+i);
-        }
+		arrayFiles = db.getFiles(event.getID());
 		fileParent.setArrayChildren(arrayFiles);
 		arrayParentsFile.add(fileParent);
 		fileList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsFile,ContactCustomAdapter.FILE,null));
@@ -88,19 +84,21 @@ public class EventDetails extends Activity {
 		Parent appParent = new Parent();
 		ArrayList<Parent> arrayParentsApp = new ArrayList<Parent>();
 		appParent.setTitle("Apps");
-		ArrayList<String> arrayApps = new ArrayList<String>();
-		for(int i=1;i<=3;i++) {
-            arrayApps.add("App "+i);
-        }
+
+		arrayApps = db.getApps(event.getID());
 		appParent.setArrayChildren(arrayApps);
 		arrayParentsApp.add(appParent);
 		appList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsApp,ContactCustomAdapter.APP,null));
-	
+		// to run app, given the name
+		// final PackageManager pm = getPackageManager();
+		// startActivity(pm.getLaunchIntentForPackage(packageInfo.packageName)));
+
 		// links should go here
 		linkList = (ExpandableListView)findViewById(R.id.link_list);
 		Parent linkParent = new Parent();
 		ArrayList<Parent> arrayParentsLink = new ArrayList<Parent>();
 		linkParent.setTitle("Links");
+		
 		ArrayList<String> arrayLinkNames = new ArrayList<String>();
 		ArrayList<String> arrayLinkURLs = new ArrayList<String>();
 		ArrayList<String> arrayLinks = db.getLinks(event.getID());
@@ -125,7 +123,7 @@ public class EventDetails extends Activity {
 		arrayParentsNote.add(noteParent);
 		noteList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsNote,ContactCustomAdapter.NOTE,null));
 		//notes.setText("Notes: \n" + event.getNotes());
-		 */
+		 
 		}
 	
 	public void removeEvent(View view) {
