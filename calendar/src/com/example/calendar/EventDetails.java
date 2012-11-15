@@ -73,7 +73,7 @@ public class EventDetails extends Activity {
         }
 		appParent.setArrayChildren(arrayApps);
 		arrayParentsApp.add(appParent);
-		appList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsApp,1));
+		appList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsApp,1,null));
 		
 		// links should go here
 		linkList = (ExpandableListView)findViewById(R.id.link_list);
@@ -86,7 +86,7 @@ public class EventDetails extends Activity {
         }
 		linkParent.setArrayChildren(arrayLinks);
 		arrayParentsLink.add(linkParent);
-		linkList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsLink,1));
+		linkList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsLink,1,null));
 		
 		//note list
 		noteList = (ExpandableListView)findViewById(R.id.note_list);
