@@ -52,7 +52,7 @@ public class EventDetails extends Activity {
 		ArrayList<Parent> arrayParentsContact = new ArrayList<Parent>();
 		contactParent.setTitle("Contacts");
 		ArrayList<String> arrayContactNames = new ArrayList<String>();
-		ArrayList<String> arrayContacts = db.getLinks(event.getID());
+		ArrayList<String> arrayContacts = db.getContacts(event.getID());
 		for (int i = 0; i<arrayContacts.size(); i++)
 		{
 			String[] projection = {Phone.DISPLAY_NAME };
