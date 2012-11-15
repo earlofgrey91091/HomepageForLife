@@ -106,7 +106,6 @@ public class NewEvent extends Activity {
 				
 			case ADD_CONTACT:
 				if(resultCode == RESULT_OK){
-				//do something with contact result
 					String email="";
 					LinearLayout linearLayout = (LinearLayout)findViewById(R.id.contacts_layout);
 					Uri result= data.getData();
@@ -119,7 +118,7 @@ public class NewEvent extends Activity {
 					    int emailIdx = cursor.getColumnIndex(Email.DATA);  
 					    email = cursor.getString(emailIdx);  
 					} 
-					 
+					
 					TextView name= new TextView(this);
 					name.setText(email);
 					if (email.length() == 0) {  
