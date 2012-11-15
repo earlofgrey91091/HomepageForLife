@@ -150,9 +150,29 @@ public class ContactCustomAdapter extends BaseExpandableListAdapter {
 		} else if (flag == FILE) {
 				//ADD FILES SHIT HERE DO WHAT LINK HAS BUT CHANGE THE HINT
 					//			AND THE ONCLICK
+			if (view == null) {
+				view = inflater.inflate(R.layout.list_item_child, viewGroup,
+						false);
+			}
+
+			Button btn = (Button) view.findViewById(R.id.contact);
+			// "i" is the position of the parent/group in the list and
+			// "i1" is the position of the child
+			btn.setText(mParent.get(i).getArrayChildren().get(i1));
+			btn.setHint(actual_names.get(i1));
+			btn.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+					Button btn = (Button) v;
+					Intent intent = new Intent(Intent.ACTION_VIEW);
+					Uri uri = Uri.withAppendedPath(
+							Uri.parse(String.valueOf(btn.getHint())), "");
+					intent.setData(uri);
+					context.startActivity(intent);
+				}
+			}); 
 		} else if (flag == LINK) {
 			if (view == null) {
-				view = inflater.inflate(R.layout.list_item_contact, viewGroup,
+				view = inflater.inflate(R.layout.list_item_child, viewGroup,
 						false);
 			}
 
