@@ -12,6 +12,12 @@ import android.widget.TextView;
 public class EventDetails extends Activity {
 	DbHandler db;
 	CalendarEvent event;
+	ArrayList<String> arrayContacts;
+	ArrayList<String> arrayFiles;
+	ArrayList<String> arrayApps;
+	ArrayList<String> arrayLinks;
+	ArrayList<String> arrayNotes;
+	
 	
 	public void onCreate(Bundle savedInstanceState) {
 	
@@ -24,8 +30,7 @@ public class EventDetails extends Activity {
 		db = new DbHandler(this);
 		setContentView(R.layout.activity_event_details);
 		Intent data = getIntent();
-		String theDate = (String) data.getSerializableExtra("Date");
-		event = db.getEvent(theDate);
+		event = db.getEvent(data.getIntExtra("ID", -1));
 	
 		TextView name = (TextView) findViewById(R.id.name);
 		name.setText("Name: " + event.getName());
@@ -40,8 +45,9 @@ public class EventDetails extends Activity {
         contactList = (ExpandableListView)findViewById(R.id.contact_list);
 		Parent contactParent = new Parent();
 		ArrayList<Parent> arrayParentsContact = new ArrayList<Parent>();
+		
 		contactParent.setTitle("Contacts");
-		ArrayList<String> arrayContacts = new ArrayList<String>();
+		arrayContacts = new ArrayList<String>();
 		for(int i=1;i<=3;i++) {
             arrayContacts.add("Contact "+i);
         }
@@ -54,7 +60,7 @@ public class EventDetails extends Activity {
 		Parent fileParent = new Parent();
 		ArrayList<Parent> arrayParentsFile = new ArrayList<Parent>();
 		fileParent.setTitle("Files");
-		ArrayList<String> arrayFiles = new ArrayList<String>();
+		arrayFiles = new ArrayList<String>();
 		for(int i=1;i<=3;i++) {
             arrayFiles.add("File "+i);
         }
@@ -67,7 +73,7 @@ public class EventDetails extends Activity {
 		Parent appParent = new Parent();
 		ArrayList<Parent> arrayParentsApp = new ArrayList<Parent>();
 		appParent.setTitle("Apps");
-		ArrayList<String> arrayApps = new ArrayList<String>();
+		arrayApps = new ArrayList<String>();
 		for(int i=1;i<=3;i++) {
             arrayApps.add("App "+i);
         }
@@ -80,7 +86,7 @@ public class EventDetails extends Activity {
 		Parent linkParent = new Parent();
 		ArrayList<Parent> arrayParentsLink = new ArrayList<Parent>();
 		linkParent.setTitle("Links");
-		ArrayList<String> arrayLinks = new ArrayList<String>();
+		arrayLinks = new ArrayList<String>();
 		for(int i=1;i<=3;i++) {
             arrayLinks.add("Link "+i);
         }
@@ -93,7 +99,7 @@ public class EventDetails extends Activity {
 		Parent noteParent = new Parent();
 		ArrayList<Parent> arrayParentsNote = new ArrayList<Parent>();
 		noteParent.setTitle("Note");
-		ArrayList<String> arrayNotes = db.getNotes(event.getID());
+		arrayNotes = db.getNotes(event.getID());
 		noteParent.setArrayChildren(arrayNotes);
 		arrayParentsNote.add(noteParent);
 		noteList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsNote,2,null));
@@ -101,6 +107,22 @@ public class EventDetails extends Activity {
 	}
 	
 	public void removeEvent(View view) {
+		for(String link: arrayLinks)
+		{
+			db.deleteLink(event.getID(), link);
+		}
+		for(String note: arrayNotes)
+		{
+			db.deleteNote(event.getID(), note);
+		}
+		for(String file: arrayFiles)
+		{
+			db.deleteFile(event.getID(), file);
+		}
+		for(String app: arrayApps)
+		{
+			db.deleteApp(event.getID(), app);
+		}
 		db.deleteEvent(event);
 		finish();
 		Intent intent = new Intent(this, ViewEvents.class);

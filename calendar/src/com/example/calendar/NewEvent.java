@@ -273,9 +273,9 @@ public class NewEvent extends Activity {
 		String notesMessage = notes.getText().toString();
 		CalendarEvent newEvent = new CalendarEvent(dateMessage, nameMessage,
 				locationMessage);
-		db.addEvent(newEvent);
+		int rowVal = db.addEvent(newEvent);
 		Intent i = new Intent();
-		i.putExtra("event", newEvent);
+		i.putExtra("ID", rowVal);
 		i.putStringArrayListExtra("apps", apps);
 		i.putStringArrayListExtra("contacts", contacts);
 		i.putStringArrayListExtra("files", files);

@@ -92,7 +92,7 @@ public class DbHandler extends SQLiteOpenHelper {
 	 */
 
 	// Adding new Event
-	public void addEvent(CalendarEvent event) {
+	public int addEvent(CalendarEvent event) {
 		SQLiteDatabase db = getWritableDatabase();
 		
 		ContentValues cv = new ContentValues();
@@ -101,28 +101,12 @@ public class DbHandler extends SQLiteOpenHelper {
 		cv.put(KEY_LOC, event.getLocation());
 		
 		// Inserting Row
-		db.insert(EVENT_TABLE, null, cv);
+		int rowId = (int)db.insert(EVENT_TABLE, null, cv);
 		db.close(); // Closing database connection
+		return rowId;
 	}
 	
 
-	// Getting single Event
-	CalendarEvent getEvent(String eventDate) {
-		SQLiteDatabase db = this.getReadableDatabase();
-		
-		Cursor cur = db.query(EVENT_TABLE, new String[] { KEY_ID, KEY_DATE,
-								KEY_NAME, KEY_LOC }, KEY_DATE + "=?",
-								new String[] { eventDate }, null, null, null, null);
-		
-		//db.close(); // Closing database connection
-		if (cur != null)
-			cur.moveToFirst();
-		
-		CalendarEvent event = new CalendarEvent(cur.getInt(0),
-					cur.getString(1), cur.getString(2), cur.getString(3));
-		// return event
-		return event;
-}
 	
 	CalendarEvent getEvent(int id) {
 		SQLiteDatabase db = this.getReadableDatabase();
@@ -131,7 +115,6 @@ public class DbHandler extends SQLiteOpenHelper {
 				KEY_NAME, KEY_LOC }, KEY_ID + "=?",
 				new String[] { String.valueOf(id) }, null, null, null, null);
 
-		db.close(); // Closing database connection
 		if (cur != null)
 			cur.moveToFirst();
 
@@ -219,24 +202,18 @@ public class DbHandler extends SQLiteOpenHelper {
 	{
 		
 		ArrayList<String> contactList = new ArrayList<String>();
-		
-		// Select All Query
-		String selectQuery = "SELECT * FROM " + CONTACT_TABLE + " WHERE " + KEY_EVENT_ID + " = " + eventId;
-
 		SQLiteDatabase db = this.getWritableDatabase();
-		Cursor cursor = db.rawQuery(selectQuery, null);
-
+		Cursor cursor = db.query(CONTACT_TABLE, new String[]{KEY_EVENT_ID, KEY_CONTACT_VALUE}, KEY_EVENT_ID + " = ?", 
+				new String[]{String.valueOf(eventId)}, null, null, null);
 		// looping through all rows and adding to list
 		if (cursor.moveToFirst()) {
+			//Log.d("DbHandler", "event is id " + String.valueOf(eventId));
 			do {
+				//Log.d("DbHandler", "output at row is " + cursor.getString(0) +" and " + cursor.getString(1));
 				contactList.add(cursor.getString(1));
 			} while (cursor.moveToNext());
 		}
-
-		// return contact list
 		return contactList;
-
-		//db.close(); // Closing database connection
 	}
 
 	// Deleting single Contact
@@ -263,24 +240,18 @@ public class DbHandler extends SQLiteOpenHelper {
 	{
 		
 		ArrayList<String> fileList = new ArrayList<String>();
-		
-		// Select All Query
-		String selectQuery = "SELECT * FROM " + FILE_TABLE + " WHERE " + KEY_EVENT_ID + " = " + eventId;
-
 		SQLiteDatabase db = this.getWritableDatabase();
-		Cursor cursor = db.rawQuery(selectQuery, null);
-
+		Cursor cursor = db.query(FILE_TABLE, new String[]{KEY_EVENT_ID, KEY_FILE}, KEY_EVENT_ID + " = ?", 
+				new String[]{String.valueOf(eventId)}, null, null, null);
 		// looping through all rows and adding to list
 		if (cursor.moveToFirst()) {
+			//Log.d("DbHandler", "event is id " + String.valueOf(eventId));
 			do {
+				Log.d("DbHandler", "output at row is " + cursor.getString(0) +" and " + cursor.getString(1));
 				fileList.add(cursor.getString(1));
 			} while (cursor.moveToNext());
 		}
-
-		// return contact list
 		return fileList;
-
-		//db.close(); // Closing database connection
 	}
 
 	// Deleting single file
@@ -306,25 +277,19 @@ public class DbHandler extends SQLiteOpenHelper {
 	ArrayList<String> getApps(int eventId) 
 	{
 		
-		ArrayList<String> fileList = new ArrayList<String>();
-		
-		// Select All Query
-		String selectQuery = "SELECT * FROM " + APP_TABLE + " WHERE " + KEY_EVENT_ID + " = " + eventId;
-
+		ArrayList<String> appList = new ArrayList<String>();
 		SQLiteDatabase db = this.getWritableDatabase();
-		Cursor cursor = db.rawQuery(selectQuery, null);
-
+		Cursor cursor = db.query(APP_TABLE, new String[]{KEY_EVENT_ID, KEY_APP_NAME}, KEY_EVENT_ID + " = ?", 
+				new String[]{String.valueOf(eventId)}, null, null, null);
 		// looping through all rows and adding to list
 		if (cursor.moveToFirst()) {
+			//Log.d("DbHandler", "event is id " + String.valueOf(eventId));
 			do {
-				fileList.add(cursor.getString(1));
+				//Log.d("DbHandler", "output at row is " + cursor.getString(0) +" and " + cursor.getString(1));
+				appList.add(cursor.getString(1));
 			} while (cursor.moveToNext());
 		}
-
-		// return contact list
-		return fileList;
-
-		//db.close(); // Closing database connection
+		return appList;
 	}
 
 	// Deleting single app
@@ -350,28 +315,19 @@ public class DbHandler extends SQLiteOpenHelper {
 	{
 		
 		ArrayList<String> noteList = new ArrayList<String>();
-		
-		// Select All Query
-		//String selectQuery = "SELECT * FROM " + NOTE_TABLE + " WHERE " + KEY_EVENT_ID + " = " + eventId;
 
 		SQLiteDatabase db = this.getWritableDatabase();
-		//Cursor cursor = db.rawQuery(selectQuery, null);
 		Cursor cursor = db.query(NOTE_TABLE, new String[]{KEY_EVENT_ID, KEY_NOTE}, KEY_EVENT_ID + " = ?", 
 					new String[]{String.valueOf(eventId)}, null, null, null);
 		// looping through all rows and adding to list
 		if (cursor.moveToFirst()) {
-			Log.d("DbHandler", "event is id " + String.valueOf(eventId));
-
+			//Log.d("DbHandler", "event is id " + String.valueOf(eventId));
 			do {
-				Log.d("DbHandler", "output at row is " + cursor.getString(0) +" and " + cursor.getString(1));
+				//Log.d("DbHandler", "output at row is " + cursor.getString(0) +" and " + cursor.getString(1));
 				noteList.add(cursor.getString(1));
 			} while (cursor.moveToNext());
 		}
-
-		// return contact list
 		return noteList;
-
-		//db.close(); // Closing database connection
 	}
 
 	// Deleting single note
@@ -381,6 +337,7 @@ public class DbHandler extends SQLiteOpenHelper {
 				new String[] { String.valueOf(eventId), theNote});
 		db.close();
 	}
+	
 	
 	
 }
