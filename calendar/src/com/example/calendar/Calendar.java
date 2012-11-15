@@ -2,6 +2,7 @@ package com.example.calendar;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import android.app.Activity;
 import android.content.Context;
@@ -45,7 +46,7 @@ public class Calendar extends Activity {
 							int year, int month, int dayOfMonth) {
 						Intent intent = new Intent(Calendar.this, NewEvent.class);
 						intent.putExtra("year", Integer.toString(year));
-						intent.putExtra("month", Integer.toString(month));
+						intent.putExtra("month", Integer.toString(month+1));
 						intent.putExtra("day", Integer.toString(dayOfMonth));
 						startActivityForResult(intent, EDIT_EVENT);
 					}
@@ -69,6 +70,7 @@ public class Calendar extends Activity {
 					ArrayList<String> files = (ArrayList<String>) data.getStringArrayListExtra("files");
 					ArrayList<String> apps = (ArrayList<String>) data.getStringArrayListExtra("apps");
 					ArrayList<String> contacts = (ArrayList<String>) data.getStringArrayListExtra("contacts");
+					ArrayList<String> links = (ArrayList<String>) data.getStringArrayListExtra("links");
 					String notes = (String) data.getStringExtra("notes");
 					event_list = db.getAllEvents();
 					
@@ -88,6 +90,11 @@ public class Calendar extends Activity {
 					for(String theContact : contacts)
 					{
 						db.addContact(event.getID(), theContact);
+					}
+					for(String theLink : links)
+					{
+						StringTokenizer st = new StringTokenizer(theLink, "/n");
+						db.addLink(event.getID(), st.nextToken(), st.nextToken());
 					}
 					if(!notes.equals("")) db.addNote(event.getID(), notes);
 					Toast.makeText(getApplicationContext(), 

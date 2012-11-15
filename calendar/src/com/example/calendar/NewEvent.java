@@ -3,6 +3,7 @@ package com.example.calendar;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Calendar;
+import java.util.StringTokenizer;
 
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
@@ -26,6 +27,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class NewEvent extends Activity {
 
@@ -39,6 +41,8 @@ public class NewEvent extends Activity {
 	ArrayList<String> files = new ArrayList<String>();
 	ArrayList<String> apps = new ArrayList<String>();
 	ArrayList<String> contacts = new ArrayList<String>();
+	ArrayList<String> links = new ArrayList<String>();
+	String curLink="";
 	DbHandler db;
 
 	@Override
@@ -49,7 +53,7 @@ public class NewEvent extends Activity {
 		int cur_year = c.get(Calendar.YEAR);
 		int cur_month = c.get(Calendar.MONTH);
 		int cur_day = c.get(Calendar.DAY_OF_MONTH);
-		String cur_date = cur_month + "/" + cur_day + "/" + cur_year;
+		String cur_date = (cur_month+1) + "/" + cur_day + "/" + cur_year;
 		Button date_f = (Button) findViewById(R.id.date_button);
 		date_f.setText(cur_date);
 		
@@ -229,38 +233,75 @@ public class NewEvent extends Activity {
 	}
 	
 	public void addLink(View view){
-		//Make an intent for the add url and name
-		//Intent intent=new Intent(
+		curLink="";
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+		alert.setTitle("Rename link");
+		alert.setMessage("Change name of link for display");
 
-		alert.setTitle("Add Link");
-		alert.setMessage("Message");
-
-		// Set an EditText view to get user input 
-		final EditText input0 = new EditText(this);
-		final EditText input1 = new EditText(this);
-		
-		alert.setView(input0);
-
+		final EditText input = new EditText(this);
+		alert.setView(input);
 		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 		public void onClick(DialogInterface dialog, int whichButton) {
-		  String link = input0.getText().toString();
-		  String name= input1.getText().toString();
-		  // write link to database, write name to database
+			if(input.getText().toString().equals("")){
+				  curLink+= "TBobstaclesAG";
+			  }
+			  else{
+				  curLink+= input.getText().toString();
+				  
+			  }
 		  }
 		});
-
 		alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
 		  public void onClick(DialogInterface dialog, int whichButton) {
 		    // Canceled.
 		  }
 		});
-
 		alert.show();
 		
-		//startActivityForResult(intent, ADD_LINK);
-		
+		AlertDialog.Builder alert1 = new AlertDialog.Builder(this);
+		alert.setTitle("New Link");
+		alert.setMessage("Insert link:");
+
+		final EditText input1 = new EditText(this);
+		alert.setView(input1);
+		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+		public void onClick(DialogInterface dialog, int whichButton) {
+			if(input.getText().toString().equals("")){
+				  curLink+= "google.com";
+			  }
+			  else{
+				  curLink+= input1.getText().toString();
+				  curLink+= "\n";				  
+			  }
+			
+			Button btn = new Button(NewEvent.this);
+			StringTokenizer stk = new StringTokenizer(curLink, "\n");
+			btn.setHint(stk.nextToken());
+			btn.setText(stk.nextToken());
+			btn.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+					Button b = (Button) v;
+					Intent intent = new Intent(Intent.ACTION_VIEW);
+					Uri uri = Uri.withAppendedPath(
+							Uri.parse(String.valueOf(b.getHint())),
+							"");
+					intent.setData(uri);
+					startActivity(intent);
+				}
+			});
+		  }
+		});
+		alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+		  public void onClick(DialogInterface dialog, int whichButton) {
+		    // Canceled.
+		  }
+		});
+		alert.show();
+		links.add(curLink);
 	}
+
+	  
+	  
 
 	public void save(View view) {
 		Button date = (Button) findViewById(R.id.date_button);
@@ -307,7 +348,7 @@ public class NewEvent extends Activity {
 
 		public void onDateSet(DatePicker view, int year, int month, int day) {
 			Button date_field = (Button) findViewById(R.id.date_button);
-			String date = month + "/" + day + "/" + year;
+			String date = (month+1) + "/" + day + "/" + year;
 			date_field.setText(date);
 		}
 	}
