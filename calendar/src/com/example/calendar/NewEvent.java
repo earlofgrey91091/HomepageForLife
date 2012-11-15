@@ -109,6 +109,7 @@ public class NewEvent extends Activity {
 					String email="";
 					LinearLayout linearLayout = (LinearLayout)findViewById(R.id.contacts_layout);
 					Uri result= data.getData();
+					
 					String id = result.getLastPathSegment();
 					Cursor cursor = getContentResolver().query(  
 					        Email.CONTENT_URI, null,  
