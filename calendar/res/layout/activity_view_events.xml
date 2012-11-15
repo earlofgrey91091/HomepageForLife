@@ -8,8 +8,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:onClick="add"
-        android:text="@string/add_button" />
+        android:onClick="newEvent"
+        android:text="New Event" />
 
     <ScrollView
         android:layout_width="match_parent"
