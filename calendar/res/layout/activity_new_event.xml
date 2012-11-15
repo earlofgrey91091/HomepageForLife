@@ -28,7 +28,7 @@
                     android:paddingRight="10dp"
                     android:paddingTop="10dp"
                     android:text="Date:"
-                    style="@android:style/TextAppearance.Medium" />"
+                    android:textSize="24dp" />
 
                 <Button
                     android:id="@+id/date_button"
@@ -43,7 +43,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                style="@android:style/TextAppearance.Medium"
                 android:hint="@string/name_message" />
 
             <EditText
@@ -52,7 +51,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                style="@android:style/TextAppearance.Medium"
                 android:hint="@string/location_message" />
 
             <LinearLayout
@@ -74,7 +72,6 @@
                         android:layout_alignParentRight="true"
                         android:layout_alignParentTop="true"
                         android:onClick="addFile"
-                        style="?android:attr/buttonStyleSmall"
                         android:text="@string/button_message" />
 
                     <TextView
@@ -85,7 +82,7 @@
                         android:paddingLeft="10dp"
                         android:paddingTop="10dp"
                         android:text="Files"
-                        style="@android:style/TextAppearance.Medium" />
+                        android:textSize="24dp" />
                 </RelativeLayout>
 
                 <LinearLayout
@@ -112,7 +109,7 @@
                         android:paddingLeft="10dp"
                         android:paddingTop="10dp"
                         android:text="Contacts"
-                        style="@android:style/TextAppearance.Medium" />
+                        android:textSize="24dp" />
 
                     <Button
                         android:layout_width="wrap_content"
@@ -120,7 +117,6 @@
                         android:layout_alignParentRight="true"
                         android:layout_alignParentTop="true"
                         android:onClick="addContact"
-                        style="?android:attr/buttonStyleSmall"
                         android:text="Add" />
                 </RelativeLayout>
 
@@ -148,7 +144,7 @@
                         android:paddingLeft="10dp"
                         android:paddingTop="10dp"
                         android:text="Apps"
-                        style="@android:style/TextAppearance.Medium" />
+                        android:textSize="24dp" />
 
                     <Button
                         android:layout_width="wrap_content"
@@ -156,7 +152,6 @@
                         android:layout_alignParentRight="true"
                         android:layout_alignParentTop="true"
                         android:onClick="addApp"
-                        style="?android:attr/buttonStyleSmall"
                         android:text="Add" />
                 </RelativeLayout>
 
@@ -185,7 +180,7 @@
                         android:paddingLeft="10dp"
                         android:paddingTop="10dp"
                         android:text="Links"
-                        style="@android:style/TextAppearance.Medium" />
+                        android:textSize="24dp" />
 
                     <Button
                         android:layout_width="wrap_content"
@@ -193,14 +188,13 @@
                         android:layout_alignParentRight="true"
                         android:layout_alignParentTop="true"
                         android:onClick="addLink"
-                        style="?android:attr/buttonStyleSmall"
                         android:text="Add" />
                 </RelativeLayout>
 
                 <LinearLayout
                     xmlns:android="http://schemas.android.com/apk/res/android"
                     xmlns:tools="http://schemas.android.com/tools"
-                    android:id="@+id/app_layout"
+                    android:id="@+id/links_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -212,7 +206,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    style="@android:style/TextAppearance.Medium"
                     android:hint="@string/note_message" />
             </LinearLayout>
         </LinearLayout>

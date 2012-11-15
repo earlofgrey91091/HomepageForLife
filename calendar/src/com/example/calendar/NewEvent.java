@@ -150,10 +150,6 @@ public class NewEvent extends Activity {
 				linearLayout.addView(relativeLayout);
 			}
 			break;
-		
-		case ADD_LINK:
-			//handle whatever happens after the activity to make file and filename
-			break;
 		}
 	}
 
@@ -271,8 +267,11 @@ public class NewEvent extends Activity {
 					  tempname= input1.getText().toString();
 				  }
 
-				links.add(curLink);
+				links.add(curLink);				
 				
+				LinearLayout linearLayout = (LinearLayout) findViewById(R.id.links_layout);
+				RelativeLayout relativeLayout = new RelativeLayout(NewEvent.this);
+
 				Button btn = new Button(NewEvent.this);
 				btn.setHint(templink);
 				btn.setText(tempname);
@@ -287,6 +286,24 @@ public class NewEvent extends Activity {
 						startActivity(intent);
 					}
 				});
+				RelativeLayout.LayoutParams name_params = new RelativeLayout.LayoutParams(
+						LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+				name_params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+				relativeLayout.addView(btn, name_params);
+
+				RelativeLayout.LayoutParams btn_params = new RelativeLayout.LayoutParams(
+						LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+				btn_params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+				final Button btns = new Button(NewEvent.this);
+				btns.setText("Delete");
+				btns.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+						RelativeLayout r = (RelativeLayout) v.getParent();
+						r.removeAllViews();
+					}
+				});
+				relativeLayout.addView(btns, btn_params);
+				linearLayout.addView(relativeLayout);
 			  }
 			});
 			alert1.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

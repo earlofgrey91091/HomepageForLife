@@ -63,8 +63,6 @@ public class EventDetails extends Activity {
 
 			int column = cursor.getColumnIndex(Phone.DISPLAY_NAME);
 			arrayContactNames.add(cursor.getString(column));
-			Toast.makeText(this, cursor.getString(column), Toast.LENGTH_LONG).show();
-			
 		}
 		contactParent.setArrayChildren(arrayContactNames);
 		arrayParentsContact.add(contactParent);
