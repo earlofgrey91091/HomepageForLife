@@ -121,10 +121,9 @@ public class EventDetails extends Activity {
 
 		for (int i = 0; i<arrayLinks.size(); i++)
 		{
-			Log.d("EVENTDETAILS", "added links " + arrayLinks.get(i));
 			StringTokenizer stk = new StringTokenizer(arrayLinks.get(i), "\n");
-			arrayLinkNames.add(stk.nextToken());
 			arrayLinkURLs.add(stk.nextToken());
+			arrayLinkNames.add(stk.nextToken());
 		}
 		
 		linkParent.setArrayChildren(arrayLinkNames);

@@ -111,6 +111,11 @@ public class ContactCustomAdapter extends BaseExpandableListAdapter {
 		return view;
 	}
 
+	
+	//						QUICK COMMENT HERE USE R.layout.list_item_child WHEN GENERATING TEXT FIELDS LIKE NOTE
+	//						USE R.layout.list_item_contact WHEN MAKING BUTTONS LIKE CONTACTS AND LINKS
+	
+	
 	// @Override
 	// in this method you must set the text to see the children on the list
 	public View getChildView(int i, int i1, boolean b, View view,
@@ -153,7 +158,7 @@ public class ContactCustomAdapter extends BaseExpandableListAdapter {
 				//ADD FILES SHIT HERE DO WHAT LINK HAS BUT CHANGE THE HINT
 					//			AND THE ONCLICK
 			if (view == null) {
-				view = inflater.inflate(R.layout.list_item_child, viewGroup,
+				view = inflater.inflate(R.layout.list_item_contact, viewGroup,
 						false);
 			}
 
@@ -175,7 +180,7 @@ public class ContactCustomAdapter extends BaseExpandableListAdapter {
 		} else if (flag == LINK) {
 			Log.d("ContactCustomAdapter", "getChildView for LINK");
 			if (view == null) {
-				view = inflater.inflate(R.layout.list_item_child, viewGroup,
+				view = inflater.inflate(R.layout.list_item_contact, viewGroup,
 						false);
 			}
 
@@ -187,10 +192,7 @@ public class ContactCustomAdapter extends BaseExpandableListAdapter {
 			btn.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View v) {
 					Button btn = (Button) v;
-					Intent intent = new Intent(Intent.ACTION_VIEW);
-					Uri uri = Uri.withAppendedPath(
-							Uri.parse(String.valueOf(btn.getHint())), "");
-					intent.setData(uri);
+					Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(String.valueOf(btn.getHint())));
 					context.startActivity(intent);
 				}
 			});

@@ -246,12 +246,17 @@ public class NewEvent extends Activity {
 			public void onClick(DialogInterface dialog, int whichButton) 
 			{
 				if(input.getText().toString().equals("")){
-					curLink+= "www.google.com";
+					curLink+= "http://www.google.com\n";
 					templink=curLink;
 				}
 				else{
-					curLink+= input.getText().toString() + "\n";
-					templink= input.getText().toString();
+					
+					if(curLink.substring(0, 7).compareTo("http://")!=0 || curLink.substring(0, 8).compareTo("https://")!=0) {
+						curLink += "http://";
+					}
+					curLink+= input.getText().toString();
+					templink= curLink;
+					curLink+= "\n";
 				}
 				AlertDialog.Builder alert1 = new AlertDialog.Builder(NewEvent.this);
 				alert1.setTitle("New Link");
