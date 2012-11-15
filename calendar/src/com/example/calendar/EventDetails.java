@@ -36,6 +36,7 @@ public class EventDetails extends Activity {
 		Intent data = getIntent();
 		event = db.getEvent(data.getIntExtra("ID", -1));
 		Log.d("EVENTDETAILS", "event.returned ID is " + event.getID());
+		
 
 		TextView name = (TextView) findViewById(R.id.name);
 		name.setText("Name: " + event.getName());
@@ -86,7 +87,7 @@ public class EventDetails extends Activity {
 
 		fileParent.setArrayChildren(arrayListNames);
 		arrayParentsFile.add(fileParent);
-		fileList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsFile,ContactCustomAdapter.FILE,null));//arrayFiles
+		fileList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsFile,ContactCustomAdapter.FILE,arrayFiles));
 		
 		//apps should go here
 		appList = (ExpandableListView)findViewById(R.id.app_list);
