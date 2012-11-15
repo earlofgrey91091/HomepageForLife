@@ -52,8 +52,7 @@ public class EventDetails extends Activity {
 		ArrayList<Parent> arrayParentsContact = new ArrayList<Parent>();
 		contactParent.setTitle("Contacts");
 		ArrayList<String> arrayContactNames = new ArrayList<String>();
-		ArrayList<String> arrayContacts = db.getContacts(event.getID());
-		Log.d("EVENTDETAILS", "size of contacts is " + String.valueOf(arrayContacts.size()));
+		arrayContacts = db.getContacts(event.getID());
 		for (int i = 0; i<arrayContacts.size(); i++)
 		{
 			String[] projection = {Phone.DISPLAY_NAME };
@@ -74,9 +73,14 @@ public class EventDetails extends Activity {
 		ArrayList<Parent> arrayParentsFile = new ArrayList<Parent>();
 		fileParent.setTitle("Files");
 		arrayFiles = db.getFiles(event.getID());
-		fileParent.setArrayChildren(arrayFiles);
+		ArrayList<String> arrayListNames = new ArrayList<String>();
+		for(int i = 0; i<arrayFiles.size(); i++) {
+			int name_loc = arrayFiles.get(i).lastIndexOf("/");
+			arrayListNames.add(arrayFiles.get(i).substring(name_loc + 1));
+		}
+		fileParent.setArrayChildren(arrayListNames);
 		arrayParentsFile.add(fileParent);
-		fileList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsFile,ContactCustomAdapter.FILE,null));
+		fileList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsFile,ContactCustomAdapter.FILE,arrayFiles));
 		
 		//apps should go here
 		appList = (ExpandableListView)findViewById(R.id.app_list);
@@ -100,7 +104,7 @@ public class EventDetails extends Activity {
 		
 		ArrayList<String> arrayLinkNames = new ArrayList<String>();
 		ArrayList<String> arrayLinkURLs = new ArrayList<String>();
-		ArrayList<String> arrayLinks = db.getLinks(event.getID());
+		arrayLinks = db.getLinks(event.getID());
 		for (int i = 0; i<arrayLinks.size(); i++)
 		{
 			StringTokenizer stk = new StringTokenizer(arrayLinks.get(i), "\n");
@@ -117,7 +121,7 @@ public class EventDetails extends Activity {
 		Parent noteParent = new Parent();
 		ArrayList<Parent> arrayParentsNote = new ArrayList<Parent>();
 		noteParent.setTitle("Note");
-		ArrayList<String> arrayNotes = db.getNotes(event.getID());
+		arrayNotes = db.getNotes(event.getID());
 		noteParent.setArrayChildren(arrayNotes);
 		arrayParentsNote.add(noteParent);
 		noteList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsNote,ContactCustomAdapter.NOTE,null));

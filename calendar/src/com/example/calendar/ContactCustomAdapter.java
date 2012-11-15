@@ -147,6 +147,9 @@ public class ContactCustomAdapter extends BaseExpandableListAdapter {
 					context.startActivity(intent);
 				}
 			});
+		} else if (flag == FILE) {
+				//ADD FILES SHIT HERE DO WHAT LINK HAS BUT CHANGE THE HINT
+					//			AND THE ONCLICK
 		} else if (flag == LINK) {
 			if (view == null) {
 				view = inflater.inflate(R.layout.list_item_contact, viewGroup,
@@ -163,8 +166,7 @@ public class ContactCustomAdapter extends BaseExpandableListAdapter {
 					Button btn = (Button) v;
 					Intent intent = new Intent(Intent.ACTION_VIEW);
 					Uri uri = Uri.withAppendedPath(
-							Uri.parse(String.valueOf(btn.getHint())),
-							"");
+							Uri.parse(String.valueOf(btn.getHint())), "");
 					intent.setData(uri);
 					context.startActivity(intent);
 				}
