@@ -61,7 +61,7 @@ public class EventDetails extends Activity {
 		fileList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsContact,1));
 		
 		TextView notes = (TextView) findViewById(R.id.notes);
-		notes.setText("Notes: \n" + event.getNotes());
+		//notes.setText("Notes: \n" + event.getNotes());
 	}
 	
 	public void removeEvent(View view) {

@@ -1,15 +1,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent" >
 
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_above="@id/button2" >
+        android:layout_above="@id/button2"
+        android:layout_alignParentTop="true" >
 
         <LinearLayout
             android:id="@+id/LinearLayout1"
@@ -119,18 +118,19 @@
                 </LinearLayout>
 
                 <RelativeLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:tools="http://schemas.android.com/tools"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" >
 
                     <TextView
-                        android:id="@+id/textView1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="false"
+                        android:layout_alignParentLeft="true"
                         android:layout_alignParentTop="true"
                         android:paddingLeft="10dp"
                         android:paddingTop="10dp"
-                        android:text="@string/appText"
+                        android:text="Apps"
                         android:textSize="24dp" />
 
                     <Button
@@ -139,9 +139,19 @@
                         android:layout_alignParentRight="true"
                         android:layout_alignParentTop="true"
                         android:onClick="addApp"
-                        android:text="@string/button_message" />
+                        android:text="Add" />
                 </RelativeLayout>
-
+                
+                <LinearLayout
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:id="@+id/app_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingLeft="10dp" >
+                </LinearLayout>
+                
                 <EditText
                     android:id="@+id/note_message"
                     android:layout_width="wrap_content"
@@ -152,32 +162,34 @@
         </LinearLayout>
     </ScrollView>
 
-<!--    <RelativeLayout
+    <!--
+        <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
--->
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:onClick="save"
-            android:text="Save" />
-        
-        <Button
-            android:id="@+id/cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:onClick="cancel"
-            android:text="Cancel" />
-        
-        
-    <!-- </RelativeLayout>
+
     -->
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:onClick="save"
+        android:text="Save" />
+
+    <Button
+        android:id="@+id/cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:onClick="cancel"
+        android:text="Cancel" />
+
+<!--  </RelativeLayout>
+ -->
 
 </RelativeLayout>
