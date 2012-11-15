@@ -13,7 +13,7 @@ public class DbHandler extends SQLiteOpenHelper {
 
 	// All Static variables
 	// Database Version
-	private static final int DATABASE_VERSION = 5;
+	private static final int DATABASE_VERSION = 6;
 	
 	// Database Name
 	private static final String DATABASE_NAME = "HPL";
@@ -56,7 +56,7 @@ public class DbHandler extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		String DICTIONARY_TABLE_CREATE = "CREATE TABLE "
 				+ EVENT_TABLE + " (" + KEY_ID + " INTEGER PRIMARY KEY, " + KEY_DATE + " TEXT, " + KEY_NAME + " TEXT, "
-				+ KEY_LOC +"TEXT);";
+				+ KEY_LOC +" TEXT);";
 		String CONTACT_TABLE_CREATE= "CREATE TABLE "
 				+ CONTACT_TABLE + " (" + KEY_EVENT_ID + " INTEGER, " + KEY_CONTACT_VALUE + " TEXT);";
 		String FILE_TABLE_CREATE= "CREATE TABLE "
@@ -108,21 +108,20 @@ public class DbHandler extends SQLiteOpenHelper {
 	// Getting single Event
 	CalendarEvent getEvent(String eventDate) {
 		SQLiteDatabase db = this.getReadableDatabase();
-
+		
 		Cursor cur = db.query(EVENT_TABLE, new String[] { KEY_ID, KEY_DATE,
-				KEY_NAME, KEY_LOC }, KEY_DATE + "=?",
-				new String[] { eventDate }, null, null, null, null);
-
+								KEY_NAME, KEY_LOC }, KEY_DATE + "=?",
+								new String[] { eventDate }, null, null, null, null);
+		
 		//db.close(); // Closing database connection
 		if (cur != null)
 			cur.moveToFirst();
-		//else return null;
-
+		
 		CalendarEvent event = new CalendarEvent(cur.getInt(0),
-				cur.getString(1), cur.getString(2), cur.getString(3));
+					cur.getString(1), cur.getString(2), cur.getString(3));
 		// return event
 		return event;
-	}
+}
 	
 	CalendarEvent getEvent(int id) {
 		SQLiteDatabase db = this.getReadableDatabase();
@@ -290,4 +289,93 @@ public class DbHandler extends SQLiteOpenHelper {
 				new String[] { String.valueOf(eventId), theFile});
 		db.close();
 	}
+	
+	public void addApp(int eventId, String theApp) {
+		SQLiteDatabase db = getWritableDatabase();
+		
+		ContentValues cv = new ContentValues();
+		cv.put(KEY_EVENT_ID, eventId);
+		cv.put(KEY_APP_NAME, theApp);		
+		// Inserting Row
+		db.insert(APP_TABLE, null, cv);
+		db.close(); // Closing database connection
+	}
+
+	// Getting all apps
+	List<String> getApps(int eventId) 
+	{
+		
+		ArrayList<String> fileList = new ArrayList<String>();
+		
+		// Select All Query
+		String selectQuery = "SELECT "+ KEY_APP_NAME +" FROM " + APP_TABLE + " WHERE " + KEY_EVENT_ID + " = " + eventId;
+
+		SQLiteDatabase db = this.getWritableDatabase();
+		Cursor cursor = db.rawQuery(selectQuery, null);
+
+		// looping through all rows and adding to list
+		if (cursor.moveToFirst()) {
+			do {
+				fileList.add(cursor.getString(1));
+			} while (cursor.moveToNext());
+		}
+
+		// return contact list
+		return fileList;
+
+		//db.close(); // Closing database connection
+	}
+
+	// Deleting single app
+	public void deleteApp(int eventId, String theApp) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.delete(APP_TABLE, KEY_ID + " = ? , " + KEY_APP_NAME + " = ?",
+				new String[] { String.valueOf(eventId), theApp});
+		db.close();
+	}
+	public void addNote(int eventId, String theNote) {
+		SQLiteDatabase db = getWritableDatabase();
+		
+		ContentValues cv = new ContentValues();
+		cv.put(KEY_EVENT_ID, eventId);
+		cv.put(KEY_NOTE, theNote);		
+		// Inserting Row
+		db.insert(NOTE_TABLE, null, cv);
+		db.close(); // Closing database connection
+	}
+
+	// Getting all notes
+	List<String> getNotes(int eventId) 
+	{
+		
+		ArrayList<String> fileList = new ArrayList<String>();
+		
+		// Select All Query
+		String selectQuery = "SELECT "+ KEY_NOTE +" FROM " + NOTE_TABLE + " WHERE " + KEY_EVENT_ID + " = " + eventId;
+
+		SQLiteDatabase db = this.getWritableDatabase();
+		Cursor cursor = db.rawQuery(selectQuery, null);
+
+		// looping through all rows and adding to list
+		if (cursor.moveToFirst()) {
+			do {
+				fileList.add(cursor.getString(1));
+			} while (cursor.moveToNext());
+		}
+
+		// return contact list
+		return fileList;
+
+		//db.close(); // Closing database connection
+	}
+
+	// Deleting single note
+	public void deleteNote(int eventId, String theNote) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.delete(NOTE_TABLE, KEY_ID + " = ? , " + KEY_NOTE + " = ?",
+				new String[] { String.valueOf(eventId), theNote});
+		db.close();
+	}
+	
+	
 }
