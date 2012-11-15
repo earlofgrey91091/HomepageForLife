@@ -175,7 +175,8 @@ public class NewEvent extends Activity {
 			 * }
 			 */
 
-			// pm.getLaunchIntentForPackage(packageInfo.packageName));
+			// final PackageManager pm = getPackageManager();
+			// startActivity(pm.getLaunchIntentForPackage(packageInfo.packageName)));
 		}// the getLaunchIntentForPackage returns an intent that you can use
 			// with startActivity()
 			// should print out name of app
