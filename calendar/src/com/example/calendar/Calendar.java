@@ -2,6 +2,7 @@ package com.example.calendar;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import android.app.Activity;
 import android.content.Context;
@@ -85,6 +86,11 @@ public class Calendar extends Activity {
 					for(String theContact : contacts)
 					{
 						db.addContact(event.getID(), theContact);
+					}
+					for(String theLink : links)
+					{
+						StringTokenizer st = new StringTokenizer(theLink, "/n");
+						db.addLink(event.getID(), st.nextToken(), st.nextToken());
 					}
 					if(!notes.equals("")) db.addNote(event.getID(), notes);
 					Toast.makeText(getApplicationContext(), 

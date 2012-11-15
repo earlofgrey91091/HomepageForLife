@@ -267,8 +267,13 @@ public class NewEvent extends Activity {
 		alert.setView(input1);
 		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 		public void onClick(DialogInterface dialog, int whichButton) {
-		  curLink+= input1.getText().toString();
-		  curLink+= "\n";
+			if(input.getText().toString().equals("")){
+				  curLink+= "google.com";
+			  }
+			  else{
+				  curLink+= input1.getText().toString();
+				  curLink+= "\n";				  
+			  }
 		  }
 		});
 		alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

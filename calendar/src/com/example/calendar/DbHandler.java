@@ -382,5 +382,52 @@ public class DbHandler extends SQLiteOpenHelper {
 		db.close();
 	}
 	
+	//Add a link to the event
+	public void addLink(int eventId, String theLink, String theName) {
+		SQLiteDatabase db = getWritableDatabase();
+		
+		ContentValues cv = new ContentValues();
+		cv.put(KEY_EVENT_ID, eventId);
+		cv.put(KEY_LINK_URL, theLink);
+		cv.put(KEY_LINK_NAME, theName);
+		// Inserting Row
+		db.insert(NOTE_TABLE, null, cv);
+		db.close(); // Closing database connection
+	}
+
+	// Getting all links for an event
+	ArrayList<String> getLinks(int eventId) 
+	{
+		ArrayList<String> linkList = new ArrayList<String>();
+		// Select All Query
+		//String selectQuery = "SELECT * FROM " + LINK_TABLE + " WHERE " + KEY_EVENT_ID + " = " + eventId;
+
+		SQLiteDatabase db = this.getWritableDatabase();
+		Cursor cursor = db.query(LINK_TABLE, new String[]{KEY_EVENT_ID, KEY_LINK_URL, KEY_LINK_NAME}, KEY_EVENT_ID + " = ?", 
+					new String[]{String.valueOf(eventId)}, null, null, null);
+		// looping through all rows and adding to list
+		if (cursor.moveToFirst()) {
+			Log.d("DbHandler", "event is id " + String.valueOf(eventId));
+
+			do {
+				Log.d("DbHandler", "output at row is " + cursor.getString(0) +" and " + cursor.getString(1));
+				linkList.add(cursor.getString(1) + "\n" + cursor.getString(2));
+			} while (cursor.moveToNext());
+		}
+
+		// return link list
+		return linkList;
+
+		//db.close(); // Closing database connection
+	}
+
+	// Deleting single note
+	public void deleteLink(int eventId, String theLink) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.delete(LINK_TABLE, KEY_ID + " = ? , " + KEY_LINK_URL + " = ?",
+				new String[] { String.valueOf(eventId), theLink});
+		db.close();
+	}
+	
 	
 }
