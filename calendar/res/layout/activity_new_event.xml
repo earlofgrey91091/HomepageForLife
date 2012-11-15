@@ -16,13 +16,11 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <EditText
-                android:id="@+id/date_message"
-                android:layout_width="240dp"
+            <Button
+                android:id="@+id/date_button"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/date_message" >
-            </EditText>
+                android:onClick="showDatePickerDialog"/>
 
             <EditText
                 android:id="@+id/name_message"
@@ -131,6 +129,7 @@
                         android:paddingLeft="10dp"
                         android:paddingTop="10dp"
                         android:text="Apps"
+    
                         android:textSize="24dp" />
 
                     <Button
@@ -141,7 +140,7 @@
                         android:onClick="addApp"
                         android:text="Add" />
                 </RelativeLayout>
-                
+
                 <LinearLayout
                     xmlns:android="http://schemas.android.com/apk/res/android"
                     xmlns:tools="http://schemas.android.com/tools"
@@ -197,15 +196,6 @@
         </LinearLayout>
     </ScrollView>
 
-    <!--
-        <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-    -->
-
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
@@ -223,8 +213,5 @@
         android:layout_alignParentRight="true"
         android:onClick="cancel"
         android:text="Cancel" />
-
-<!--  </RelativeLayout>
- -->
 
 </RelativeLayout>

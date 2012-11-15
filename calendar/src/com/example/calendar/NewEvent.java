@@ -2,10 +2,14 @@ package com.example.calendar;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Calendar;
 
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -17,16 +21,17 @@ import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
-//Nagle imports for contacts
 
 public class NewEvent extends Activity {
 
+	
+	final Calendar c = Calendar.getInstance();
+	
 	final static int ADD_FILE = 3;
 	final static int ADD_APP = 4;
 	final static int ADD_CONTACT = 1001;// 1001
@@ -40,6 +45,14 @@ public class NewEvent extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_new_event);
+		
+		int cur_year = c.get(Calendar.YEAR);
+		int cur_month = c.get(Calendar.MONTH);
+		int cur_day = c.get(Calendar.DAY_OF_MONTH);
+		String cur_date = cur_month + "/" + cur_day + "/" + cur_year;
+		Button date_f = (Button) findViewById(R.id.date_button);
+		date_f.setText(cur_date);
+		
 		db = new DbHandler(this);
 		Intent intent = getIntent();
 		String year = intent.getStringExtra("year");
@@ -47,7 +60,7 @@ public class NewEvent extends Activity {
 		String day = intent.getStringExtra("day");
 		String date = month + "/" + day + "/" + year;
 		if (year != null || month != null || day != null) {
-			EditText date_field = (EditText) findViewById(R.id.date_message);
+			Button date_field = (Button) findViewById(R.id.date_button);
 			date_field.setText(date);
 		}
 	}
@@ -96,20 +109,16 @@ public class NewEvent extends Activity {
 
 		case ADD_CONTACT:
 			if (resultCode == RESULT_OK) {
-	            Uri contactUri = data.getData();
-	            String[] projection = {Phone.NUMBER,
-	            						Phone.DISPLAY_NAME};
-	            Cursor cursor = getContentResolver()
-	                    .query(contactUri, projection, null, null, null);
-	            cursor.moveToFirst();
+				Uri contactUri = data.getData();
+				String[] projection = { Phone.NUMBER, Phone.DISPLAY_NAME };
+				Cursor cursor = getContentResolver().query(contactUri,
+						projection, null, null, null);
+				cursor.moveToFirst();
 
-	            int column = cursor.getColumnIndex(Phone.DISPLAY_NAME);
-	            String cont_name = cursor.getString(column);
+				int column = cursor.getColumnIndex(Phone.DISPLAY_NAME);
+				String cont_name = cursor.getString(column);
 
-
-	            
-	            
-	            LinearLayout linearLayout = (LinearLayout) findViewById(R.id.contacts_layout);
+				LinearLayout linearLayout = (LinearLayout) findViewById(R.id.contacts_layout);
 				RelativeLayout relativeLayout = new RelativeLayout(this);
 
 				TextView name = new TextView(this);
@@ -137,7 +146,6 @@ public class NewEvent extends Activity {
 		
 		case ADD_LINK:
 			//handle whatever happens after the activity to make file and filename
-			
 			break;
 		}
 	}
@@ -229,7 +237,7 @@ public class NewEvent extends Activity {
 	}
 
 	public void save(View view) {
-		EditText date = (EditText) findViewById(R.id.date_message);
+		EditText date = (EditText) findViewById(R.id.date_button);
 		String dateMessage = date.getText().toString();
 		EditText name = (EditText) findViewById(R.id.name_message);
 		String nameMessage = name.getText().toString();
@@ -254,5 +262,32 @@ public class NewEvent extends Activity {
 		Intent i = new Intent();
 		setResult(RESULT_CANCELED, i);
 		finish();
+	}
+
+	public class DatePickerFragment extends DialogFragment implements
+			DatePickerDialog.OnDateSetListener {
+
+		@Override
+		public Dialog onCreateDialog(Bundle savedInstanceState) {
+			// Use the current date as the default date in the picker
+			final Calendar c = Calendar.getInstance();
+			int year = c.get(Calendar.YEAR);
+			int month = c.get(Calendar.MONTH);
+			int day = c.get(Calendar.DAY_OF_MONTH);
+
+			// Create a new instance of DatePickerDialog and return it
+			return new DatePickerDialog(getActivity(), this, year, month, day);
+		}
+
+		public void onDateSet(DatePicker view, int year, int month, int day) {
+			Button date_field = (Button) findViewById(R.id.date_button);
+			String date = month + "/" + day + "/" + year;
+			date_field.setText(date);
+		}
+	}
+
+	public void showDatePickerDialog(View v) {
+		DialogFragment newFragment = new DatePickerFragment();
+		newFragment.show(getFragmentManager(), "datePicker");
 	}
 }
