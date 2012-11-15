@@ -3,6 +3,7 @@ package com.example.calendar;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Calendar;
+import java.util.StringTokenizer;
 
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
@@ -248,8 +249,6 @@ public class NewEvent extends Activity {
 				  curLink+= input.getText().toString();
 				  
 			  }
-			Toast.makeText(getApplicationContext(), 
-					curLink, Toast.LENGTH_LONG).show();
 		  }
 		});
 		alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -274,6 +273,22 @@ public class NewEvent extends Activity {
 				  curLink+= input1.getText().toString();
 				  curLink+= "\n";				  
 			  }
+			
+			Button btn = new Button(NewEvent.this);
+			StringTokenizer stk = new StringTokenizer(curLink, "\n");
+			btn.setHint(stk.nextToken());
+			btn.setText(stk.nextToken());
+			btn.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+					Button b = (Button) v;
+					Intent intent = new Intent(Intent.ACTION_VIEW);
+					Uri uri = Uri.withAppendedPath(
+							Uri.parse(String.valueOf(b.getHint())),
+							"");
+					intent.setData(uri);
+					startActivity(intent);
+				}
+			});
 		  }
 		});
 		alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -283,9 +298,6 @@ public class NewEvent extends Activity {
 		});
 		alert.show();
 		links.add(curLink);
-		
-		
-		
 	}
 
 	  
