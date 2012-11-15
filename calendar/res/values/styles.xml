@@ -2,4 +2,7 @@
 
     <style name="AppTheme" parent="android:Theme.Light" />
 
+  <style name="ThemeBlack" parent="android:attr/buttonStyleSmall"/>
+
+
 </resources>

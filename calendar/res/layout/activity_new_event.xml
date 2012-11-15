@@ -72,6 +72,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_alignParentTop="true"
                         android:onClick="addFile"
+                         style="?android:attr/buttonStyleSmall"
                         android:text="@string/button_message" />
 
                     <TextView
@@ -117,6 +118,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_alignParentTop="true"
                         android:onClick="addContact"
+                         style="?android:attr/buttonStyleSmall"
                         android:text="Add" />
                 </RelativeLayout>
 
@@ -152,6 +154,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_alignParentTop="true"
                         android:onClick="addApp"
+                         style="?android:attr/buttonStyleSmall"
                         android:text="Add" />
                 </RelativeLayout>
 
@@ -188,6 +191,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_alignParentTop="true"
                         android:onClick="addLink"
+                         style="?android:attr/buttonStyleSmall"
                         android:text="Add" />
                 </RelativeLayout>
 

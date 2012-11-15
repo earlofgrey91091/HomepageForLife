@@ -100,7 +100,7 @@ public class NewEvent extends Activity {
 				RelativeLayout.LayoutParams btn_params = new RelativeLayout.LayoutParams(
 						LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 				btn_params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-				final Button btn = new Button(this);
+				Button btn = new Button(NewEvent.this, null, android.R.attr.buttonStyleSmall);
 				btn.setText("Delete");
 				btn.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
@@ -138,7 +138,7 @@ public class NewEvent extends Activity {
 				RelativeLayout.LayoutParams btn_params = new RelativeLayout.LayoutParams(
 						LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 				btn_params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-				final Button btn = new Button(this);
+				Button btn = new Button(NewEvent.this, null, android.R.attr.buttonStyleSmall);
 				btn.setText("Delete");
 				btn.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
@@ -205,7 +205,7 @@ public class NewEvent extends Activity {
 				RelativeLayout.LayoutParams btn_params = new RelativeLayout.LayoutParams(
 						LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 				btn_params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-				final Button btn = new Button(NewEvent.this);
+				Button btn = new Button(NewEvent.this, null, android.R.attr.buttonStyleSmall);
 				btn.setText("Delete");
 				btn.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
@@ -294,7 +294,7 @@ public class NewEvent extends Activity {
 				RelativeLayout.LayoutParams btn_params = new RelativeLayout.LayoutParams(
 						LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 				btn_params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-				final Button btns = new Button(NewEvent.this);
+				Button btns = new Button(NewEvent.this, null, android.R.attr.buttonStyleSmall);
 				btns.setText("Delete");
 				btns.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
