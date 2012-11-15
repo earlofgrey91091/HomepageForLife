@@ -68,7 +68,7 @@ public class Calendar extends Activity {
 					ArrayList<String> apps = (ArrayList<String>) data.getStringArrayListExtra("apps");
 					ArrayList<String> contacts = (ArrayList<String>) data.getStringArrayListExtra("contacts");
 					String notes = (String) data.getStringExtra("notes");
-					//event_list = db.getAllEvents();
+					event_list = db.getAllEvents();
 					event = db.getEvent(event.getDate());
 					event_list.add(event);
 					for(String theFile : files)

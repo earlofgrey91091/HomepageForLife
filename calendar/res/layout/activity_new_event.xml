@@ -16,11 +16,26 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <Button
-                android:id="@+id/date_button"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="showDatePickerDialog"/>
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="10dp"
+                    android:text="Date:"
+                    android:textSize="24dp" />
+
+                <Button
+                    android:id="@+id/date_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="showDatePickerDialog" />
+            </LinearLayout>
 
             <EditText
                 android:id="@+id/name_message"
@@ -129,7 +144,6 @@
                         android:paddingLeft="10dp"
                         android:paddingTop="10dp"
                         android:text="Apps"
-    
                         android:textSize="24dp" />
 
                     <Button
@@ -150,7 +164,8 @@
                     android:orientation="vertical"
                     android:paddingLeft="10dp" >
                 </LinearLayout>
-         <!-- Below is the layout for links -->
+                <!-- Below is the layout for links -->
+
                 <RelativeLayout
                     xmlns:android="http://schemas.android.com/apk/res/android"
                     xmlns:tools="http://schemas.android.com/tools"
@@ -175,7 +190,7 @@
                         android:onClick="addLink"
                         android:text="Add" />
                 </RelativeLayout>
-                
+
                 <LinearLayout
                     xmlns:android="http://schemas.android.com/apk/res/android"
                     xmlns:tools="http://schemas.android.com/tools"
@@ -185,7 +200,7 @@
                     android:orientation="vertical"
                     android:paddingLeft="10dp" >
                 </LinearLayout>
-                
+
                 <EditText
                     android:id="@+id/note_message"
                     android:layout_width="wrap_content"
