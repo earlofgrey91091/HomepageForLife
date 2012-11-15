@@ -28,6 +28,8 @@ public class ContactCustomAdapter extends BaseExpandableListAdapter {
 	static final int CONTACT = 0;
 	static final int NOTE = 2;
 	static final int LINK = 3;
+	static final int APP = 4;
+	static final int FILE = 5;
 
 	public ContactCustomAdapter(Context context, ArrayList<Parent> parent,
 			int flag1, ArrayList<String> actuals, Uri uri) {
@@ -143,6 +145,7 @@ public class ContactCustomAdapter extends BaseExpandableListAdapter {
 			// return the entire view
 			return view;
 		}
+		
 		else {
 			if (view == null) {
 				view = inflater.inflate(R.layout.list_item_contact, viewGroup,
