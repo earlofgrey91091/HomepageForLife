@@ -20,5 +20,6 @@
     <string name="title_activity_android_explorer">AndroidExplorer</string>
     <string name="note_message">Note</string>
     <string name="appText">Apps</string>
+    <string name="title_activity_edit_event">Edit Event</string>
 
 </resources>

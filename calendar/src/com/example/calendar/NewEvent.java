@@ -131,7 +131,8 @@ public class NewEvent extends Activity {
 				LinearLayout contactsLinearLayout = (LinearLayout) findViewById(R.id.contacts_layout);
 				RelativeLayout contactsRelativeLayout = new RelativeLayout(this);
 
-				TextView name = new TextView(this);
+				TextView name = new TextView(this, null, android.R.style.TextAppearance_Medium);
+				name.setPadding(35, 15, 0, 0);
 				name.setText(cont_name);
 				RelativeLayout.LayoutParams name_params = new RelativeLayout.LayoutParams(
 						LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
@@ -196,7 +197,8 @@ public class NewEvent extends Activity {
 				RelativeLayout appsRelativeLayout = new RelativeLayout(
 						NewEvent.this);
 
-				TextView name = new TextView(NewEvent.this);
+				TextView name = new TextView(NewEvent.this, null, android.R.style.TextAppearance_Medium);
+				name.setPadding(35, 15, 0, 0);
 				int name_loc = app_name.lastIndexOf(".");
 				String a_name = app_name.substring(name_loc + 1);
 				name.setText(a_name);
@@ -283,8 +285,8 @@ public class NewEvent extends Activity {
 				
 				LinearLayout linkLinearLayout = (LinearLayout) findViewById(R.id.links_layout);
 				RelativeLayout linkRelativeLayout = new RelativeLayout(NewEvent.this);
-
-				Button btn = new Button(NewEvent.this);
+				
+				Button btn = new Button(NewEvent.this, null, android.R.attr.buttonStyleSmall);
 				btn.setHint(templink);
 				btn.setText(tempname);
 				btn.setOnClickListener(new View.OnClickListener() {
