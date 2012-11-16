@@ -51,16 +51,22 @@ public class EditEvent extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_new_event);
+		Log.d("Edit", "Congrats you're editing");
 		db = new DbHandler(this);
-		Intent intent = getIntent();
 		Intent data = getIntent();
+		Log.d("Edit", "getIntent calls and dbhandle");
 		int myRow = data.getIntExtra("ID", -1);
+		Log.d("Edit", "Get myRow from data");
 		myEvent = db.getEvent(myRow);
+		Log.d("Edit", "Pulled event");
 		files = db.getFiles(myRow);
+		Log.d("Edit", "Pulled files");
 		apps = db.getApps(myRow);
+		Log.d("Edit", "Pulled apps");
 		contacts = db.getContacts(myRow);
+		Log.d("Edit", "Pulled contacts");
 		links = db.getLinks(myRow);
-		
+		Log.d("Edit", "Pulled links");
 		for(String contact: contacts)
 		{
 			addContactButton(contact);
@@ -77,7 +83,7 @@ public class EditEvent extends Activity {
 		{
 			addAppButton(app);
 		}
-		
+		Log.d("Edit", "Did addButton things");
 		Button date_f = (Button) findViewById(R.id.date_button);
 		date_f.setText(myEvent.getDate());;
 		EditText name = (EditText) findViewById(R.id.name_message);
@@ -88,6 +94,7 @@ public class EditEvent extends Activity {
 		ArrayList<String> theNotes = db.getNotes(myRow);
 		if(theNotes.size()!=0)
 			notes.setText(theNotes.get(0));		
+		Log.d("Edit", "Finished oncreate");
 	}
 
 	@Override

@@ -25,6 +25,7 @@ public class EventDetails extends Activity {
 	ArrayList<String> arrayLinks;
 	ArrayList<String> arrayNotes;
 	private ArrayList<CalendarEvent> event_list = new ArrayList<CalendarEvent>();
+	private final static int EDIT_EVENT=1;
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -222,8 +223,10 @@ public class EventDetails extends Activity {
     }
 	
 	public void editEvent(View view){
-		Intent intent = new Intent(this, EditEvent.class);
-	    startActivityForResult(intent, 1);
+		Log.d("EventDetails", "You pushed edit");
+		Intent i = new Intent(this, EditEvent.class);
+		i.putExtra("ID", event.getID());
+	    startActivityForResult(i, EDIT_EVENT);
 	}
 	
 }

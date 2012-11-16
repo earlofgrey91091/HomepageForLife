@@ -110,7 +110,7 @@ public class DbHandler extends SQLiteOpenHelper {
 	
 	CalendarEvent getEvent(int id) {
 		SQLiteDatabase db = this.getReadableDatabase();
-
+		Log.d("Dbhandler", "attempting to get event");
 		Cursor cur = db.query(EVENT_TABLE, new String[] { KEY_ID, KEY_DATE,
 				KEY_NAME, KEY_LOC }, KEY_ID + "=?",
 				new String[] { String.valueOf(id) }, null, null, null, null);
@@ -120,6 +120,7 @@ public class DbHandler extends SQLiteOpenHelper {
 
 		CalendarEvent event = new CalendarEvent(cur.getInt(0),
 				cur.getString(1), cur.getString(2), cur.getString(3));
+		Log.d("Dbhandler", "got event and returning");
 		db.close();
 		// return event
 		return event;
