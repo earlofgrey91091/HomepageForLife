@@ -331,11 +331,12 @@ public class EditEvent extends Activity {
 		LinearLayout contactsLinearLayout = (LinearLayout) findViewById(R.id.contacts_layout);
 		RelativeLayout contactsRelativeLayout = new RelativeLayout(this);
 
-		TextView name = new TextView(this);
+		TextView name = new TextView(this, null, android.R.style.TextAppearance_Medium);
 		name.setText(cont_name);
 		RelativeLayout.LayoutParams name_params = new RelativeLayout.LayoutParams(
 				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		name_params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+		name.setPadding(35, 15, 0, 0);
 		contactsRelativeLayout.addView(name, name_params);
 
 		RelativeLayout.LayoutParams btn_params = new RelativeLayout.LayoutParams(
@@ -359,13 +360,14 @@ public class EditEvent extends Activity {
 		RelativeLayout appsRelativeLayout = new RelativeLayout(
 				EditEvent.this);
 
-		TextView name = new TextView(EditEvent.this);
+		TextView name = new TextView(this, null, android.R.style.TextAppearance_Medium);
 		int name_loc = app_name.lastIndexOf(".");
 		String a_name = app_name.substring(name_loc + 1);
 		name.setText(a_name);
 		RelativeLayout.LayoutParams name_params = new RelativeLayout.LayoutParams(
 				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		name_params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+		name.setPadding(35, 15, 0, 0);
 		appsRelativeLayout.addView(name, name_params);
 
 		RelativeLayout.LayoutParams btn_params = new RelativeLayout.LayoutParams(
