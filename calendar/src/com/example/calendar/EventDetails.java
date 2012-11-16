@@ -159,7 +159,7 @@ public class EventDetails extends Activity {
 			ArrayList<String> contacts = (ArrayList<String>) data.getStringArrayListExtra("contacts");
 			ArrayList<String> links = (ArrayList<String>) data.getStringArrayListExtra("links");
 			String notes = (String) data.getStringExtra("notes");
-			
+	
 			Log.d("View", "# of links " + links.size());
 			Log.d("View", "# of contacts " + contacts.size());
 			Log.d("View", "# of files " + files.size());
@@ -185,6 +185,7 @@ public class EventDetails extends Activity {
 			{
 				db.deleteApp(event.getID(), app);
 			}
+
 			for(String theFile : files)
 			{
 				db.addFile(event.getID(), theFile);
@@ -205,12 +206,14 @@ public class EventDetails extends Activity {
 			if(!notes.equals("")) db.addNote(event.getID(), notes);
 			Toast.makeText(getApplicationContext(), 
 					"Event added", Toast.LENGTH_LONG).show();
+
 			db.updateEvent(theEvent);
 			
 			
 			finish();
 			Intent intent = new Intent(this, Calendar.class);
 			startActivity(intent);
+
 		}
 		
 	}
