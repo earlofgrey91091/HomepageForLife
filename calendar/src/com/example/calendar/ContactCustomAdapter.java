@@ -1,6 +1,7 @@
 package com.example.calendar;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 
 /**
  * Created with IntelliJ IDEA. User: zizi Date: 8/10/12 Time: 12:05 PM To change
@@ -177,7 +180,27 @@ public class ContactCustomAdapter extends BaseExpandableListAdapter {
 					context.startActivity(intent);
 				}
 			}); 
-		} else if (flag == LINK) {
+		} 
+		else if (flag == APP) {
+			//ADD APP SHIT HERE DO WHAT LINK HAS BUT CHANGE THE HINT
+				//			AND THE ONCLICK
+		if (view == null) {
+			view = inflater.inflate(R.layout.list_item_contact, viewGroup,
+					false);
+		}
+		final String appName = mParent.get(i).getArrayChildren().get(i1);
+		Button btn = (Button) view.findViewById(R.id.contact);
+		// "i" is the position of the parent/group in the list and
+		// "i1" is the position of the child
+		btn.setText(mParent.get(i).getArrayChildren().get(i1));
+		btn.setHint(actual_names.get(i1));
+		btn.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				context.startActivity(context.getPackageManager().getLaunchIntentForPackage(appName));
+			}
+		}); 
+		}
+		else if (flag == LINK) {
 			Log.d("ContactCustomAdapter", "getChildView for LINK");
 			if (view == null) {
 				view = inflater.inflate(R.layout.list_item_contact, viewGroup,

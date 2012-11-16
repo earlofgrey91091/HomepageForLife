@@ -106,8 +106,9 @@ public class EventDetails extends Activity {
 		arrayParentsApp.add(appParent);
 		appList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsApp,ContactCustomAdapter.APP,null));
 		// to run app, given the name
-		final PackageManager pm = getPackageManager();
-		startActivity(pm.getLaunchIntentForPackage(arrayApps.get(0)));
+
+		//final PackageManager pm = getPackageManager();
+		//startActivity(pm.getLaunchIntentForPackage(arrayApps.get(0)));
 
 		// links should go here
 		linkList = (ExpandableListView)findViewById(R.id.link_list);
@@ -148,14 +149,17 @@ public class EventDetails extends Activity {
 		}
 	
 	public void removeEvent(View view) {
+		for(String contact: arrayContacts)
+		{
+			db.deleteContact(event.getID(), contact);
+		}
 		for(String link: arrayLinks)
 		{
-			db.deleteLink(event.getID(), link);
+			StringTokenizer st = new StringTokenizer(link, "\n");
+			db.deleteLink(event.getID(), st.nextToken());
 		}
 		for(String note: arrayNotes)
 		{
-			//Log.d("EVENTDETAILS", "notetodelete has note " + note);
-
 			db.deleteNote(event.getID(), note);
 		}
 		for(String file: arrayFiles)
@@ -166,6 +170,7 @@ public class EventDetails extends Activity {
 		{
 			db.deleteApp(event.getID(), app);
 		}
+		
 		db.deleteEvent(event);
 		finish();
 		Intent intent = new Intent(this, ViewEvents.class);
