@@ -286,7 +286,7 @@ public class NewEvent extends Activity {
 				LinearLayout linkLinearLayout = (LinearLayout) findViewById(R.id.links_layout);
 				RelativeLayout linkRelativeLayout = new RelativeLayout(NewEvent.this);
 				
-				Button btn = new Button(NewEvent.this, null, android.R.attr.buttonStyleSmall);
+/*				Button btn = new Button(NewEvent.this, null, android.R.attr.buttonStyleSmall);
 				btn.setHint(templink);
 				btn.setText(tempname);
 				btn.setOnClickListener(new View.OnClickListener() {
@@ -305,6 +305,17 @@ public class NewEvent extends Activity {
 				name_params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
 				btn.setTranslationX(35);
 				linkRelativeLayout.addView(btn, name_params);
+				RelativeLayout.LayoutParams btn_params = new RelativeLayout.LayoutParams(
+						LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+				btn_params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);*/
+				TextView name = new TextView(NewEvent.this, null, android.R.style.TextAppearance_Medium);
+				name.setPadding(35, 15, 0, 0);
+				name.setText(tempname);
+				RelativeLayout.LayoutParams name_params = new RelativeLayout.LayoutParams(
+						LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+				name_params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+				linkRelativeLayout.addView(name, name_params);
+				
 				RelativeLayout.LayoutParams btn_params = new RelativeLayout.LayoutParams(
 						LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 				btn_params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
