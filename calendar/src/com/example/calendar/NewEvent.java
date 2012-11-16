@@ -251,9 +251,9 @@ public class NewEvent extends Activity {
 				}
 				else{
 					
-					if(curLink.substring(0, 7).compareTo("http://")!=0 || curLink.substring(0, 8).compareTo("https://")!=0) {
-						curLink += "http://";
-					}
+					//if(curLink.substring(0, 7).compareTo("http://")!=0 || curLink.substring(0, 8).compareTo("https://")!=0) {
+					//	curLink += "http://";
+					//}
 					curLink+= input.getText().toString();
 					templink= curLink;
 					curLink+= "\n";
