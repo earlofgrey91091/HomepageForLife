@@ -153,19 +153,38 @@ public class EventDetails extends Activity {
     public void onActivityResult(int requestCode,int resultCode,Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		if (resultCode == RESULT_OK){
-			CalendarEvent event = (CalendarEvent)data.getSerializableExtra("Event");
+			CalendarEvent theEvent = (CalendarEvent)data.getSerializableExtra("Event");
 			ArrayList<String> files = (ArrayList<String>) data.getStringArrayListExtra("files");
 			ArrayList<String> apps = (ArrayList<String>) data.getStringArrayListExtra("apps");
 			ArrayList<String> contacts = (ArrayList<String>) data.getStringArrayListExtra("contacts");
 			ArrayList<String> links = (ArrayList<String>) data.getStringArrayListExtra("links");
 			String notes = (String) data.getStringExtra("notes");
-			event_list = db.getAllEvents();
 			
 			Log.d("View", "# of links " + links.size());
 			Log.d("View", "# of contacts " + contacts.size());
 			Log.d("View", "# of files " + files.size());
 			Log.d("View", "# of apps " + apps.size());
-
+			for(String contact: arrayContacts)
+			{
+				db.deleteContact(event.getID(), contact);
+			}
+			for(String link: arrayLinks)
+			{
+				StringTokenizer st = new StringTokenizer(link, "\n");
+				db.deleteLink(event.getID(), st.nextToken());
+			}
+			for(String note: arrayNotes)
+			{
+				db.deleteNote(event.getID(), note);
+			}
+			for(String file: arrayFiles)
+			{
+				db.deleteFile(event.getID(), file);
+			}
+			for(String app: arrayApps)
+			{
+				db.deleteApp(event.getID(), app);
+			}
 			for(String theFile : files)
 			{
 				db.addFile(event.getID(), theFile);
@@ -186,9 +205,12 @@ public class EventDetails extends Activity {
 			if(!notes.equals("")) db.addNote(event.getID(), notes);
 			Toast.makeText(getApplicationContext(), 
 					"Event added", Toast.LENGTH_LONG).show();
-			db.updateEvent(event);
-			removeEvent(findViewById(android.R.id.content));
-			//This should delete the old version of the event you just edited and return you to calendar
+			db.updateEvent(theEvent);
+			
+			
+			finish();
+			Intent intent = new Intent(this, Calendar.class);
+			startActivity(intent);
 		}
 		
 	}
