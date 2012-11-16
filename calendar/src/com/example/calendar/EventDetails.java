@@ -152,8 +152,6 @@ public class EventDetails extends Activity {
 		}
 		for(String note: arrayNotes)
 		{
-			//Log.d("EVENTDETAILS", "notetodelete has note " + note);
-
 			db.deleteNote(event.getID(), note);
 		}
 		for(String file: arrayFiles)
@@ -163,6 +161,10 @@ public class EventDetails extends Activity {
 		for(String app: arrayApps)
 		{
 			db.deleteApp(event.getID(), app);
+		}
+		for(String contact: arrayContacts)
+		{
+			db.deleteContact(event.getID(), contact);
 		}
 		db.deleteEvent(event);
 		finish();
