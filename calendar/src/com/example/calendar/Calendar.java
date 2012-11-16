@@ -31,13 +31,6 @@ public class Calendar extends Activity {
         sharedPref = getPreferences(Context.MODE_PRIVATE);
         db = new DbHandler(this);
         if (event_list.isEmpty()) event_list = db.getAllEvents();
-        if (event_list.isEmpty())
-        {
-        	//			READ FROM FILE HERE
-        	db.addEvent(new CalendarEvent("5/26","blah"));
-        	db.addEvent(new CalendarEvent("5/27","duh"));
-        	event_list = db.getAllEvents();
-        }
         setContentView(R.layout.activity_calendar);
         CalendarView calendarView = (CalendarView) findViewById(R.id.calendarView);
 		calendarView
