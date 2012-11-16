@@ -303,6 +303,7 @@ public class NewEvent extends Activity {
 				RelativeLayout.LayoutParams name_params = new RelativeLayout.LayoutParams(
 						LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 				name_params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+				btn.setTranslationX(35);
 				linkRelativeLayout.addView(btn, name_params);
 				RelativeLayout.LayoutParams btn_params = new RelativeLayout.LayoutParams(
 						LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
