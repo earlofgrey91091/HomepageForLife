@@ -105,8 +105,7 @@ public class EventDetails extends Activity {
 		arrayParentsApp.add(appParent);
 		appList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsApp,ContactCustomAdapter.APP,null));
 		// to run app, given the name
-		// final PackageManager pm = getPackageManager();
-		// startActivity(pm.getLaunchIntentForPackage(packageInfo.packageName)));
+		// startActivity(getPackageManager().getLaunchIntentForPackage(packageName)));
 
 		// links should go here
 		linkList = (ExpandableListView)findViewById(R.id.link_list);
