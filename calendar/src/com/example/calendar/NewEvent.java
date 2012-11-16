@@ -92,11 +92,9 @@ public class NewEvent extends Activity {
 		case ADD_CONTACT:
 			if (resultCode == RESULT_OK) {
 				Uri contactUri = data.getData();
-
 				String uriString = contactUri.toString();
 				contacts.add(uriString);
 				addContactButton(uriString);
-				
 			}
 			break;
 		}

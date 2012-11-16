@@ -102,7 +102,7 @@ public class Calendar extends Activity {
 					}
 					if(!notes.equals("")) db.addNote(event.getID(), notes);
 					Toast.makeText(getApplicationContext(), 
-							"event added", Toast.LENGTH_LONG).show();
+							"Event added", Toast.LENGTH_LONG).show();
 				} break;
 			case VIEW_EVENT: 
 				if (resultCode == RESULT_OK) {
@@ -110,7 +110,7 @@ public class Calendar extends Activity {
 					event_list = db.getAllEvents();
 					event_list.add(db.getEvent(event.getID()));
 					Toast.makeText(getApplicationContext(), 
-							"event added", Toast.LENGTH_LONG).show();
+							"Event added", Toast.LENGTH_LONG).show();
 						
 			}	break;
 		}
