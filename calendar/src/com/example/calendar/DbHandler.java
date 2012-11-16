@@ -260,7 +260,7 @@ public class DbHandler extends SQLiteOpenHelper {
 	// Deleting single file
 	public void deleteFile(int eventId, String theFile) {
 		SQLiteDatabase db = this.getWritableDatabase();
-		db.delete(FILE_TABLE, KEY_ID + " = ? AND " + KEY_FILE + " = ?",
+		db.delete(FILE_TABLE, KEY_EVENT_ID + " = ? AND " + KEY_FILE + " = ?",
 				new String[] { String.valueOf(eventId), theFile});
 		db.close();
 	}

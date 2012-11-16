@@ -5,6 +5,7 @@ import java.util.StringTokenizer;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -105,7 +106,8 @@ public class EventDetails extends Activity {
 		arrayParentsApp.add(appParent);
 		appList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsApp,ContactCustomAdapter.APP,null));
 		// to run app, given the name
-		// startActivity(getPackageManager().getLaunchIntentForPackage(packageName)));
+		final PackageManager pm = getPackageManager();
+		startActivity(pm.getLaunchIntentForPackage(arrayApps.get(0)));
 
 		// links should go here
 		linkList = (ExpandableListView)findViewById(R.id.link_list);
