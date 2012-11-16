@@ -164,8 +164,10 @@ public class DbHandler extends SQLiteOpenHelper {
 		values.put(KEY_LOC, event.getLocation());
 
 		// updating row
-		return db.update(EVENT_TABLE, values, KEY_ID + " = ?",
+		int rowid= db.update(EVENT_TABLE, values, KEY_ID + " = ?",
 				new String[] {  String.valueOf(event.getID()) });
+		db.close();
+		return rowid;
 	}
 
 	// Deleting single event
@@ -215,6 +217,7 @@ public class DbHandler extends SQLiteOpenHelper {
 				contactList.add(cursor.getString(1));
 			} while (cursor.moveToNext());
 		}
+		db.close();
 		return contactList;
 	}
 
@@ -223,6 +226,7 @@ public class DbHandler extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getWritableDatabase();
 		db.delete(CONTACT_TABLE, KEY_EVENT_ID + " = ? AND " + KEY_CONTACT_VALUE + " = ?",
 				new String[] { String.valueOf(eventId), theContact });
+		Log.d("DbHandler", "deleted a contact");
 		db.close();
 	}
 	
@@ -260,8 +264,9 @@ public class DbHandler extends SQLiteOpenHelper {
 	// Deleting single file
 	public void deleteFile(int eventId, String theFile) {
 		SQLiteDatabase db = this.getWritableDatabase();
-		db.delete(FILE_TABLE, KEY_ID + " = ? AND " + KEY_FILE + " = ?",
+		db.delete(FILE_TABLE, KEY_EVENT_ID + " = ? AND " + KEY_FILE + " = ?",
 				new String[] { String.valueOf(eventId), theFile});
+		Log.d("DbHandler", "deleted a file");
 		db.close();
 	}
 	
@@ -292,6 +297,7 @@ public class DbHandler extends SQLiteOpenHelper {
 				appList.add(cursor.getString(1));
 			} while (cursor.moveToNext());
 		}
+		db.close();
 		return appList;
 	}
 
@@ -300,6 +306,7 @@ public class DbHandler extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getWritableDatabase();
 		db.delete(APP_TABLE, KEY_EVENT_ID + " = ? AND " + KEY_APP_NAME + " = ?",
 				new String[] { String.valueOf(eventId), theApp});
+		Log.d("DbHandler", "deleted an app");
 		db.close();
 	}
 	public void addNote(int eventId, String theNote) {
@@ -339,6 +346,7 @@ public class DbHandler extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getWritableDatabase();
 		db.delete(NOTE_TABLE, KEY_EVENT_ID + " = ? AND " + KEY_NOTE + " = ?",
 				new String[] { String.valueOf(eventId), theNote});
+		Log.d("DbHandler", "deleted a note");
 		db.close();
 	}
 	
@@ -386,6 +394,7 @@ public class DbHandler extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getWritableDatabase();
 		db.delete(LINK_TABLE, KEY_EVENT_ID + " = ? AND " + KEY_LINK_URL + " = ?",
 				new String[] { String.valueOf(eventId), theLink});
+		Log.d("DbHandler", "deleted a link");
 		db.close();
 	}
 	
