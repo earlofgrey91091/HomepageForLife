@@ -56,7 +56,7 @@ public class ViewEvents extends Activity {
 							"Event added", Toast.LENGTH_LONG).show();
 					makeList();
 			}	break;
-			case VIEW_EVENT: 
+			/*case VIEW_EVENT: 
 				if (resultCode == RESULT_OK) {
 					if(data.getIntExtra("ID", -1)==-100)
 					{
@@ -94,7 +94,7 @@ public class ViewEvents extends Activity {
 								"Event added", Toast.LENGTH_LONG).show();
 						makeList();
 					}
-			}	break;
+			}	break;*/
 		}
 	}
 	
@@ -123,6 +123,7 @@ public class ViewEvents extends Activity {
                     Intent intent = new Intent(ViewEvents.this, EventDetails.class);
             		intent.putExtra("ID", (event_list.get(j).getID()));
             		startActivityForResult(intent, VIEW_EVENT);
+            		//startActivityForResult(intent, VIEW_EVENT);	to hopefully work around that hacky what not
                 }
             });
             linearLayout.addView(btn); 

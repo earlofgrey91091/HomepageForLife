@@ -151,7 +151,9 @@ public class EventDetails extends Activity {
     public void onActivityResult(int requestCode,int resultCode,Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		if (resultCode == RESULT_OK){
-			
+			//Here is where we would write the new event to the database, same way as new event->Calendar
+			removeEvent(findViewById(android.R.id.content));
+			//This should delete the old version of the event you just edited and return you to calendar
 		}
 		
 	}
@@ -180,12 +182,9 @@ public class EventDetails extends Activity {
 		}
 		
 		db.deleteEvent(event);
-		Intent i = new Intent();
-		i.putExtra("Flag", -100);
-		
-		Log.d("EventDetails", "Delete that event");
-		setResult(RESULT_OK, i);
 		finish();
+		Intent intent = new Intent(this, Calendar.class);
+		startActivity(intent);
     }
 	
 	public void editEvent(View view){
