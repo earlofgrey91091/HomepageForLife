@@ -104,7 +104,7 @@ public class EventDetails extends Activity {
 
 		appParent.setArrayChildren(arrayApps);
 		arrayParentsApp.add(appParent);
-		appList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsApp,ContactCustomAdapter.APP,null));
+		appList.setAdapter(new ContactCustomAdapter(EventDetails.this,arrayParentsApp,ContactCustomAdapter.APP,arrayApps));
 		// to run app, given the name
 
 		//final PackageManager pm = getPackageManager();

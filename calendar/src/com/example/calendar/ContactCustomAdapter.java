@@ -184,21 +184,21 @@ public class ContactCustomAdapter extends BaseExpandableListAdapter {
 		else if (flag == APP) {
 			//ADD APP SHIT HERE DO WHAT LINK HAS BUT CHANGE THE HINT
 				//			AND THE ONCLICK
-		if (view == null) {
-			view = inflater.inflate(R.layout.list_item_contact, viewGroup,
-					false);
-		}
-		final String appName = mParent.get(i).getArrayChildren().get(i1);
-		Button btn = (Button) view.findViewById(R.id.contact);
-		// "i" is the position of the parent/group in the list and
-		// "i1" is the position of the child
-		btn.setText(mParent.get(i).getArrayChildren().get(i1));
-		btn.setHint(actual_names.get(i1));
-		btn.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				context.startActivity(context.getPackageManager().getLaunchIntentForPackage(appName));
+			if (view == null) {
+				view = inflater.inflate(R.layout.list_item_contact, viewGroup,
+						false);
 			}
-		}); 
+			final String appName = mParent.get(i).getArrayChildren().get(i1);
+			Button btn = (Button) view.findViewById(R.id.contact);
+			// "i" is the position of the parent/group in the list and
+			// "i1" is the position of the child
+			btn.setText(mParent.get(i).getArrayChildren().get(i1));
+			btn.setHint(actual_names.get(i1));
+			btn.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+					context.startActivity(context.getPackageManager().getLaunchIntentForPackage(appName));
+				}
+			}); 
 		}
 		else if (flag == LINK) {
 			Log.d("ContactCustomAdapter", "getChildView for LINK");
