@@ -107,6 +107,8 @@ public class EventDetails extends Activity {
 		// to run app, given the name
 		// startActivity(getPackageManager().getLaunchIntentForPackage(packageName)));
 
+		
+		
 		// links should go here
 		linkList = (ExpandableListView)findViewById(R.id.link_list);
 		Parent linkParent = new Parent();

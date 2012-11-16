@@ -28,7 +28,7 @@
                     android:paddingRight="10dp"
                     android:paddingTop="10dp"
                     android:text="Date:"
-                    android:textSize="24dp" />
+                    style="@android:style/TextAppearance.Medium" />
 
                 <Button
                     android:id="@+id/date_button"
@@ -43,7 +43,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:hint="@string/name_message" />
+                android:hint="@string/name_message"
+                style="@android:style/TextAppearance.Medium" />
 
             <EditText
                 android:id="@+id/location_message"
@@ -51,7 +52,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:hint="@string/location_message" />
+                android:hint="@string/location_message" 
+                style="@android:style/TextAppearance.Medium"/>
 
             <LinearLayout
                 xmlns:android="http://schemas.android.com/apk/res/android"
@@ -83,7 +85,7 @@
                         android:paddingLeft="10dp"
                         android:paddingTop="10dp"
                         android:text="Files"
-                        android:textSize="24dp" />
+                        style="@android:style/TextAppearance.Medium" />
                 </RelativeLayout>
 
                 <LinearLayout
@@ -93,7 +95,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:paddingLeft="10dp" >
+                    android:paddingLeft="10dp" 
+                    >
                 </LinearLayout>
 
                 <RelativeLayout
@@ -110,7 +113,7 @@
                         android:paddingLeft="10dp"
                         android:paddingTop="10dp"
                         android:text="Contacts"
-                        android:textSize="24dp" />
+                        style="@android:style/TextAppearance.Medium" />
 
                     <Button
                         android:layout_width="wrap_content"
@@ -146,7 +149,7 @@
                         android:paddingLeft="10dp"
                         android:paddingTop="10dp"
                         android:text="Apps"
-                        android:textSize="24dp" />
+                        style="@android:style/TextAppearance.Medium" />
 
                     <Button
                         android:layout_width="wrap_content"
@@ -183,7 +186,7 @@
                         android:paddingLeft="10dp"
                         android:paddingTop="10dp"
                         android:text="Links"
-                        android:textSize="24dp" />
+                        style="@android:style/TextAppearance.Medium" />
 
                     <Button
                         android:layout_width="wrap_content"
@@ -210,7 +213,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:hint="@string/note_message" />
+                    android:hint="@string/note_message"
+                    style="@android:style/TextAppearance.Medium" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

@@ -91,11 +91,12 @@ public class NewEvent extends Activity {
 				String f_name = f.substring(name_loc + 1);
 				RelativeLayout fileRelativeLayout = new RelativeLayout(this);
 
-				TextView name = new TextView(this);
+				TextView name = new TextView(this, null, android.R.style.TextAppearance_Medium);
 				name.setText(f_name);
 				RelativeLayout.LayoutParams name_params = new RelativeLayout.LayoutParams(
 						LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 				name_params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+				name.setPadding(35, 15, 0, 0);
 				fileRelativeLayout.addView(name, name_params);
 
 				RelativeLayout.LayoutParams btn_params = new RelativeLayout.LayoutParams(
