@@ -147,6 +147,14 @@ public class EventDetails extends Activity {
 		//notes.setText("Notes: \n" + event.getNotes());
 		 
 		}
+	@Override
+    public void onActivityResult(int requestCode,int resultCode,Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (resultCode == RESULT_OK){
+			
+		}
+		
+	}
 	
 	public void removeEvent(View view) {
 		for(String contact: arrayContacts)
@@ -172,15 +180,17 @@ public class EventDetails extends Activity {
 		}
 		
 		db.deleteEvent(event);
+		Intent i = new Intent();
+		i.putExtra("Flag", -100);
+		
+		Log.d("EventDetails", "Delete that event");
+		setResult(RESULT_OK, i);
 		finish();
-		Intent intent = new Intent(this, ViewEvents.class);
-		startActivity(intent);
     }
 	
 	public void editEvent(View view){
-		
-		
-		
+		Intent intent = new Intent(this, EditEvent.class);
+	    startActivityForResult(intent, 1);
 	}
 	
 }
