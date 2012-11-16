@@ -24,6 +24,7 @@ public class EventDetails extends Activity {
 	ArrayList<String> arrayApps;
 	ArrayList<String> arrayLinks;
 	ArrayList<String> arrayNotes;
+	private ArrayList<CalendarEvent> event_list = new ArrayList<CalendarEvent>();
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -151,7 +152,40 @@ public class EventDetails extends Activity {
     public void onActivityResult(int requestCode,int resultCode,Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		if (resultCode == RESULT_OK){
-			//Here is where we would write the new event to the database, same way as new event->Calendar
+			CalendarEvent event = (CalendarEvent)data.getSerializableExtra("Event");
+			ArrayList<String> files = (ArrayList<String>) data.getStringArrayListExtra("files");
+			ArrayList<String> apps = (ArrayList<String>) data.getStringArrayListExtra("apps");
+			ArrayList<String> contacts = (ArrayList<String>) data.getStringArrayListExtra("contacts");
+			ArrayList<String> links = (ArrayList<String>) data.getStringArrayListExtra("links");
+			String notes = (String) data.getStringExtra("notes");
+			event_list = db.getAllEvents();
+			
+			Log.d("View", "# of links " + links.size());
+			Log.d("View", "# of contacts " + contacts.size());
+			Log.d("View", "# of files " + files.size());
+			Log.d("View", "# of apps " + apps.size());
+
+			for(String theFile : files)
+			{
+				db.addFile(event.getID(), theFile);
+			}
+			for(String theApp : apps)
+			{
+				db.addApp(event.getID(), theApp);
+			}
+			for(String theContact : contacts)
+			{
+				db.addContact(event.getID(), theContact);
+			}
+			for(String theLink : links)
+			{
+				StringTokenizer st = new StringTokenizer(theLink, "\n");
+				db.addLink(event.getID(), st.nextToken(), st.nextToken());
+			}
+			if(!notes.equals("")) db.addNote(event.getID(), notes);
+			Toast.makeText(getApplicationContext(), 
+					"Event added", Toast.LENGTH_LONG).show();
+			db.updateEvent(event);
 			removeEvent(findViewById(android.R.id.content));
 			//This should delete the old version of the event you just edited and return you to calendar
 		}
