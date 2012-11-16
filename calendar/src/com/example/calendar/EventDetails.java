@@ -159,13 +159,6 @@ public class EventDetails extends Activity {
 			ArrayList<String> contacts = (ArrayList<String>) data.getStringArrayListExtra("contacts");
 			ArrayList<String> links = (ArrayList<String>) data.getStringArrayListExtra("links");
 			String notes = (String) data.getStringExtra("notes");
-			event_list = db.getAllEvents();
-			
-			Log.d("View", "# of links " + links.size());
-			Log.d("View", "# of contacts " + contacts.size());
-			Log.d("View", "# of files " + files.size());
-			Log.d("View", "# of apps " + apps.size());
-
 			for(String theFile : files)
 			{
 				db.addFile(event.getID(), theFile);
@@ -187,6 +180,7 @@ public class EventDetails extends Activity {
 			Toast.makeText(getApplicationContext(), 
 					"Event added", Toast.LENGTH_LONG).show();
 			db.updateEvent(event);
+			
 			removeEvent(findViewById(android.R.id.content));
 			//This should delete the old version of the event you just edited and return you to calendar
 		}
