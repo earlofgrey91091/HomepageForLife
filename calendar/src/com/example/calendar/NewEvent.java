@@ -47,6 +47,7 @@ public class NewEvent extends Activity {
 	String templink="";
 	String tempname="";
 	DbHandler db;
+	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
