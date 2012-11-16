@@ -156,8 +156,8 @@ public class NewEvent extends Activity {
 					curLink+= "http://www.google.com\n";
 				}
 				else{
-					
-					//if(curLink.substring(0, 7).compareTo("http://")!=0 || curLink.substring(0, 8).compareTo("https://")!=0) {
+					//				lol my bad it works now
+					//if(input.getText().toString().substring(0, 7).compareTo("http://")!=0 || input.getText().toString().substring(0, 8).compareTo("https://")!=0) {
 					//	curLink += "http://";
 					//}
 					curLink+= input.getText().toString();
