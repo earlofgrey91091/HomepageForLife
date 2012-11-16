@@ -102,7 +102,7 @@ public class Calendar extends Activity {
 					}
 					if(!notes.equals("")) db.addNote(event.getID(), notes);
 					Toast.makeText(getApplicationContext(), 
-							"event added", Toast.LENGTH_LONG).show();
+							"Event added", Toast.LENGTH_LONG).show();
 				} break;
 			case VIEW_EVENT: 
 				if (resultCode == RESULT_OK) {
@@ -110,7 +110,7 @@ public class Calendar extends Activity {
 					event_list = db.getAllEvents();
 					event_list.add(db.getEvent(event.getID()));
 					Toast.makeText(getApplicationContext(), 
-							"event added", Toast.LENGTH_LONG).show();
+							"Event added", Toast.LENGTH_LONG).show();
 						
 			}	break;
 		}
@@ -126,10 +126,5 @@ public class Calendar extends Activity {
 		//intent.putExtra("events",event_list);
 		startActivity(intent);
 	}
-	
-	public void eventDetails(View view) {
-		Intent intent = new Intent(this, EventDetails.class);
-		intent.putExtra("Date","placeholder");//TODO fix date get
-		startActivity(intent);
-	}
+
 }

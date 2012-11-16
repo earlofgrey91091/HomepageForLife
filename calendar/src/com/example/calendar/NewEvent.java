@@ -43,9 +43,7 @@ public class NewEvent extends Activity {
 	ArrayList<String> apps = new ArrayList<String>();
 	ArrayList<String> contacts = new ArrayList<String>();
 	ArrayList<String> links = new ArrayList<String>();
-	String curLink="";
-	String templink="";
-	String tempname="";
+	String curLink = "";
 	DbHandler db;
 	
 
@@ -85,81 +83,24 @@ public class NewEvent extends Activity {
 		switch (requestCode) {
 		case ADD_FILE:
 			if (resultCode == RESULT_OK) {
-				LinearLayout fileLinearLayout = (LinearLayout) findViewById(R.id.file_layout);
 				String f = (String) data.getSerializableExtra("file");
 				files.add(f);
-				int name_loc = f.lastIndexOf("/");
-				String f_name = f.substring(name_loc + 1);
-				RelativeLayout fileRelativeLayout = new RelativeLayout(this);
-
-				TextView name = new TextView(this, null, android.R.style.TextAppearance_Medium);
-				name.setText(f_name);
-				RelativeLayout.LayoutParams name_params = new RelativeLayout.LayoutParams(
-						LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-				name_params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-				name.setPadding(35, 15, 0, 0);
-				fileRelativeLayout.addView(name, name_params);
-
-				RelativeLayout.LayoutParams btn_params = new RelativeLayout.LayoutParams(
-						LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-				btn_params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-				Button btn = new Button(NewEvent.this, null, android.R.attr.buttonStyleSmall);
-				btn.setText("Delete");
-				btn.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						RelativeLayout r = (RelativeLayout) v.getParent();
-						r.removeAllViews();
-					}
-				});
-				fileRelativeLayout.addView(btn, btn_params);
-				fileLinearLayout.addView(fileRelativeLayout);
+				addFileButton(f);
 			}
 			break;
 
 		case ADD_CONTACT:
 			if (resultCode == RESULT_OK) {
 				Uri contactUri = data.getData();
-				contacts.add(contactUri.toString());
-				String[] projection = { Phone.NUMBER, Phone.DISPLAY_NAME };
-				Cursor cursor = getContentResolver().query(contactUri,
-						projection, null, null, null);
-				cursor.moveToFirst();
-
-				int column = cursor.getColumnIndex(Phone.DISPLAY_NAME);
-				String cont_name = cursor.getString(column);
-
-				LinearLayout contactsLinearLayout = (LinearLayout) findViewById(R.id.contacts_layout);
-				RelativeLayout contactsRelativeLayout = new RelativeLayout(this);
-
-				TextView name = new TextView(this, null, android.R.style.TextAppearance_Medium);
-				name.setPadding(35, 15, 0, 0);
-				name.setText(cont_name);
-				RelativeLayout.LayoutParams name_params = new RelativeLayout.LayoutParams(
-						LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-				name_params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-				contactsRelativeLayout.addView(name, name_params);
-
-				RelativeLayout.LayoutParams btn_params = new RelativeLayout.LayoutParams(
-						LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-				btn_params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-				Button btn = new Button(NewEvent.this, null, android.R.attr.buttonStyleSmall);
-				btn.setText("Delete");
-				btn.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						RelativeLayout r = (RelativeLayout) v.getParent();
-						r.removeAllViews();
-					}
-				});
-				contactsRelativeLayout.addView(btn, btn_params);
-				contactsLinearLayout.addView(contactsRelativeLayout);
+				String uriString = contactUri.toString();
+				contacts.add(uriString);
+				addContactButton(uriString);
 			}
 			break;
 		}
 	}
 
 	public void addApp(View view) {
-		// shamelessly stolen from
-		// http://stackoverflow.com/questions/2695746/how-to-get-a-list-of-installed-android-applications-and-pick-one-to-run
 
 		final PackageManager pm = getPackageManager();
 		// get a list of installed apps.
@@ -168,21 +109,9 @@ public class NewEvent extends Activity {
 		List<CharSequence> packagenames = new ArrayList<CharSequence>();
 
 		for (ApplicationInfo app : packages) {
-			// if((app.flags & ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) == 1) {
 			packagenames.add(app.packageName);
-			/*
-			 * //it's a system app, not interested } else if ((app.flags &
-			 * ApplicationInfo.FLAG_SYSTEM) == 1) { //Discard this one //in this
-			 * case, it should be a user-installed app } else {
-			 * 
-			 * }
-			 */
+		}
 
-			// final PackageManager pm = getPackageManager();
-			// startActivity(pm.getLaunchIntentForPackage(packageInfo.packageName)));
-		}// the getLaunchIntentForPackage returns an intent that you can use
-			// with startActivity()
-			// should print out name of app
 		final CharSequence[] items = packagenames
 				.toArray(new CharSequence[packagenames.size()]);
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -191,40 +120,13 @@ public class NewEvent extends Activity {
 		{
 			public void onClick(DialogInterface dialog, int item) 
 			{
-				String app_name = (String) items[item];
-				LinearLayout appsLinearLayout = (LinearLayout) findViewById(R.id.app_layout);
-				apps.add(app_name);
-				RelativeLayout appsRelativeLayout = new RelativeLayout(
-						NewEvent.this);
-
-				TextView name = new TextView(NewEvent.this, null, android.R.style.TextAppearance_Medium);
-				name.setPadding(35, 15, 0, 0);
-				int name_loc = app_name.lastIndexOf(".");
-				String a_name = app_name.substring(name_loc + 1);
-				name.setText(a_name);
-				RelativeLayout.LayoutParams name_params = new RelativeLayout.LayoutParams(
-						LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-				name_params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-				appsRelativeLayout.addView(name, name_params);
-
-				RelativeLayout.LayoutParams btn_params = new RelativeLayout.LayoutParams(
-						LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-				btn_params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-				Button btn = new Button(NewEvent.this, null, android.R.attr.buttonStyleSmall);
-				btn.setText("Delete");
-				btn.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						RelativeLayout r = (RelativeLayout) v.getParent();
-						r.removeAllViews();
-					}
-				});
-				appsRelativeLayout.addView(btn, btn_params);
-				appsLinearLayout.addView(appsRelativeLayout);
-
+				addAppButton((String) items[item]);
 			}
 		}).show();
 	}
 
+	
+	
 	public void addFile(View view) {
 		Intent intent = new Intent(this, AndroidExplorer.class);
 		startActivityForResult(intent, ADD_FILE);
@@ -249,9 +151,9 @@ public class NewEvent extends Activity {
 		{
 			public void onClick(DialogInterface dialog, int whichButton) 
 			{
+
 				if(input.getText().toString().equals("")){
 					curLink+= "http://www.google.com\n";
-					templink=curLink;
 				}
 				else{
 					
@@ -259,95 +161,49 @@ public class NewEvent extends Activity {
 					//	curLink += "http://";
 					//}
 					curLink+= input.getText().toString();
-					templink= curLink;
-					curLink+= "\n";
+					
 				}
 				AlertDialog.Builder alert1 = new AlertDialog.Builder(NewEvent.this);
 				alert1.setTitle("New Link");
 				alert1.setMessage("Change name of link for display");
-
 				final EditText input1 = new EditText(NewEvent.this);
 				alert1.setView(input1);
-				alert1.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int whichButton) {
-				if(input1.getText().toString().equals(""))
-				{
-					curLink+= "TBobstaclesAG";
-					tempname= "TBobstaclesAG";
-				}
-				else
-				{
-					curLink+= input1.getText().toString();	
-					tempname= input1.getText().toString();
-				}
 
-				links.add(curLink);				
-				
-				LinearLayout linkLinearLayout = (LinearLayout) findViewById(R.id.links_layout);
-				RelativeLayout linkRelativeLayout = new RelativeLayout(NewEvent.this);
-				
-/*				Button btn = new Button(NewEvent.this, null, android.R.attr.buttonStyleSmall);
-				btn.setHint(templink);
-				btn.setText(tempname);
-				btn.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						Button b = (Button) v;
-						Intent intent = new Intent(Intent.ACTION_VIEW);
-						Uri uri = Uri.withAppendedPath(
-								Uri.parse(String.valueOf(b.getHint())),
-								"");
-						intent.setData(uri);
-						startActivity(intent);
+				alert1.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int whichButton) {
+						if(input1.getText().toString().equals(""))
+						{
+							curLink+= "\n" + curLink;
+						}
+						else
+						{
+							curLink+= "\n" + input1.getText().toString();
+						}
+		
+						links.add(curLink);				
+						
+						addLinkButton(curLink);
 					}
 				});
-				RelativeLayout.LayoutParams name_params = new RelativeLayout.LayoutParams(
-						LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-				name_params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-				btn.setTranslationX(35);
-				linkRelativeLayout.addView(btn, name_params);
-				RelativeLayout.LayoutParams btn_params = new RelativeLayout.LayoutParams(
-						LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-				btn_params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);*/
-				TextView name = new TextView(NewEvent.this, null, android.R.style.TextAppearance_Medium);
-				name.setPadding(35, 15, 0, 0);
-				name.setText(tempname);
-				RelativeLayout.LayoutParams name_params = new RelativeLayout.LayoutParams(
-						LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-				name_params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-				linkRelativeLayout.addView(name, name_params);
-				
-				RelativeLayout.LayoutParams btn_params = new RelativeLayout.LayoutParams(
-						LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-				btn_params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-				Button btns = new Button(NewEvent.this, null, android.R.attr.buttonStyleSmall);
-				btns.setText("Delete");
-				btns.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						RelativeLayout r = (RelativeLayout) v.getParent();
-						r.removeAllViews();
+				alert1.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int whichButton) {
+						// Canceled.
+
 					}
 				});
-				linkRelativeLayout.addView(btns, btn_params);
-				linkLinearLayout.addView(linkRelativeLayout);
-			  }
-			});
-			alert1.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-			  public void onClick(DialogInterface dialog, int whichButton) {
-			    // Canceled.
-			  }
-			});
-			alert1.show();
-		  }
+				alert1.show();
+			}
 		});
 		alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-		  public void onClick(DialogInterface dialog, int whichButton) {
-		    // Canceled.
-		  }
+			public void onClick(DialogInterface dialog, int whichButton) {
+				// Canceled.
+			}
 		});
 		alert.show();
 		
 	}
 
+	
 	public void save(View view) 
 	{
 		Button date = (Button) findViewById(R.id.date_button);
@@ -411,5 +267,139 @@ public class NewEvent extends Activity {
 	public void showDatePickerDialog(View v) {
 		DialogFragment newFragment = new DatePickerFragment();
 		newFragment.show(getFragmentManager(), "datePicker");
+	}
+	public void addFileButton(String f)
+	{
+		LinearLayout fileLinearLayout = (LinearLayout) findViewById(R.id.file_layout);
+		int name_loc = f.lastIndexOf("/");
+		String f_name = f.substring(name_loc + 1);
+		RelativeLayout fileRelativeLayout = new RelativeLayout(this);
+
+		TextView name = new TextView(this, null, android.R.style.TextAppearance_Medium);
+		name.setText(f_name);
+		RelativeLayout.LayoutParams name_params = new RelativeLayout.LayoutParams(
+				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		name_params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+		name.setPadding(35, 15, 0, 0);
+		fileRelativeLayout.addView(name, name_params);
+
+		RelativeLayout.LayoutParams btn_params = new RelativeLayout.LayoutParams(
+				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		btn_params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+		Button btn = new Button(NewEvent.this, null, android.R.attr.buttonStyleSmall);
+		btn.setText("Delete");
+		btn.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				RelativeLayout r = (RelativeLayout) v.getParent();
+				r.removeAllViews();
+			}
+		});
+		fileRelativeLayout.addView(btn, btn_params);
+		fileLinearLayout.addView(fileRelativeLayout);
+	}
+	public void addContactButton(String uriString)
+	{
+		String[] projection = { Phone.NUMBER, Phone.DISPLAY_NAME };
+		Cursor cursor = getContentResolver().query(Uri.parse(uriString),
+				projection, null, null, null);
+		cursor.moveToFirst();
+
+		int column = cursor.getColumnIndex(Phone.DISPLAY_NAME);
+		String cont_name = cursor.getString(column);
+
+		LinearLayout contactsLinearLayout = (LinearLayout) findViewById(R.id.contacts_layout);
+		RelativeLayout contactsRelativeLayout = new RelativeLayout(this);
+
+		TextView name = new TextView(this);
+		name.setText(cont_name);
+		RelativeLayout.LayoutParams name_params = new RelativeLayout.LayoutParams(
+				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		name_params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+		contactsRelativeLayout.addView(name, name_params);
+
+		RelativeLayout.LayoutParams btn_params = new RelativeLayout.LayoutParams(
+				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		btn_params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+		Button btn = new Button(NewEvent.this, null, android.R.attr.buttonStyleSmall);
+		btn.setText("Delete");
+		btn.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				RelativeLayout r = (RelativeLayout) v.getParent();
+				r.removeAllViews();
+			}
+		});
+		contactsRelativeLayout.addView(btn, btn_params);
+		contactsLinearLayout.addView(contactsRelativeLayout);
+	}
+	public void addAppButton(String app_name)
+	{
+		LinearLayout appsLinearLayout = (LinearLayout) findViewById(R.id.app_layout);
+		apps.add(app_name);
+		RelativeLayout appsRelativeLayout = new RelativeLayout(
+				NewEvent.this);
+
+		TextView name = new TextView(NewEvent.this);
+		int name_loc = app_name.lastIndexOf(".");
+		String a_name = app_name.substring(name_loc + 1);
+		name.setText(a_name);
+		RelativeLayout.LayoutParams name_params = new RelativeLayout.LayoutParams(
+				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		name_params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+		appsRelativeLayout.addView(name, name_params);
+
+		RelativeLayout.LayoutParams btn_params = new RelativeLayout.LayoutParams(
+				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		btn_params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+		Button btn = new Button(NewEvent.this, null, android.R.attr.buttonStyleSmall);
+		btn.setText("Delete");
+		btn.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				RelativeLayout r = (RelativeLayout) v.getParent();
+				r.removeAllViews();
+			}
+		});
+		appsRelativeLayout.addView(btn, btn_params);
+		appsLinearLayout.addView(appsRelativeLayout);
+	}
+	//assumes you've correctly set tempLink and tempName
+	public void addLinkButton(String link)
+	{
+		StringTokenizer st= new StringTokenizer(link, "\n");
+		String url=st.nextToken();
+		String name=st.nextToken();
+		LinearLayout linkLinearLayout = (LinearLayout) findViewById(R.id.links_layout);
+		RelativeLayout linkRelativeLayout = new RelativeLayout(NewEvent.this);
+
+		Button btn = new Button(NewEvent.this);
+		btn.setHint(url);
+		btn.setText(name);
+		btn.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				Button b = (Button) v;
+				Intent intent = new Intent(Intent.ACTION_VIEW);
+				Uri uri = Uri.withAppendedPath(
+						Uri.parse(String.valueOf(b.getHint())),
+						"");
+				intent.setData(uri);
+				startActivity(intent);
+			}
+		});
+		RelativeLayout.LayoutParams name_params = new RelativeLayout.LayoutParams(
+				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		name_params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+		linkRelativeLayout.addView(btn, name_params);
+		RelativeLayout.LayoutParams btn_params = new RelativeLayout.LayoutParams(
+				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		btn_params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+		Button btns = new Button(NewEvent.this, null, android.R.attr.buttonStyleSmall);
+		btns.setText("Delete");
+		btns.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				RelativeLayout r = (RelativeLayout) v.getParent();
+				r.removeAllViews();
+			}
+		});
+		linkRelativeLayout.addView(btns, btn_params);
+		linkLinearLayout.addView(linkRelativeLayout);
 	}
 }
