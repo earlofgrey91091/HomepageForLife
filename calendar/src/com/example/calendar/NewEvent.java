@@ -156,8 +156,8 @@ public class NewEvent extends Activity {
 					curLink+= "http://www.google.com\n";
 				}
 				else{
-					
-					//if(curLink.substring(0, 7).compareTo("http://")!=0 || curLink.substring(0, 8).compareTo("https://")!=0) {
+					//				lol my bad it works now
+					//if(input.getText().toString().substring(0, 7).compareTo("http://")!=0 || input.getText().toString().substring(0, 8).compareTo("https://")!=0) {
 					//	curLink += "http://";
 					//}
 					curLink+= input.getText().toString();
@@ -168,6 +168,7 @@ public class NewEvent extends Activity {
 				alert1.setMessage("Change name of link for display");
 				final EditText input1 = new EditText(NewEvent.this);
 				alert1.setView(input1);
+
 				alert1.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int whichButton) {
 						if(input1.getText().toString().equals(""))
@@ -187,6 +188,7 @@ public class NewEvent extends Activity {
 				alert1.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int whichButton) {
 						// Canceled.
+
 					}
 				});
 				alert1.show();

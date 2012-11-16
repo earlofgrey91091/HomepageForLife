@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal" >
@@ -34,8 +34,9 @@
                     android:id="@+id/date_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
                     android:onClick="showDatePickerDialog" />
-            </LinearLayout>
+            </RelativeLayout>
 
             <EditText
                 android:id="@+id/name_message"
