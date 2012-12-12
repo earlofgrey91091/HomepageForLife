@@ -1,8 +1,8 @@
 package com.example.calendar;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
+//CalendarEvents are objects in which we hold all event data and associated links
 public class CalendarEvent implements Serializable{
 	/**
 	 * 

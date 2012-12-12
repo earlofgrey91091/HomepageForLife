@@ -5,7 +5,6 @@ import java.util.StringTokenizer;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,6 +15,8 @@ import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+//Event details displays a completed event with associated links contacts etc.
 public class EventDetails extends Activity {
 	DbHandler db;
 	CalendarEvent event;
@@ -24,7 +25,6 @@ public class EventDetails extends Activity {
 	ArrayList<String> arrayApps;
 	ArrayList<String> arrayLinks;
 	ArrayList<String> arrayNotes;
-	private ArrayList<CalendarEvent> event_list = new ArrayList<CalendarEvent>();
 	private final static int EDIT_EVENT=1;
 	
 	public void onCreate(Bundle savedInstanceState) {
@@ -37,21 +37,22 @@ public class EventDetails extends Activity {
 		db = new DbHandler(this);
 		setContentView(R.layout.activity_event_details);
 		Intent data = getIntent();
-		event = db.getEvent(data.getIntExtra("ID", -1));
+		event = db.getEvent(data.getIntExtra("ID", -1)); //Receive event
 		Log.d("EVENTDETAILS", "event.returned ID is " + event.getID());
 		
-
+		//get name
 		TextView name = (TextView) findViewById(R.id.name);
 		name.setText("Name: " + event.getName());
-		
+		//get date
 		TextView date = (TextView) findViewById(R.id.date);
 		date.setText("Date: " + event.getDate());
-	
+		//get location
 		TextView location = (TextView) findViewById(R.id.location);
 		location.setText("Location: " + event.getLocation());
  
         //contact list
         contactList = (ExpandableListView)findViewById(R.id.contact_list);
+        //put contact infromation into view
 		Parent contactParent = new Parent();
 		ArrayList<Parent> arrayParentsContact = new ArrayList<Parent>();
 		contactParent.setTitle("Contacts");
@@ -75,6 +76,7 @@ public class EventDetails extends Activity {
 
 		//file list
 		fileList = (ExpandableListView)findViewById(R.id.file_list);
+		//put file infromation into view
 		Parent fileParent = new Parent();
 		ArrayList<Parent> arrayParentsFile = new ArrayList<Parent>();
 		fileParent.setTitle("Files");
@@ -152,7 +154,9 @@ public class EventDetails extends Activity {
 	@Override
     public void onActivityResult(int requestCode,int resultCode,Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		if (resultCode == RESULT_OK){
+		if (resultCode == RESULT_OK)
+		{
+			//add in edited information
 			CalendarEvent theEvent = (CalendarEvent)data.getSerializableExtra("Event");
 			ArrayList<String> files = (ArrayList<String>) data.getStringArrayListExtra("files");
 			ArrayList<String> apps = (ArrayList<String>) data.getStringArrayListExtra("apps");
@@ -217,7 +221,7 @@ public class EventDetails extends Activity {
 		}
 		
 	}
-	
+	//when user selects delete button: removes all associated info from the db
 	public void removeEvent(View view) {
 		for(String contact: arrayContacts)
 		{
@@ -247,6 +251,7 @@ public class EventDetails extends Activity {
 		startActivity(intent);
     }
 	
+	//user hits edit button, starts edit activity
 	public void editEvent(View view){
 		Log.d("EventDetails", "You pushed edit");
 		Intent i = new Intent(this, EditEvent.class);

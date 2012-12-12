@@ -5,21 +5,19 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-
+//displays a list of buttons that link to all events
 public class ViewEvents extends Activity {
 
 	final static int VIEW_EVENT = 1;
 	final static int NEW_EVENT = 2;
 	final static int DELETE_FLAG=-100;
 	private ArrayList<CalendarEvent> event_list = new ArrayList<CalendarEvent>();
-	private int num = 0;
 	DbHandler db;
 	
     @Override
@@ -35,9 +33,7 @@ public class ViewEvents extends Activity {
 					ArrayList<String> contacts = (ArrayList<String>) data.getStringArrayListExtra("contacts");
 					String notes = (String) data.getStringExtra("notes");
 					event_list = db.getAllEvents();
-					
-					//Log.d("Calendar", "returned rowid is " + String.valueOf(foundrow));
-					//event = db.getEvent(data.getIntExtra("ID", -1));
+
 					event_list.add(event);
 					for(String theFile : files)
 					{
@@ -56,45 +52,6 @@ public class ViewEvents extends Activity {
 							"Event added", Toast.LENGTH_LONG).show();
 					makeList();
 			}	break;
-			/*case VIEW_EVENT: 
-				if (resultCode == RESULT_OK) {
-					if(data.getIntExtra("ID", -1)==-100)
-					{
-						Log.d("ViewEvents", "Yo dawg, for real delete that shit");
-						makeList();
-						Log.d("ViewEvents", "...I did");
-					}
-					else
-					{
-						int foundrow = data.getIntExtra("ID", -1);
-						CalendarEvent event = db.getEvent(foundrow);
-						ArrayList<String> files = (ArrayList<String>) data.getStringArrayListExtra("files");
-						ArrayList<String> apps = (ArrayList<String>) data.getStringArrayListExtra("apps");
-						ArrayList<String> contacts = (ArrayList<String>) data.getStringArrayListExtra("contacts");
-						String notes = (String) data.getStringExtra("notes");
-						event_list = db.getAllEvents();
-						
-						//Log.d("Calendar", "returned rowid is " + String.valueOf(foundrow));
-						//event = db.getEvent(data.getIntExtra("ID", -1));
-						event_list.add(event);
-						for(String theFile : files)
-						{
-							db.addFile(event.getID(), theFile);
-						}
-						for(String theApp : apps)
-						{
-							db.addApp(event.getID(), theApp);
-						}
-						for(String theContact : contacts)
-						{
-							db.addContact(event.getID(), theContact);
-						}
-						if(notes!="") db.addNote(event.getID(), notes);
-						Toast.makeText(getApplicationContext(), 
-								"Event added", Toast.LENGTH_LONG).show();
-						makeList();
-					}
-			}	break;*/
 		}
 	}
 	

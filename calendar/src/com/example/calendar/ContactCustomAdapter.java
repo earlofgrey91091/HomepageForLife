@@ -17,10 +17,7 @@ import android.widget.TextView;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 
-/**
- * Created with IntelliJ IDEA. User: zizi Date: 8/10/12 Time: 12:05 PM To change
- * this template use File | Settings | File Templates.
- */
+//adapter for using expandable lists in our code
 public class ContactCustomAdapter extends BaseExpandableListAdapter {
 
 	private LayoutInflater inflater;

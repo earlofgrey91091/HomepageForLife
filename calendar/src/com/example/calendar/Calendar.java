@@ -1,7 +1,6 @@
 package com.example.calendar;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.StringTokenizer;
 
 import android.app.Activity;
@@ -12,11 +11,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.Toast;
 
-
+//default window, has buttons to create/view events, and a calendar view
 public class Calendar extends Activity {
 
 	final static int VIEW_EVENT = 1;

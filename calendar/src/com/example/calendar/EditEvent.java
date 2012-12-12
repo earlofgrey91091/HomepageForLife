@@ -28,8 +28,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+//Edit event window, contains extensible areas to add/remove data
 public class EditEvent extends Activity {
 
 	
